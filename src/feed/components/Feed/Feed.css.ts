@@ -3,7 +3,7 @@ import props from "open-props";
 
 export const summary = style({
   fontFamily: props.fontSans,
-  color: props.gray9,
+  color: props.gray7,
 });
 
 export const ul = style({

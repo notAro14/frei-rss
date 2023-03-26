@@ -12,17 +12,14 @@ export interface Database {
       feed: {
         Row: {
           created_at: string | null
-          id: string
           url: string
         }
         Insert: {
           created_at?: string | null
-          id?: string
           url: string
         }
         Update: {
           created_at?: string | null
-          id?: string
           url?: string
         }
       }

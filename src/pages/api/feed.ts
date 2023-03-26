@@ -1,5 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
+import { Feed } from "src/feed/Feed";
 import parseFeed from "src/feed/utils/parseFeed";
 import { supabase } from "src/utils/supabaseClient";
 
@@ -9,25 +10,22 @@ export default async function handler(
 ) {
   switch (req.method) {
     case "GET": {
-      const { data, error } = await supabase.from("feed").select();
+      const { data } = await supabase.from("feed").select();
+      if (!data)
+        return res.status(500).json({ msg: "Failed to retrieve feed" });
 
-      if (error || !data)
-        return res.status(500).json({ msg: "Internal server error" });
-
-      const feed = (
-        await Promise.allSettled(data.map(({ url }) => parseFeed(url)))
-      )
-        .filter((x) => x.status === "fulfilled")
-        .map((result) => {
-          return result.status === "fulfilled" ? result.value : result.reason;
+      const feed: Feed[] = [];
+      const settled = await Promise.allSettled(
+        data.map(({ url }) => parseFeed(url))
+      );
+      settled.forEach((r) => {
+        if (r.status === "rejected") return;
+        feed.push(r.value);
+        feed.sort(({ title: a }, { title: b }) => {
+          if (a < b) return -1;
+          if (a > b) return 1;
+          return 0;
         });
-      feed.sort((a, b) => {
-        const nameA = a.title;
-        const nameB = b.title;
-        if (!nameA || !nameB) return 0;
-        if (nameA < nameB) return -1;
-        if (nameA > nameB) return 1;
-        return 0;
       });
 
       return res.status(200).json(feed);
