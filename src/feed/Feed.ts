@@ -6,7 +6,7 @@ export interface Feed {
   items: FeedItem[];
 }
 
-interface FeedItem {
+export interface FeedItem {
   link: string;
   title: string;
   content?: string;

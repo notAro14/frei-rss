@@ -1,14 +1,7 @@
 import Head from "next/head";
 import { useQuery } from "@tanstack/react-query";
-import { formatRelative } from "date-fns";
-import fr from "date-fns/locale/fr";
-import Text from "src/components/Text";
-import Header from "src/components/Header";
-import * as styles from "src/styles/IndexPage.css";
-import { useState } from "react";
-import props from "open-props";
 import { FeedGatewayProduction } from "src/feed/FeedGateway.production";
-
+import HomePage from "src/views/HomePage/HomePage";
 const feedGateway = new FeedGatewayProduction();
 
 export default function Home() {
@@ -16,7 +9,6 @@ export default function Home() {
     queryKey: ["feed"],
     queryFn: feedGateway.retrieve,
   });
-  const [today] = useState(() => new Date());
 
   if (error) return <p role="alert">Failed to get feed</p>;
   if (isLoading) return <p role="progressbar">Loading...</p>;
@@ -30,54 +22,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <Header as="h1">RSS reader - Feed</Header>
-        <div className={styles.feeds}>
-          {data.map(({ link, items, title }) => {
-            return (
-              <details key={link}>
-                <Text as="summary">{title}</Text>
-                <ul
-                  style={{
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: props.size3,
-                    padding: 0,
-                    listStyleType: "none",
-                  }}
-                >
-                  {items.map(({ title, link, isoDate }) => {
-                    const date = isoDate
-                      ? formatRelative(new Date(isoDate), today, { locale: fr })
-                      : null;
-                    return (
-                      <Text as="li" key={link}>
-                        <span
-                          style={{
-                            display: "flex",
-                            flexDirection: "column",
-                          }}
-                        >
-                          <span
-                            style={{
-                              color: props.gray5,
-                            }}
-                          >
-                            {date}
-                          </span>
-                          <a href={link} target="_blank" rel="noopener">
-                            {title}
-                          </a>
-                        </span>
-                      </Text>
-                    );
-                  })}
-                </ul>
-              </details>
-            );
-          })}
-        </div>
-      </main>
+      <HomePage feeds={data} />
     </>
   );
 }

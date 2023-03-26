@@ -6,6 +6,7 @@ export const main = style({
   display: "flex",
   flexDirection: "column",
   gap: props.size4,
+  fontFamily: props.fontSans,
 });
 
 export const feeds = style({
