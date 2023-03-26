@@ -9,6 +9,32 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
+      article: {
+        Row: {
+          created_at: string | null
+          fk_feed_id: string
+          id: number
+          pub_date: string
+          title: string
+          url: string
+        }
+        Insert: {
+          created_at?: string | null
+          fk_feed_id: string
+          id?: number
+          pub_date: string
+          title: string
+          url: string
+        }
+        Update: {
+          created_at?: string | null
+          fk_feed_id?: string
+          id?: number
+          pub_date?: string
+          title?: string
+          url?: string
+        }
+      }
       feed: {
         Row: {
           created_at: string | null
