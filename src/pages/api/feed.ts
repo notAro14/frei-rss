@@ -8,13 +8,19 @@ export default async function handler(
   res: NextApiResponse
 ) {
   switch (req.method) {
-    case "GET":
+    case "GET": {
       const { data, error } = await supabase.from("feed").select();
 
       if (error || !data)
         return res.status(500).json({ msg: "Internal server error" });
 
-      const feed = await Promise.all(data.map(({ url }) => parseFeed(url)));
+      const feed = (
+        await Promise.allSettled(data.map(({ url }) => parseFeed(url)))
+      )
+        .filter((x) => x.status === "fulfilled")
+        .map((result) => {
+          return result.status === "fulfilled" ? result.value : result.reason;
+        });
       feed.sort((a, b) => {
         const nameA = a.title;
         const nameB = b.title;
@@ -23,19 +29,20 @@ export default async function handler(
         if (nameA > nameB) return 1;
         return 0;
       });
-      feed.forEach(({ items }) => {
-        items.sort((a, b) => {
-          const dateA = a.isoDate;
-          const dateB = b.isoDate;
-          if (!dateA || !dateB) return 0;
-          if (dateA < dateB) return 1;
-          if (dateA > dateB) return -1;
-          return 0;
-        });
-      });
-      return res.status(200).json(feed);
 
-    default:
+      return res.status(200).json(feed);
+    }
+
+    case "POST": {
+      const url = req.body.url as string | undefined;
+      if (!url) return res.status(400).json({ msg: "Bad request" });
+      const { error } = await supabase.from("feed").upsert({ url });
+      if (error) return res.status(500).json({ msg: "Internal server error" });
+      return res.status(201).json({ msg: "Feed URL added" });
+    }
+
+    default: {
       return res.status(400).json({ msg: "Unknown method" });
+    }
   }
 }
