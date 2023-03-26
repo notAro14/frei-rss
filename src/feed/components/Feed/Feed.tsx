@@ -15,9 +15,9 @@ export default function Feed(props: Props) {
     <details>
       <summary className={styles.summary}>{name}</summary>
       <ul className={styles.ul}>
-        {items.map(({ title, link, isoDate }) => {
-          const date = isoDate && format(new Date(isoDate), "dd/MM/yyyy");
-          return <FeedItem key={link} date={date} title={title} link={link} />;
+        {items.map(({ title, url, pubDate }) => {
+          const date = format(new Date(pubDate), "dd/MM/yyyy");
+          return <FeedItem key={url} date={date} title={title} link={url} />;
         })}
       </ul>
     </details>

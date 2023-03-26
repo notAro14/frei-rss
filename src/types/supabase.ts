@@ -13,7 +13,7 @@ export interface Database {
         Row: {
           created_at: string | null
           fk_feed_id: string
-          id: number
+          id: string
           pub_date: string
           title: string
           url: string
@@ -21,7 +21,7 @@ export interface Database {
         Insert: {
           created_at?: string | null
           fk_feed_id: string
-          id?: number
+          id?: string
           pub_date: string
           title: string
           url: string
@@ -29,7 +29,7 @@ export interface Database {
         Update: {
           created_at?: string | null
           fk_feed_id?: string
-          id?: number
+          id?: string
           pub_date?: string
           title?: string
           url?: string
@@ -38,14 +38,17 @@ export interface Database {
       feed: {
         Row: {
           created_at: string | null
+          name: string | null
           url: string
         }
         Insert: {
           created_at?: string | null
+          name?: string | null
           url: string
         }
         Update: {
           created_at?: string | null
+          name?: string | null
           url?: string
         }
       }

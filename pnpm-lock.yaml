@@ -23,6 +23,7 @@ specifiers:
   sass: ^1.60.0
   supabase: ^1.45.2
   typescript: 5.0.2
+  zod: ^3.21.4
 
 dependencies:
   '@reduxjs/toolkit': 1.9.3_k4ae6lp43ej6mezo3ztvx6pykq
@@ -43,6 +44,7 @@ dependencies:
   react-redux: 8.0.5_dgjuf3aqqre24bd27wvsbnxpoe
   rss-parser: 3.12.0
   typescript: 5.0.2
+  zod: 3.21.4
 
 devDependencies:
   '@vanilla-extract/next-plugin': 2.1.1_nkzfgihq6ynzg2dcl5yvvg6clm
@@ -3613,3 +3615,7 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  /zod/3.21.4:
+    resolution: {integrity: sha512-m46AKbrzKVzOzs/DZgVnG5H55N1sv1M8qZU3A8RIKbs3mrACDNeIOeilDymVb2HdmP8uwshOCF4uJ8uM9rCqJw==}
+    dev: false

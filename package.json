@@ -27,7 +27,8 @@
     "react-hook-form": "^7.43.8",
     "react-redux": "^8.0.5",
     "rss-parser": "^3.12.0",
-    "typescript": "5.0.2"
+    "typescript": "5.0.2",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@vanilla-extract/next-plugin": "^2.1.1",
