@@ -1,0 +1,1 @@
+alter table "public"."feed_items" add column "content" text;

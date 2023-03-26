@@ -1,0 +1,34 @@
+.github {
+  background-color: hsl(210 12% 16%);
+  color: hsl(0, 0%, 100%);
+  transition: all ease-in-out 200ms;
+  &:hover {
+    background-color: hsl(0 0% 33%);
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.google {
+  background-color: hsl(0 15% 97%);
+  color: hsl(0deg 50% 5%);
+  transition: all ease-in-out 200ms;
+  &:hover {
+    background-color: hsl(0 5% 95%);
+  }
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .google {
+    background-color: hsl(0 10% 100%);
+    &:hover {
+      background-color: hsl(0 10% 92%);
+    }
+  }
+}
