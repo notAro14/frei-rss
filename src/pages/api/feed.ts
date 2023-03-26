@@ -1,6 +1,6 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
 import type { NextApiRequest, NextApiResponse } from "next";
-import parseFeed from "src/feed/parse";
+import parseFeed from "src/feed/utils/parseFeed";
 import { supabase } from "src/utils/supabaseClient";
 
 export default async function handler(

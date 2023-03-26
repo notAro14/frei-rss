@@ -7,30 +7,14 @@ import Header from "src/components/Header";
 import * as styles from "src/styles/IndexPage.css";
 import { useState } from "react";
 import props from "open-props";
+import { FeedGatewayProduction } from "src/feed/FeedGateway.production";
 
-interface Feed {
-  description: string;
-  title: string;
-  feedUrl: string;
-  link: string;
-  items: FeedItem[];
-}
-
-interface FeedItem {
-  link: string;
-  title: string;
-  content?: string;
-  isoDate?: string;
-}
+const feedGateway = new FeedGatewayProduction();
 
 export default function Home() {
-  const { data, error, isLoading } = useQuery<Feed[]>({
+  const { data, error, isLoading } = useQuery({
     queryKey: ["feed"],
-    queryFn: async () => {
-      const res = await fetch("/api/feed");
-      if (!res.ok) throw new Error("Failed to get feed");
-      return res.json();
-    },
+    queryFn: feedGateway.retrieve,
   });
   const [today] = useState(() => new Date());
 
