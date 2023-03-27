@@ -18,36 +18,35 @@ export class FeedGatewayProduction implements FeedGateway {
         )
       `
       )
+      .neq("name", null)
       .order("name");
     if (error) throw new Error("Failed to get feed");
-    return data
-      .filter(({ name }) => name !== null)
-      .map(({ name, url, article }) => {
-        const title = name ?? "";
-        if (!article)
-          return {
-            title,
-            url,
-            items: [] as FeedItem[],
-          };
-
+    return data.map(({ name, url, article }) => {
+      const title = name ?? "Unknown title";
+      if (!article)
         return {
           title,
           url,
-          items: Array.isArray(article)
-            ? article.map((a) => ({
-                title: a.title,
-                pubDate: a.pub_date,
-                url: a.url,
-              }))
-            : [
-                {
-                  title: article.title,
-                  url: article.url,
-                  pubDate: article.pub_date,
-                },
-              ],
+          items: [] as FeedItem[],
         };
-      });
+
+      return {
+        title,
+        url,
+        items: Array.isArray(article)
+          ? article.map((a) => ({
+              title: a.title,
+              pubDate: a.pub_date,
+              url: a.url,
+            }))
+          : [
+              {
+                title: article.title,
+                url: article.url,
+                pubDate: article.pub_date,
+              },
+            ],
+      };
+    });
   }
 }
