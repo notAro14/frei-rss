@@ -5,6 +5,7 @@ export const form = style({
   display: "flex",
   flexDirection: "column",
   gap: props.size4,
+  width: "clamp(100px, 100%, 500px)",
 });
 
 export const label = style({
