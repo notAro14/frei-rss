@@ -41,7 +41,7 @@ export default function AddFeedForm() {
           Feed URL
           <input
             className={styles.input}
-            {...register(FEED_URL, { required: "This is required" })}
+            {...register(FEED_URL, { required: "A feed url is required" })}
             id={FEED_URL}
             type="url"
           />
@@ -52,8 +52,8 @@ export default function AddFeedForm() {
           </p>
         )}
       </div>
-      <button disabled={isLoading} type="submit">
-        Add
+      <button className={styles.button} disabled={isLoading} type="submit">
+        Add feed
       </button>
     </form>
   );

@@ -4,7 +4,12 @@ export default function Footer() {
     <footer className={styles.footer}>
       <span>
         Made by{" "}
-        <a href="https://github.com/notAro1'" target="_blank" rel="noopener">
+        <a
+          className={styles.link}
+          href="https://github.com/notAro1'"
+          target="_blank"
+          rel="noopener"
+        >
           Aro Andriamaro
         </a>
       </span>

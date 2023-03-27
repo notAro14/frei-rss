@@ -11,7 +11,7 @@ export default function HomePage(props: Props) {
   const { feeds } = props;
   return (
     <main className={styles.main}>
-      <h1>RSS reader - Feed</h1>
+      <h1 className={styles.header}>RSS reader - Feed</h1>
       <AddFeedForm />
       <div className={styles.feeds}>
         {feeds.map(({ url, items, title }) => {

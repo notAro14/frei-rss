@@ -1,13 +1,13 @@
 import { style } from "@vanilla-extract/css";
-import props from "open-props";
+import { vars } from "src/styles/theme.css";
 
 export const summary = style({
-  fontFamily: props.fontSans,
-  color: props.gray7,
+  fontWeight: "bold",
+  fontSize: vars.fontSizes["md-fluid"],
 });
 
 export const ul = style({
   display: "flex",
   flexDirection: "column",
-  gap: props.size2,
+  gap: vars.space.md,
 });

@@ -1,16 +1,19 @@
 import { style } from "@vanilla-extract/css";
-import props from "open-props";
+import { vars } from "src/styles/theme.css";
 
 export const main = style({
-  padding: props.size4,
+  padding: vars.space.lg,
   display: "flex",
   flexDirection: "column",
-  gap: props.size4,
-  fontFamily: props.fontSans,
+  gap: vars.space["2xl"],
 });
 
 export const feeds = style({
   display: "flex",
   flexDirection: "column",
-  gap: props.size2,
+  gap: vars.space.md,
+});
+
+export const header = style({
+  fontSize: vars.fontSizes["lg-fluid"],
 });

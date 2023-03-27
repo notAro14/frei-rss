@@ -1,17 +1,21 @@
 import { style } from "@vanilla-extract/css";
-import props from "open-props";
+import { vars } from "src/styles/theme.css";
 
 export const feedItem = style({
   display: "flex",
   alignItems: "baseline",
-  gap: props.size4,
+  gap: vars.space.md,
 });
 
 export const link = style({
-  fontFamily: props.fontSans,
+  color: vars.colors.textBrand1,
+  fontSize: vars.fontSizes["md-fluid"],
+  ":visited": {
+    color: vars.colors.textBrand2,
+  },
 });
 
 export const date = style({
-  fontFamily: props.fontSans,
-  color: props.gray7,
+  color: vars.colors.text2,
+  fontSize: vars.fontSizes["sm-fluid"],
 });
