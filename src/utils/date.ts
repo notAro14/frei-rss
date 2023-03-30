@@ -1,5 +1,20 @@
-import { isAfter as _isAfter, isBefore as _isBefore } from "date-fns";
+import {
+  isAfter as _isAfter,
+  isBefore as _isBefore,
+  subWeeks as _subWeeks,
+} from "date-fns";
 
-export const isAfter = (date: Date | string, reference: Date | string) => {
+type CustomDate = Date | string;
+
+export const isAfter = (date: CustomDate, reference: CustomDate) => {
   return _isAfter(new Date(date), new Date(reference));
 };
+export const isBefore = (date: CustomDate, reference: CustomDate) => {
+  return _isBefore(new Date(date), new Date(reference));
+};
+
+export const subWeeks = (date: CustomDate, amount: number) => {
+  return _subWeeks(new Date(date), amount);
+};
+
+export * from "date-fns";
