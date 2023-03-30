@@ -1,6 +1,7 @@
 import { Feed, FeedItem } from "./Feed";
 import type { FeedGateway } from "./FeedGateway";
 import { supabase } from "src/utils/supabaseClient";
+import { isAfter } from "src/utils/date";
 
 export class FeedGatewayProduction implements FeedGateway {
   async retrieve(): Promise<Feed[]> {
@@ -34,11 +35,17 @@ export class FeedGatewayProduction implements FeedGateway {
         title,
         url,
         items: Array.isArray(article)
-          ? article.map((a) => ({
-              title: a.title,
-              pubDate: a.pub_date,
-              url: a.url,
-            }))
+          ? article
+              .map((a) => ({
+                title: a.title,
+                pubDate: a.pub_date,
+                url: a.url,
+              }))
+              .sort((articleA, articleB) => {
+                if (isAfter(articleA.pubDate, articleB.pubDate)) return -1;
+                if (isAfter(articleB.pubDate, articleA.pubDate)) return 1;
+                return 0;
+              })
           : [
               {
                 title: article.title,
