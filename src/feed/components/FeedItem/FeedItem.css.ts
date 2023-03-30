@@ -8,10 +8,12 @@ export const feedItem = style({
 });
 
 export const link = style({
-  color: vars.colors.textBrand1,
+  color: vars.colors.textBrand2,
   fontSize: vars.fontSizes["md-fluid"],
+  textDecoration: "none",
+  position: "relative",
   ":visited": {
-    color: vars.colors.textBrand2,
+    color: vars.colors.text2,
   },
 });
 

@@ -5,13 +5,10 @@ export const footer = style({
   marginTop: "auto",
   display: "grid",
   placeItems: "center",
-  padding: vars.space.md,
+  padding: vars.space["4xl"],
   fontSize: vars.fontSizes["sm-fluid"],
 });
 
 export const link = style({
-  color: vars.colors.textBrand1,
-  ":visited": {
-    color: vars.colors.textBrand2,
-  },
+  color: vars.colors.textBrand2,
 });

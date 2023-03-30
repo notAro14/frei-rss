@@ -11,6 +11,7 @@
     "test": "jest --watch"
   },
   "dependencies": {
+    "@radix-ui/react-icons": "^1.3.0",
     "@reduxjs/toolkit": "^1.9.3",
     "@supabase/supabase-js": "^2.13.0",
     "@tanstack/react-query": "^4.28.0",

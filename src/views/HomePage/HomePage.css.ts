@@ -6,7 +6,7 @@ export const main = style({
   display: "flex",
   flexDirection: "column",
   gap: vars.space["2xl"],
-  width: "clamp(250px, 100%, 650px)",
+  width: "clamp(40ch, 100%, 80ch)",
   margin: "auto",
 });
 
@@ -19,4 +19,21 @@ export const feeds = style({
 export const header = style({
   fontSize: vars.fontSizes["lg-fluid"],
   textDecoration: "underline",
+  flex: "1",
+});
+
+export const flex = style({
+  display: "flex",
+  gap: vars.space.md,
+  alignItems: "center",
+});
+
+export const toggleTheme = style({
+  background: "none",
+  color: vars.colors.text1,
+  border: "none",
+  padding: vars.space.sm,
+  ":hover": {
+    cursor: "pointer",
+  },
 });

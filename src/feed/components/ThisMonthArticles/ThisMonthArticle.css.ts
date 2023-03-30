@@ -5,6 +5,10 @@ export const ul = style({
   display: "flex",
   flexDirection: "column",
   gap: vars.space.md,
+  maxHeight: 300,
+  overflow: "auto",
+  scrollbarGutter: "stable",
+  overscrollBehavior: "contain",
 });
 
 export const header = style({

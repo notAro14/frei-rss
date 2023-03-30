@@ -5,7 +5,6 @@ export const form = style({
   display: "flex",
   flexDirection: "column",
   gap: vars.space.md,
-  width: "clamp(100px, 100%, 500px)",
 });
 
 export const label = style({
@@ -16,11 +15,13 @@ export const label = style({
 });
 
 export const input = style({
-  border: "none",
-  backgroundColor: vars.colors.surface4,
+  border: "1px solid",
+  borderColor: vars.colors.border,
+  backgroundColor: vars.colors.surface1,
   padding: "0.5rem 1rem",
   borderRadius: vars.radii[2],
   fontSize: vars.fontSizes["md-fluid"],
+  color: vars.colors.text1,
 });
 
 export const field = style({
