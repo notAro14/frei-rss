@@ -11,12 +11,12 @@
   },
   "dependencies": {
     "@reduxjs/toolkit": "^1.9.3",
-    "@supabase/supabase-js": "^2.12.1",
+    "@supabase/supabase-js": "^2.13.0",
     "@tanstack/react-query": "^4.28.0",
     "@types/node": "18.15.9",
     "@types/react": "18.0.29",
     "@types/react-dom": "18.0.11",
-    "@vanilla-extract/css": "^1.10.0",
+    "@vanilla-extract/css": "^1.11.0",
     "date-fns": "^2.29.3",
     "eslint": "8.36.0",
     "eslint-config-next": "13.2.4",
@@ -35,6 +35,6 @@
     "@vanilla-extract/next-plugin": "^2.1.1",
     "prettier": "^2.8.7",
     "sass": "^1.60.0",
-    "supabase": "^1.45.2"
+    "supabase": "^1.46.4"
   }
 }

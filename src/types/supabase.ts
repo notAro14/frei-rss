@@ -38,16 +38,19 @@ export interface Database {
       feed: {
         Row: {
           created_at: string | null
+          id: string
           name: string | null
           url: string
         }
         Insert: {
           created_at?: string | null
+          id?: string
           name?: string | null
           url: string
         }
         Update: {
           created_at?: string | null
+          id?: string
           name?: string | null
           url?: string
         }
