@@ -1,10 +1,10 @@
 import { Feed, FeedItem } from "./Feed";
-import type { FeedGateway } from "./FeedGateway";
+import type { FeedReaderGateway } from "src/FeedReader/FeedReader.gateway";
 import { supabase } from "src/utils/supabaseClient";
 import { isAfter } from "src/utils/date";
 
-export class FeedGatewayProduction implements FeedGateway {
-  async retrieve(): Promise<Feed[]> {
+export class FeedReaderGatewayProduction implements FeedReaderGateway {
+  async retrieveFeedList(): Promise<Feed[]> {
     const { data, error } = await supabase
       .from("feed")
       .select(
