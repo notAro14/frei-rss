@@ -6,7 +6,7 @@ import { FeedReaderInMemoryGateway } from "../../gateways/FeedReaderInMemory.gat
 const MOCK = [
   {
     title: "My feed",
-    url: "https://example.com/feed.xml",
+    url: "https://example.com/rss",
     items: [
       {
         url: "https://example.com/article-title",
@@ -17,7 +17,7 @@ const MOCK = [
   },
 ];
 
-describe("retrieve feed list", () => {
+describe("register feed", () => {
   let rootApi: RootApi;
   let feedReaderGateway: FeedReaderInMemoryGateway;
   let store: Store;
@@ -30,30 +30,14 @@ describe("retrieve feed list", () => {
     feedReaderApi = setupFeedReaderApi(rootApi);
   });
 
-  test("feed list can be retrieved", async () => {
-    await whenRetrievingFeedList({ store, feedReaderApi });
-    thenExpectAListOfFeed({ store, feedReaderApi });
+  test("a new url feed can be registered", async () => {
+    const URL = "https://example.com/rss";
+
+    await store.dispatch(
+      feedReaderApi.endpoints.registerFeed.initiate(URL, { fixedCacheKey: URL })
+    );
+
+    const selector = feedReaderApi.endpoints.registerFeed.select(URL);
+    expect(selector(store.getState()).data).toEqual(MOCK[0]);
   });
 });
-
-async function whenRetrievingFeedList({
-  store,
-  feedReaderApi,
-}: {
-  store: Store;
-  feedReaderApi: FeedReaderApi;
-}) {
-  await store.dispatch(feedReaderApi.endpoints.retrieveFeedList.initiate());
-}
-
-function thenExpectAListOfFeed({
-  feedReaderApi,
-  store,
-}: {
-  store: Store;
-  feedReaderApi: FeedReaderApi;
-}) {
-  expect(
-    feedReaderApi.endpoints.retrieveFeedList.select()(store.getState()).data
-  ).toEqual(MOCK);
-}

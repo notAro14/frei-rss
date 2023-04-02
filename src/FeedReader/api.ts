@@ -9,29 +9,37 @@ export function setupFeedReaderApi(rootApi: RootApi) {
         retrieveFeedList: build.query<Feed[], void>({
           providesTags: ["Feeds"],
           async queryFn(_, api) {
-            const { dependencies } = api.extra as {
-              dependencies: Dependencies;
-            };
-            const data =
-              await dependencies.feedReaderGateway?.retrieveFeedList?.();
-            if (typeof data === "undefined")
-              return { error: "No feed retrieved" };
-            return {
-              data,
-            };
+            try {
+              const { dependencies } = api.extra as {
+                dependencies: Dependencies;
+              };
+              const feedList =
+                await dependencies.feedReaderGateway?.retrieveFeedList?.();
+              if (!feedList) return { error: "Failed to retrieve feeds" };
+              return {
+                data: feedList,
+              };
+            } catch (error) {
+              console.error(error);
+              return { error: "Failed to retrieve feeds" };
+            }
           },
         }),
         registerFeed: build.mutation<Feed, string>({
           async queryFn(url, api) {
-            const { dependencies } = api.extra as {
-              dependencies: Dependencies;
-            };
-            const feed = await dependencies.feedReaderGateway?.registerFeed?.(
-              url
-            );
-            if (typeof feed === "undefined")
+            try {
+              const { dependencies } = api.extra as {
+                dependencies: Dependencies;
+              };
+              const feed = await dependencies.feedReaderGateway?.registerFeed?.(
+                url
+              );
+              if (!feed) return { error: "Failed to register feed" };
+              return { data: feed };
+            } catch (error) {
+              console.error(error);
               return { error: "Failed to register feed" };
-            return { data: feed };
+            }
           },
         }),
       };

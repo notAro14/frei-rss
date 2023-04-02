@@ -2,7 +2,7 @@ import * as styles from "./HomePage.css";
 import ThisMonthArticles from "src/FeedReader/components/ThisMonthArticles/ThisMonthArticles";
 import ToggleTheme from "src/components/ToggleTheme";
 import FeedList from "src/FeedReader/components/FeedList/FeedList";
-// import AddFeedForm from "src/feed/components/AddFeedForm";
+import AddFeedForm from "src/FeedReader/components/AddFeedForm";
 
 export default function HomePage() {
   return (
@@ -10,7 +10,7 @@ export default function HomePage() {
       <div className={styles.flex}>
         <h1 className={styles.header}>RSS</h1> <ToggleTheme />
       </div>
-      {/* <AddFeedForm /> */}
+      <AddFeedForm />
       <ThisMonthArticles />
       <h2 className={styles.header}>All Feeds</h2>
       <FeedList />

@@ -56,4 +56,18 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       };
     });
   }
+  async registerFeed(url: string): Promise<Feed> {
+    const { error, data } = await supabase
+      .from("feed")
+      .upsert({ url })
+      .select()
+      .maybeSingle();
+    if (error || !data) throw new Error("Failed to register feed");
+
+    return {
+      title: data.name ?? "",
+      url: data.url,
+      items: [],
+    };
+  }
 }

@@ -5,7 +5,7 @@ export interface Feed {
 }
 
 export interface FeedItem {
-  url: string;
   title: string;
+  url: string;
   pubDate: string;
 }
