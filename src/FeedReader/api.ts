@@ -1,4 +1,4 @@
-import { Feed } from "src/feed/Feed";
+import { Feed } from "src/FeedReader/models";
 import type { Dependencies } from "src/store";
 import type { RootApi } from "src/store/root.api";
 

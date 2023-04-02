@@ -3,7 +3,7 @@ import type { AppProps } from "next/app";
 import { Provider } from "react-redux";
 import { ThemeProvider } from "next-themes";
 import { light, dark } from "src/styles/theme.css";
-import { store } from "src/components/config";
+import { store } from "src/store/config";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (

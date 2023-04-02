@@ -10,12 +10,6 @@ export const main = style({
   margin: "auto",
 });
 
-export const feeds = style({
-  display: "flex",
-  flexDirection: "column",
-  gap: vars.space.md,
-});
-
 export const header = style({
   fontSize: vars.fontSizes["lg-fluid"],
   textDecoration: "underline",
@@ -26,14 +20,4 @@ export const flex = style({
   display: "flex",
   gap: vars.space.md,
   alignItems: "center",
-});
-
-export const toggleTheme = style({
-  background: "none",
-  color: vars.colors.text1,
-  border: "none",
-  padding: vars.space.sm,
-  ":hover": {
-    cursor: "pointer",
-  },
 });

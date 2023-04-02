@@ -1,0 +1,1 @@
+export { retrieveFeedList } from "./retrieveFeedList";

@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import type { FeedReaderGateway } from "src/FeedReader/FeedReader.gateway";
+import type { FeedReaderGateway } from "src/FeedReader/gateways/FeedReader.gateway";
 import type { RootApi } from "./root.api";
 import {
   TypedUseSelectorHook,

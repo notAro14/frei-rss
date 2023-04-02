@@ -1,4 +1,4 @@
-import type { FeedReaderApi } from "src/FeedReader/FeedReader.api";
+import type { FeedReaderApi } from "src/FeedReader/api";
 import type { Dispatch } from "src/store";
 
 export function retrieveFeedList({

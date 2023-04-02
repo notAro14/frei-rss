@@ -1,4 +1,4 @@
-import type { Feed } from "../feed/Feed";
+import type { Feed } from "src/FeedReader/models";
 
 export interface FeedReaderGateway {
   retrieveFeedList(): Promise<Feed[]>;

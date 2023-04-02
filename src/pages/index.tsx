@@ -1,9 +1,7 @@
 import Head from "next/head";
-import { FeedReaderGatewayProduction } from "src/feed/FeedGateway.production";
-import HomePage from "src/views/HomePage/HomePage";
+import HomePage from "src/components/HomePage";
 import Layout from "src/components/Layout";
 import Footer from "src/components/Footer";
-const feedGateway = new FeedReaderGatewayProduction();
 
 export default function Home() {
   return (

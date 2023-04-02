@@ -1,11 +1,8 @@
-import { FeedReaderGateway } from "src/FeedReader/FeedReader.gateway";
+import { FeedReaderGateway } from "src/FeedReader/gateways/FeedReader.gateway";
 import { Store, setupStore } from "src/store";
 import { RootApi, setupRootApi } from "src/store/root.api";
-import {
-  FeedReaderApi,
-  setupFeedReaderApi,
-} from "src/FeedReader/FeedReader.api";
-import { FeedReaderInMemoryGateway } from "../FeedReaderInMemory.gateway";
+import { FeedReaderApi, setupFeedReaderApi } from "src/FeedReader/api";
+import { FeedReaderInMemoryGateway } from "../../gateways/FeedReaderInMemory.gateway";
 
 const MOCK = [
   {
