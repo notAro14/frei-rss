@@ -13,12 +13,25 @@ export function setupFeedReaderApi(rootApi: RootApi) {
               dependencies: Dependencies;
             };
             const data =
-              await dependencies.feedReaderGateway?.retrieveFeedList();
+              await dependencies.feedReaderGateway?.retrieveFeedList?.();
             if (typeof data === "undefined")
               return { error: "No feed retrieved" };
             return {
               data,
             };
+          },
+        }),
+        registerFeed: build.mutation<Feed, string>({
+          async queryFn(url, api) {
+            const { dependencies } = api.extra as {
+              dependencies: Dependencies;
+            };
+            const feed = await dependencies.feedReaderGateway?.registerFeed?.(
+              url
+            );
+            if (typeof feed === "undefined")
+              return { error: "Failed to register feed" };
+            return { data: feed };
           },
         }),
       };
