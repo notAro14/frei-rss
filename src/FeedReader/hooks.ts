@@ -14,6 +14,6 @@ export function useRetrieveFeedList<T>(selectCallback?: (state?: Feed[]) => T) {
   return useSelector((state) => {
     const raw = feedsSelector(state);
     const data = selectCallback?.(raw.data);
-    return { ...raw, fromResult: data };
+    return { ...raw, selectorResult: data };
   });
 }

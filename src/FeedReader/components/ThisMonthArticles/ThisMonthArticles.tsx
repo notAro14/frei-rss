@@ -7,7 +7,7 @@ export default function ThisMonthArticles() {
   const {
     isLoading,
     isError,
-    fromResult: feedItems,
+    selectorResult: feedItems,
   } = useRetrieveFeedList(thisMonthArticlesSelector);
 
   if (isError) return <p role="alert">Failed to get feeds</p>;
