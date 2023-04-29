@@ -8,16 +8,16 @@ export const feedItem = style({
 });
 
 export const link = style({
-  color: vars.colors.textBrand2,
+  color: vars.colors["text-vibrant-low"],
   fontSize: vars.fontSizes["md-fluid"],
   textDecoration: "none",
   position: "relative",
   ":visited": {
-    color: vars.colors.text2,
+    color: vars.colors["text-vibrant"],
   },
 });
 
 export const date = style({
-  color: vars.colors.text2,
+  color: vars.colors["text-functional-low"],
   fontSize: vars.fontSizes["sm-fluid"],
 });

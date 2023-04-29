@@ -2,7 +2,7 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "src/styles/theme.css";
 
 export const summary = style({
-  fontWeight: "bold",
+  color: vars.colors["text-functional"],
   fontSize: vars.fontSizes["md-fluid"],
 });
 

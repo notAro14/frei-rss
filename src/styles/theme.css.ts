@@ -1,4 +1,4 @@
-import { createThemeContract, createTheme } from "@vanilla-extract/css";
+import { createTheme } from "@vanilla-extract/css";
 import props from "open-props";
 
 const commonStyles = {
@@ -65,59 +65,28 @@ const commonStyles = {
   },
 };
 
-export const vars = createThemeContract({
+export const [themeClass, vars] = createTheme({
   colors: {
-    brand: null,
-    text1: null,
-    text2: null,
-    surface1: null,
-    surface2: null,
-    surface3: null,
-    surface4: null,
-    surfaceShadow: null,
-    shadowStrength: null,
-    textBrand1: null,
-    textBrand2: null,
-    textError1: null,
-    border: null,
+    bg: props.gray0,
+
+    "text-vibrant-low": props.pink7,
+    "text-vibrant": props.pink12,
+
+    "text-functional-low": props.gray7,
+    "text-functional": props.gray12,
   },
   ...commonStyles,
 });
 
 export const dark = createTheme(vars, {
   colors: {
-    brand: props.orange4,
-    text1: props.gray3,
-    text2: props.gray5,
-    surface1: props.gray8,
-    surface2: props.gray7,
-    surface3: props.gray6,
-    surface4: props.gray5,
-    surfaceShadow: props.gray9Hsl,
-    shadowStrength: "80%",
-    textBrand1: props.orange0,
-    textBrand2: props.orange3,
-    textError1: props.red4,
-    border: props.gray6,
-  },
-  ...commonStyles,
-});
+    bg: props.gray9,
 
-export const light = createTheme(vars, {
-  colors: {
-    brand: props.orange6,
-    text1: props.gray8,
-    text2: props.gray7,
-    surface1: props.gray0,
-    surface2: props.gray1,
-    surface3: props.gray2,
-    surface4: props.gray3,
-    surfaceShadow: props.gray8Hsl,
-    shadowStrength: "2%",
-    textBrand1: props.orange12,
-    textBrand2: props.orange10,
-    textError1: props.red11,
-    border: props.gray6,
+    "text-vibrant-low": props.yellow5,
+    "text-vibrant": props.yellow0,
+
+    "text-functional-low": props.gray5,
+    "text-functional": props.gray0,
   },
   ...commonStyles,
 });

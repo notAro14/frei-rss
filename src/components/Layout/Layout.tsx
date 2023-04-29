@@ -1,4 +1,3 @@
-import "src/styles/app.css";
 import { ReactNode } from "react";
 import * as styles from "./Layout.css";
 

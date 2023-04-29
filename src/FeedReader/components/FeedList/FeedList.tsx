@@ -10,10 +10,10 @@ export default function FeedList() {
     return <p role="progressbar">Loading...</p>;
 
   return (
-    <div className={styles.feeds}>
+    <ul className={styles.feeds}>
       {feeds.map(({ url, items, title }) => {
         return <Feed name={title} key={url} items={items} />;
       })}
-    </div>
+    </ul>
   );
 }

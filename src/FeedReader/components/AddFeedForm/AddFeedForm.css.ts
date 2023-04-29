@@ -10,18 +10,18 @@ export const form = style({
 export const label = style({
   display: "flex",
   flexDirection: "column",
-  color: vars.colors.text2,
+  color: vars.colors["text-functional-low"],
   fontSize: vars.fontSizes["sm-fluid"],
 });
 
 export const input = style({
   border: "1px solid",
-  borderColor: vars.colors.border,
-  backgroundColor: vars.colors.surface1,
+  borderColor: vars.colors["text-functional-low"],
+  backgroundColor: vars.colors.bg,
   padding: "0.5rem 1rem",
   borderRadius: vars.radii[2],
   fontSize: vars.fontSizes["md-fluid"],
-  color: vars.colors.text1,
+  color: vars.colors["text-functional"],
 });
 
 export const field = style({
@@ -31,15 +31,15 @@ export const field = style({
 });
 
 export const error = style({
-  color: vars.colors.textError1,
+  color: vars.colors["text-functional"],
 });
 
 export const button = style({
   padding: `${vars.space.sm} ${vars.space.md}`,
   borderRadius: vars.radii[2],
-  backgroundColor: vars.colors.brand,
+  backgroundColor: vars.colors["text-vibrant-low"],
   border: "none",
-  color: vars.colors.surface1,
+  color: vars.colors.bg,
   textTransform: "uppercase",
   ":hover": {
     cursor: "pointer",

@@ -12,14 +12,16 @@ interface Props {
 export default function Feed(props: Props) {
   const { name, items } = props;
   return (
-    <details>
-      <summary className={styles.summary}>{name}</summary>
-      <ul className={styles.ul}>
-        {items.map(({ title, url, pubDate }) => {
-          const date = format(new Date(pubDate), "dd/MM/yyyy");
-          return <FeedItem key={url} date={date} title={title} link={url} />;
-        })}
-      </ul>
-    </details>
+    <li>
+      <details>
+        <summary className={styles.summary}>{name}</summary>
+        <ul className={styles.ul}>
+          {items.map(({ title, url, pubDate }) => {
+            const date = format(new Date(pubDate), "dd/MM/yyyy");
+            return <FeedItem key={url} date={date} title={title} link={url} />;
+          })}
+        </ul>
+      </details>
+    </li>
   );
 }

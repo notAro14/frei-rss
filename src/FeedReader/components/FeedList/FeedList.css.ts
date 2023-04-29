@@ -5,4 +5,5 @@ export const feeds = style({
   display: "flex",
   flexDirection: "column",
   gap: vars.space.md,
+  listStyleType: "none",
 });

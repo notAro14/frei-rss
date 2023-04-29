@@ -11,8 +11,8 @@ export const main = style({
 });
 
 export const header = style({
+  color: vars.colors["text-vibrant"],
   fontSize: vars.fontSizes["lg-fluid"],
-  textDecoration: "underline",
   flex: "1",
 });
 
