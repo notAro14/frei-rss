@@ -1,12 +1,11 @@
-import { feedReaderApi } from "src/store/config";
 import { format, isAfter } from "src/utils/date";
-import type { Feed } from "src/FeedReader/models";
 import { isThisMonth } from "src/utils/date";
+import type { State } from "src/store";
 
-export const feedsSelector = feedReaderApi.endpoints.retrieveFeedList.select();
-
-export function thisMonthArticlesSelector(feeds?: Feed[]) {
-  return (feeds ? [...feeds] : [])
+export function selectThisMonthArticles(state: State) {
+  const feeds = state.getFeeds.feeds;
+  if (!feeds) return null;
+  return feeds
     .map(({ items }) => items)
     .flatMap((item) => item)
     .filter((item) => isThisMonth(new Date(item.pubDate)))

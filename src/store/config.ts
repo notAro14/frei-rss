@@ -1,6 +1,6 @@
 import { setupStore } from "src/store";
 import { setupRootApi } from "src/store/root.api";
-import { FeedReaderProductionGateway } from "src/FeedReader/gateways/FeedReaderProduction.gateway";
+import { FeedReaderProductionGateway } from "src/Feed/gateways/FeedReaderProduction.gateway";
 import { setupFeedReaderApi } from "src/FeedReader/api";
 
 const rootApi = setupRootApi();

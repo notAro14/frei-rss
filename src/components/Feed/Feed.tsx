@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 
-import type { FeedItem as FeedItemType } from "src/FeedReader/models";
+import type { FeedItem as FeedItemType } from "src/Feed/entities/Feed";
 import FeedItem from "../FeedItem";
 import * as styles from "./Feed.css";
 

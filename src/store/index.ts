@@ -1,16 +1,12 @@
-import { configureStore } from "@reduxjs/toolkit";
-import type { FeedReaderGateway } from "src/FeedReader/gateways/FeedReader.gateway";
-import type { RootApi } from "./root.api";
 import {
   TypedUseSelectorHook,
   useSelector as _useSelector,
   useDispatch as _useDispatch,
 } from "react-redux";
-
-export type Dependencies = Partial<{
-  rootApi: RootApi;
-  feedReaderGateway: FeedReaderGateway;
-}>;
+import { configureStore } from "@reduxjs/toolkit";
+import type { FeedReaderGateway } from "src/Feed/gateways/FeedReader.gateway";
+import type { RootApi } from "./root.api";
+import { getFeedsReducer } from "src/Feed/usecases/getFeeds";
 
 export function setupStore(dependencies: Dependencies) {
   if (typeof dependencies.rootApi === "undefined")
@@ -24,6 +20,7 @@ export function setupStore(dependencies: Dependencies) {
   return configureStore({
     reducer: {
       [apiReducerPath]: apiReducer,
+      getFeeds: getFeedsReducer,
     },
     middleware(gdm) {
       return gdm({
@@ -36,7 +33,10 @@ export function setupStore(dependencies: Dependencies) {
     },
   });
 }
-
+export type Dependencies = Partial<{
+  rootApi: RootApi;
+  feedReaderGateway: FeedReaderGateway;
+}>;
 export type Store = ReturnType<typeof setupStore>;
 export type State = ReturnType<Store["getState"]>;
 export type Dispatch = Store["dispatch"];

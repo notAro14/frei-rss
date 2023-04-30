@@ -1,7 +1,7 @@
 import * as styles from "./HomePage.css";
-import ThisMonthArticles from "src/FeedReader/components/ThisMonthArticles/ThisMonthArticles";
-import FeedList from "src/FeedReader/components/FeedList/FeedList";
-import AddFeedForm from "src/FeedReader/components/AddFeedForm";
+import ThisMonthArticles from "src/components/ThisMonthArticles/ThisMonthArticles";
+import FeedList from "src/components/FeedList/FeedList";
+import AddFeedForm from "src/components/AddFeedForm";
 
 export default function HomePage() {
   return (

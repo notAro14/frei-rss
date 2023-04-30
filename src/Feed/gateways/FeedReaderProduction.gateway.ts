@@ -1,4 +1,4 @@
-import type { Feed, FeedItem } from "src/FeedReader/models";
+import type { Feed, FeedItem } from "src/Feed/entities/Feed";
 import type { FeedReaderGateway } from "./FeedReader.gateway";
 import { supabase } from "src/utils/supabaseClient";
 import { isAfter } from "src/utils/date";
