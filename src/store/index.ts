@@ -6,7 +6,7 @@ import {
 import { configureStore } from "@reduxjs/toolkit";
 import type { FeedReaderGateway } from "src/Feed/gateways/FeedReader.gateway";
 import type { RootApi } from "./root.api";
-import { getFeedsReducer } from "src/Feed/usecases/getFeeds";
+import { getFeedsSlice } from "src/Feed/usecases/getFeeds";
 
 export function setupStore(dependencies: Dependencies) {
   if (typeof dependencies.rootApi === "undefined")
@@ -20,7 +20,7 @@ export function setupStore(dependencies: Dependencies) {
   return configureStore({
     reducer: {
       [apiReducerPath]: apiReducer,
-      getFeeds: getFeedsReducer,
+      [getFeedsSlice.name]: getFeedsSlice.reducer,
     },
     middleware(gdm) {
       return gdm({

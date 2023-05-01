@@ -23,6 +23,7 @@
     "eslint-config-next": "13.3.2",
     "next": "13.3.2",
     "next-themes": "^0.2.1",
+    "normalizr": "^3.6.2",
     "open-props": "^1.5.8",
     "react": "18.2.0",
     "react-dom": "18.2.0",

@@ -1,18 +1,11 @@
-import { useEffect } from "react";
-
-import { useDispatch, useSelector } from "src/store";
+import { useSelector } from "src/store";
 import { selectThisMonthArticles } from "./selectors";
-import { getFeeds } from "src/Feed/usecases/getFeeds";
 
 import * as styles from "./ThisMonthArticle.css";
 import FeedItem from "src/components/FeedItem";
 
 export default function ThisMonthArticles() {
-  const dispatch = useDispatch();
   const feedItems = useSelector(selectThisMonthArticles);
-  useEffect(() => {
-    dispatch(getFeeds());
-  }, [dispatch]);
 
   if (!feedItems) return <Loading />;
   return (

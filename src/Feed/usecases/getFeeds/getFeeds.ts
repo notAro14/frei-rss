@@ -1,7 +1,7 @@
 import { createAppAsyncThunk } from "src/store/thunk";
-import type { Feed } from "src/Feed/entities/Feed";
+import { normalizeFeed } from "./utils";
 
-export const getFeeds = createAppAsyncThunk<Feed[], void>(
+export const getFeeds = createAppAsyncThunk(
   "feed/getFeeds",
   async function (_, { extra }) {
     const {
@@ -10,6 +10,7 @@ export const getFeeds = createAppAsyncThunk<Feed[], void>(
     if (!feedReaderGateway?.retrieveFeedList)
       throw new Error("FeedReaderGateway.retrieveFeedList is not defined");
 
-    return feedReaderGateway.retrieveFeedList();
+    const data = await feedReaderGateway.retrieveFeedList();
+    return normalizeFeed(data);
   }
 );

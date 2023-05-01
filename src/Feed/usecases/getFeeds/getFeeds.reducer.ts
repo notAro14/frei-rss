@@ -1,16 +1,33 @@
-import { createReducer } from "@reduxjs/toolkit";
-import type { Feed } from "src/Feed/entities/Feed";
+import { createSlice } from "@reduxjs/toolkit";
+import type {
+  NormalizedFeedItem,
+  NormalizedFeed,
+} from "src/Feed/entities/Feed";
 import { getFeeds } from "./getFeeds";
 
-export interface GetFeeds {
-  feeds: Feed[] | null;
+interface GetFeeds {
+  result: string[] | null;
+  entities: {
+    feeds: NormalizedFeed;
+    feedItems: NormalizedFeedItem;
+  } | null;
+  isFulfilled: boolean;
 }
 const initialState: GetFeeds = {
-  feeds: null,
+  result: null,
+  entities: null,
+  isFulfilled: false,
 };
 
-export const getFeedsReducer = createReducer(initialState, function (builder) {
-  builder.addCase(getFeeds.fulfilled, function (state, action) {
-    state.feeds = action.payload;
-  });
+export const getFeedsSlice = createSlice({
+  name: "getFeeds",
+  initialState,
+  reducers: {},
+  extraReducers(builder) {
+    builder.addCase(getFeeds.fulfilled, function (state, action) {
+      state.isFulfilled = true;
+      state.entities = action.payload.entities;
+      state.result = action.payload.result;
+    });
+  },
 });
