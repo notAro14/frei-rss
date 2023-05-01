@@ -9,7 +9,7 @@ export type Json =
 export interface Database {
   public: {
     Tables: {
-      article: {
+      feed_items: {
         Row: {
           created_at: string | null
           fk_feed_id: string
@@ -35,7 +35,7 @@ export interface Database {
           url?: string
         }
       }
-      feed: {
+      feeds: {
         Row: {
           created_at: string | null
           id: string

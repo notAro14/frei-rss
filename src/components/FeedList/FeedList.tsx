@@ -17,8 +17,8 @@ export default function FeedList() {
 
   return (
     <ul className={styles.feeds}>
-      {feeds.map(({ url, items, title }) => {
-        return <Feed name={title} key={url} items={items} />;
+      {feeds.map(({ website, feedItems, name }) => {
+        return <Feed name={name} key={website} items={feedItems} />;
       })}
     </ul>
   );

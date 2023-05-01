@@ -4,16 +4,19 @@ import type { FeedReaderGateway } from "src/Feed/gateways/FeedReader.gateway";
 import { getFeeds } from "./getFeeds";
 import { setupRootApi } from "src/store/root.api";
 import { FeedReaderInMemoryGateway } from "src/Feed/gateways/FeedReaderInMemory.gateway";
+import type { Feed } from "src/Feed/entities/Feed";
 
-const MOCK = [
+const MOCK: Feed[] = [
   {
-    title: "My feed",
-    url: "https://example.com/rss",
-    items: [
+    id: "1",
+    name: "My feed",
+    website: "https://example.com/rss",
+    feedItems: [
       {
+        id: "11",
         url: "https://example.com/article-title",
         title: "Article title",
-        pubDate: "2023-03-31",
+        date: "2023-03-31",
       },
     ],
   },

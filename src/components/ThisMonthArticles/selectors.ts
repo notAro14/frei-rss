@@ -6,16 +6,16 @@ export function selectThisMonthArticles(state: State) {
   const feeds = state.getFeeds.feeds;
   if (!feeds) return null;
   return feeds
-    .map(({ items }) => items)
+    .map(({ feedItems }) => feedItems)
     .flatMap((item) => item)
-    .filter((item) => isThisMonth(new Date(item.pubDate)))
+    .filter((item) => isThisMonth(new Date(item.date)))
     .sort((articleA, articleB) => {
-      if (isAfter(articleA.pubDate, articleB.pubDate)) return -1;
-      if (isAfter(articleB.pubDate, articleA.pubDate)) return 1;
+      if (isAfter(articleA.date, articleB.date)) return -1;
+      if (isAfter(articleB.date, articleA.date)) return 1;
       return 0;
     })
-    .map(({ pubDate, ...rest }) => {
-      const date = format(new Date(pubDate), "dd/MM/yyyy");
-      return { pubDate: date, ...rest };
+    .map(({ date, ...rest }) => {
+      const formattedDate = format(new Date(date), "dd/MM/yyyy");
+      return { pubDate: formattedDate, ...rest };
     });
 }

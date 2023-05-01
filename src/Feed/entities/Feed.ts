@@ -1,11 +1,13 @@
 export interface Feed {
-  title: string;
-  url: string;
-  items: FeedItem[];
+  id: string;
+  name: string;
+  feedItems: FeedItem[];
+  website: string;
 }
 
 export interface FeedItem {
+  id: string;
+  date: string;
   title: string;
   url: string;
-  pubDate: string;
 }
