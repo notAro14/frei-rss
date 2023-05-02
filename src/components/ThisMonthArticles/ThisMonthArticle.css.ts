@@ -15,3 +15,8 @@ export const header = style({
   color: vars.colors["text-vibrant"],
   fontSize: vars.fontSizes["lg-fluid"],
 });
+
+export const text = style({
+  color: vars.colors["text-functional"],
+  fontSize: vars.fontSizes["md-fluid"],
+});

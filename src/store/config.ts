@@ -4,7 +4,7 @@ import { FeedReaderProductionGateway } from "src/Feed/gateways/FeedReaderProduct
 import { FeedReaderInMemoryGateway } from "src/Feed/gateways/FeedReaderInMemory.gateway";
 import { setupFeedReaderApi } from "src/FeedReader/api";
 
-const OFFLINE = process.env.OFFLINE;
+const OFFLINE = process.env.NEXT_PUBLIC_OFFLINE === "true";
 
 const rootApi = setupRootApi();
 const feedReaderGateway = OFFLINE
