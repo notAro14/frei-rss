@@ -21,7 +21,7 @@ export default function ThisMonthArticles() {
           })}
         </ul>
       ) : (
-        <p className={styles.text}>There aren&apos;t yet articles this month</p>
+        <p className={styles.text}>There aren&apos;t articles this month yet</p>
       )}
     </aside>
   );
