@@ -1,11 +1,13 @@
 import { useForm } from "react-hook-form";
 import * as styles from "./AddFeedForm.css";
-import { useRegisterFeed } from "src/FeedReader/hooks";
+import { useDispatch, useSelector } from "src/store";
+import { registerFeed } from "src/Feed/usecases/registerFeed/registerFeed";
 
 const FEED_URL = "feedUrl";
 
 export default function AddFeedForm() {
-  const [mutate, { isLoading }] = useRegisterFeed();
+  const { status } = useSelector((state) => state.registerFeed);
+  const dispatch = useDispatch();
 
   const {
     register,
@@ -20,12 +22,11 @@ export default function AddFeedForm() {
     <form
       onSubmit={handleSubmit(async (data) => {
         try {
-          await mutate(data.feedUrl).unwrap();
+          await dispatch(registerFeed(data.feedUrl)).unwrap();
           reset();
           alert("Feed added successfully");
         } catch (e) {
-          console.error(e);
-          alert("Failed to register feed");
+          alert("Unable to register feed");
         }
       })}
       className={styles.form}
@@ -46,7 +47,11 @@ export default function AddFeedForm() {
           </p>
         )}
       </div>
-      <button className={styles.button} disabled={isLoading} type="submit">
+      <button
+        className={styles.button}
+        disabled={status === "pending"}
+        type="submit"
+      >
         Register feed
       </button>
     </form>

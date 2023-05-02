@@ -1,15 +1,15 @@
 import { setupStore, State, Store } from "src/store";
 import type { FeedReaderGateway } from "src/Feed/gateways/FeedReader.gateway";
-import { getFeeds } from "./getFeeds";
+import { registerFeed } from "./registerFeed";
 import { FeedReaderInMemoryGateway } from "src/Feed/gateways/FeedReaderInMemory.gateway";
 import type { Feed } from "src/Feed/entities/Feed";
-import { normalize } from "./utils";
 
+const FEED_URL = "https://example.com/rss";
 const MOCK: Feed[] = [
   {
     id: "1",
     name: "My feed",
-    website: "https://example.com/rss",
+    website: FEED_URL,
     feedItems: [
       {
         id: "11",
@@ -20,9 +20,8 @@ const MOCK: Feed[] = [
     ],
   },
 ];
-const NORMALIZED_MOCK = normalize(MOCK);
 
-describe("Get feeds", () => {
+describe("Register feed", () => {
   let gateway: FeedReaderGateway;
   let store: Store;
   let initialState: State;
@@ -33,25 +32,33 @@ describe("Get feeds", () => {
     initialState = store.getState();
   });
 
-  it("should have no feeds initially", function () {
+  it("should wait for registering the feed", function () {
+    store.dispatch(registerFeed(FEED_URL));
     expect(store.getState()).toEqual<State>({
       ...initialState,
-      getFeeds: {
-        result: null,
-        entities: null,
-        isFulfilled: false,
+      registerFeed: {
+        status: "pending",
       },
     });
   });
 
-  it("should retrieve feeds", async () => {
-    await store.dispatch(getFeeds());
+  it("should have registered the feed", async function () {
+    await store.dispatch(registerFeed(FEED_URL));
     expect(store.getState()).toEqual<State>({
       ...initialState,
-      getFeeds: {
-        result: NORMALIZED_MOCK.result,
-        entities: NORMALIZED_MOCK.entities,
-        isFulfilled: true,
+      registerFeed: {
+        status: "success",
+      },
+    });
+  });
+
+  it("should not allow registering the same feed twice", async function () {
+    await store.dispatch(registerFeed(FEED_URL));
+    await store.dispatch(registerFeed(FEED_URL));
+    expect(store.getState()).toEqual<State>({
+      ...initialState,
+      registerFeed: {
+        status: "error",
       },
     });
   });

@@ -5,22 +5,17 @@ import {
 } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
 import type { FeedReaderGateway } from "src/Feed/gateways/FeedReader.gateway";
-import type { RootApi } from "./root.api";
 import { getFeedsSlice } from "src/Feed/usecases/getFeeds";
+import { registerFeedSlice } from "src/Feed/usecases/registerFeed/registerFeed.reducer";
 
 export function setupStore(dependencies: Dependencies) {
-  if (typeof dependencies.rootApi === "undefined")
-    throw new Error("rootApi has not been injected");
   if (typeof dependencies.feedReaderGateway === "undefined")
     throw new Error("feedReaderGateway has not been injected");
 
-  const apiMiddleware = dependencies.rootApi.middleware;
-  const apiReducerPath = dependencies.rootApi.reducerPath;
-  const apiReducer = dependencies.rootApi.reducer;
   return configureStore({
     reducer: {
-      [apiReducerPath]: apiReducer,
       [getFeedsSlice.name]: getFeedsSlice.reducer,
+      [registerFeedSlice.name]: registerFeedSlice.reducer,
     },
     middleware(gdm) {
       return gdm({
@@ -29,12 +24,11 @@ export function setupStore(dependencies: Dependencies) {
             dependencies,
           },
         },
-      }).concat(apiMiddleware);
+      });
     },
   });
 }
 export type Dependencies = Partial<{
-  rootApi: RootApi;
   feedReaderGateway: FeedReaderGateway;
 }>;
 export type Store = ReturnType<typeof setupStore>;

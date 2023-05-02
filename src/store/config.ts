@@ -1,12 +1,9 @@
 import { setupStore } from "src/store";
-import { setupRootApi } from "src/store/root.api";
 import { FeedReaderProductionGateway } from "src/Feed/gateways/FeedReaderProduction.gateway";
 import { FeedReaderInMemoryGateway } from "src/Feed/gateways/FeedReaderInMemory.gateway";
-import { setupFeedReaderApi } from "src/FeedReader/api";
 
 const OFFLINE = process.env.NEXT_PUBLIC_OFFLINE === "true";
 
-const rootApi = setupRootApi();
 const feedReaderGateway = OFFLINE
   ? new FeedReaderInMemoryGateway([
       {
@@ -24,7 +21,6 @@ const feedReaderGateway = OFFLINE
       },
     ])
   : new FeedReaderProductionGateway();
-export const store = setupStore({ rootApi, feedReaderGateway });
+export const store = setupStore({ feedReaderGateway });
 
-export const feedReaderApi = setupFeedReaderApi(rootApi);
 export const { dispatch } = store;

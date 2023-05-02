@@ -1,7 +1,6 @@
-import type { Feed, FeedItem } from "src/Feed/entities/Feed";
+import type { Feed } from "src/Feed/entities/Feed";
 import type { FeedReaderGateway } from "./FeedReader.gateway";
 import { supabase } from "src/utils/supabaseClient";
-import { isAfter } from "src/utils/date";
 
 export class FeedReaderProductionGateway implements FeedReaderGateway {
   async retrieveFeedList(): Promise<Feed[]> {
