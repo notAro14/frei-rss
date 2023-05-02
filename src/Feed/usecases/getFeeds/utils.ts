@@ -1,11 +1,15 @@
-import { normalize, schema } from "normalizr";
+import { normalize as _normalize, schema } from "normalizr";
 import type {
   NormalizedFeedItem,
   NormalizedFeed,
   Feed,
 } from "src/Feed/entities/Feed";
 
-const feedItem = new schema.Entity("feedItems", {}, { idAttribute: "url" });
+const feedItem = new schema.Entity(
+  "feedItems",
+  {},
+  { idAttribute: (value) => value.date + " " + value.url }
+);
 const feed = new schema.Entity(
   "feeds",
   {
@@ -15,8 +19,8 @@ const feed = new schema.Entity(
 );
 const feeds = new schema.Array(feed);
 
-export function normalizeFeed(data: Feed[]) {
-  return normalize<
+export function normalize(data: Feed[]) {
+  return _normalize<
     any,
     {
       feeds: NormalizedFeed;

@@ -5,7 +5,7 @@ import { getFeeds } from "./getFeeds";
 import { setupRootApi } from "src/store/root.api";
 import { FeedReaderInMemoryGateway } from "src/Feed/gateways/FeedReaderInMemory.gateway";
 import type { Feed } from "src/Feed/entities/Feed";
-import { normalizeFeed } from "./utils";
+import { normalize } from "./utils";
 
 const MOCK: Feed[] = [
   {
@@ -22,7 +22,7 @@ const MOCK: Feed[] = [
     ],
   },
 ];
-const NORMALIZED_MOCK = normalizeFeed(MOCK);
+const NORMALIZED_MOCK = normalize(MOCK);
 
 describe("Get feeds", () => {
   let gateway: FeedReaderGateway;
