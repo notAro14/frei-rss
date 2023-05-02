@@ -6,8 +6,8 @@ export const main = style({
   display: "flex",
   flexDirection: "column",
   gap: vars.space["2xl"],
-  width: "clamp(40ch, 100%, 80ch)",
-  margin: "auto",
+  width: "min(100%, 80ch)",
+  margin: "0 auto",
 });
 
 export const header = style({
