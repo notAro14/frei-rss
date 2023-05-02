@@ -4,7 +4,8 @@ import { vars } from "src/styles/theme.css";
 export const feedItem = style({
   display: "flex",
   alignItems: "baseline",
-  gap: vars.space.md,
+  gap: vars.space.sm,
+  width: "fit-content",
 });
 
 export const link = style({
@@ -20,4 +21,5 @@ export const link = style({
 export const date = style({
   color: vars.colors["text-functional-low"],
   fontSize: vars.fontSizes["sm-fluid"],
+  minWidth: "10ch",
 });
