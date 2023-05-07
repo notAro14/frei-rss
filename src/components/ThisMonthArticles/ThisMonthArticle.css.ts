@@ -4,7 +4,7 @@ import { vars } from "src/styles/theme.css";
 export const ul = style({
   display: "flex",
   flexDirection: "column",
-  gap: vars.space.md,
+  gap: vars.space["3xl"],
   maxHeight: 300,
   overflow: "auto",
   scrollbarGutter: "stable",

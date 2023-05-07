@@ -74,6 +74,8 @@ export const [themeClass, vars] = createTheme({
 
     "text-functional-low": props.gray7,
     "text-functional": props.gray12,
+
+    success: props.green7,
   },
   ...commonStyles,
 });
@@ -87,6 +89,8 @@ export const dark = createTheme(vars, {
 
     "text-functional-low": props.gray5,
     "text-functional": props.gray0,
+
+    success: props.green4,
   },
   ...commonStyles,
 });

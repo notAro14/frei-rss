@@ -13,11 +13,28 @@ export default function FeedItem({ id }: Props) {
   );
   const feedItem = useSelector(selectFeedItemCb);
   if (!feedItem) return null;
-  const { date, title, url } = feedItem;
+  const { date, title, url, isRead } = feedItem;
   return (
     <li className={styles.feedItem}>
-      {date && <span className={styles.date}>{date}</span>}
-      <a className={styles.link} href={url} target="_blank" rel="noopener">
+      <span className={styles.isReadContainer}>
+        {date && <span className={styles.date}>{date}</span>}
+        {isRead ? (
+          <input
+            type="checkbox"
+            className={styles.isRead}
+            readOnly
+            checked={isRead}
+          />
+        ) : (
+          <button className={styles.markAsRead}>Mark as read</button>
+        )}
+      </span>
+      <a
+        className={styles.link({ isRead })}
+        href={url}
+        target="_blank"
+        rel="noopener"
+      >
         {title}
       </a>
     </li>
