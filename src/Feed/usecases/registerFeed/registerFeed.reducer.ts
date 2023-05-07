@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { registerFeed } from "./registerFeed";
 
-interface RegisterFeed {
+export interface RegisterFeed {
   status: "success" | "pending" | "idle" | "error";
 }
 
-const initialState: RegisterFeed = {
+export const initialState: RegisterFeed = {
   status: "idle",
 };
 

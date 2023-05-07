@@ -9,6 +9,6 @@ export const registerFeed = createAppAsyncThunk(
     if (!feedReaderGateway?.registerFeed)
       throw new Error("FeedReaderGateway.registerFeed is not defined");
 
-    return await feedReaderGateway.registerFeed(feedUrl);
+    return feedReaderGateway.registerFeed(feedUrl);
   }
 );

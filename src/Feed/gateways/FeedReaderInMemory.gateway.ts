@@ -1,5 +1,5 @@
 import type { FeedReaderGateway } from "./FeedReader.gateway";
-import type { Feed } from "src/Feed/entities/Feed";
+import type { Feed, FeedItem } from "src/Feed/entities/Feed";
 
 export class FeedReaderInMemoryGateway implements FeedReaderGateway {
   _feeds: Feed[] = [];
@@ -21,5 +21,12 @@ export class FeedReaderInMemoryGateway implements FeedReaderGateway {
     }
     this._registeredUrls.push(_url);
     return this._registeredFeed;
+  }
+
+  async updateFeedItemReadingStatus(
+    _feedItemId: string,
+    _status: "READ" | "UNREAD"
+  ): Promise<FeedItem> {
+    return this._registeredFeed.feedItems[0];
   }
 }

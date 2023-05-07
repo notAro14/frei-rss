@@ -5,18 +5,10 @@ import type {
   Feed,
 } from "src/Feed/entities/Feed";
 
-const feedItem = new schema.Entity(
-  "feedItems",
-  {},
-  { idAttribute: (value) => value.date + " " + value.url }
-);
-const feed = new schema.Entity(
-  "feeds",
-  {
-    feedItems: [feedItem],
-  },
-  { idAttribute: "website" }
-);
+const feedItem = new schema.Entity("feedItems");
+const feed = new schema.Entity("feeds", {
+  feedItems: [feedItem],
+});
 const feeds = new schema.Array(feed);
 
 export function normalize(data: Feed[]) {
