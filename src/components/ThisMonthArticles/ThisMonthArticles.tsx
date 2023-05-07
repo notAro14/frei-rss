@@ -26,16 +26,8 @@ function ThisMonth() {
     <>
       {feedItems.length ? (
         <ul className={styles.ul}>
-          {feedItems.map(({ title, url, pubDate, isRead }) => {
-            return (
-              <FeedItem
-                key={url}
-                date={pubDate}
-                title={title}
-                link={url}
-                isRead={isRead}
-              />
-            );
+          {feedItems.map((id) => {
+            return <FeedItem key={id} id={id} />;
           })}
         </ul>
       ) : (

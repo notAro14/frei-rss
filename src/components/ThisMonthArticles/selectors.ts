@@ -1,4 +1,4 @@
-import { format, isAfter } from "src/utils/date";
+import { isAfter } from "src/utils/date";
 import { isThisMonth } from "src/utils/date";
 import type { State } from "src/store";
 
@@ -17,10 +17,7 @@ export function selectThisMonthArticles(state: State) {
         if (isAfter(articleB.date, articleA.date)) return 1;
         return 0;
       })
-      .map(({ date, ...rest }) => {
-        const formattedDate = format(new Date(date), "dd/MM/yyyy");
-        return { pubDate: formattedDate, ...rest };
-      });
+      .map(({ id }) => id);
   }
   return null;
 }
