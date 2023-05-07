@@ -1,18 +1,10 @@
 import { useSelector } from "src/store";
 import Feed from "src/components/Feed";
-
+import { selectFeeds } from "./selectors";
 import * as styles from "./FeedList.css";
 
 export default function FeedList() {
-  const feeds = useSelector((state) => {
-    const { entities, result } = state.getFeeds;
-    if (entities && result)
-      return result.map((key) => {
-        return entities.feeds[key];
-      });
-
-    return null;
-  });
+  const feeds = useSelector(selectFeeds);
 
   if (!feeds) return <p role="progressbar">Loading...</p>;
 
