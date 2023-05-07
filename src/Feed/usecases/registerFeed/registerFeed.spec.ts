@@ -16,6 +16,7 @@ const MOCK: Feed[] = [
         url: "https://example.com/article-title",
         title: "Article title",
         date: "2023-03-31",
+        isRead: false,
       },
     ],
   },

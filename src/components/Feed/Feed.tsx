@@ -32,8 +32,16 @@ export default function Feed(props: Props) {
       <details>
         <summary className={styles.summary}>{name}</summary>
         <ul className={styles.ul}>
-          {feedItems.map(({ title, url, date }) => {
-            return <FeedItem key={url} date={date} title={title} link={url} />;
+          {feedItems.map(({ title, url, date, isRead }) => {
+            return (
+              <FeedItem
+                key={url}
+                date={date}
+                title={title}
+                link={url}
+                isRead={isRead}
+              />
+            );
           })}
         </ul>
       </details>

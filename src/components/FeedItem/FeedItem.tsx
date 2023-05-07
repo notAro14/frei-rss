@@ -4,6 +4,7 @@ interface Props {
   date?: string;
   link: string;
   title: string;
+  isRead: boolean;
 }
 export default function FeedItem({ date, link, title }: Props) {
   return (

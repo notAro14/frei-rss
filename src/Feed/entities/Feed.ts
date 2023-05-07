@@ -16,4 +16,5 @@ export interface FeedItem {
   date: string;
   title: string;
   url: string;
+  isRead: boolean;
 }

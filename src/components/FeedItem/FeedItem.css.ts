@@ -3,7 +3,7 @@ import { vars } from "src/styles/theme.css";
 
 export const feedItem = style({
   display: "flex",
-  alignItems: "baseline",
+  alignItems: "center",
   gap: vars.space.sm,
   width: "fit-content",
 });

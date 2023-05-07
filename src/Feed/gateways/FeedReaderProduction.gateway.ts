@@ -15,7 +15,8 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
           id,
           pub_date,
           title,
-          url
+          url,
+          is_read
         )
       `
       )
@@ -38,12 +39,15 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       if (Array.isArray(feedItems))
         return {
           ...common,
-          feedItems: feedItems.map(({ id, pub_date: date, title, url }) => ({
-            id,
-            date,
-            title,
-            url,
-          })),
+          feedItems: feedItems.map(
+            ({ id, pub_date: date, title, url, is_read: isRead }) => ({
+              id,
+              date,
+              title,
+              url,
+              isRead: isRead ?? false,
+            })
+          ),
         };
 
       return {
@@ -54,6 +58,7 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
             date: feedItems.pub_date,
             title: feedItems.title,
             url: feedItems.url,
+            isRead: feedItems.is_read ?? false,
           },
         ],
       };
