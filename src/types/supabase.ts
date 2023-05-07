@@ -14,6 +14,7 @@ export interface Database {
           created_at: string | null
           fk_feed_id: string
           id: string
+          is_read: boolean | null
           pub_date: string
           title: string
           url: string
@@ -22,6 +23,7 @@ export interface Database {
           created_at?: string | null
           fk_feed_id: string
           id?: string
+          is_read?: boolean | null
           pub_date: string
           title: string
           url: string
@@ -30,6 +32,7 @@ export interface Database {
           created_at?: string | null
           fk_feed_id?: string
           id?: string
+          is_read?: boolean | null
           pub_date?: string
           title?: string
           url?: string
