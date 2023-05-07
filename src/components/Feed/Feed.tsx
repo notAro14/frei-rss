@@ -1,6 +1,4 @@
 import FeedItem from "src/components/FeedItem";
-import { useSelector } from "src/store";
-import { format } from "src/utils/date";
 
 import * as styles from "./Feed.css";
 

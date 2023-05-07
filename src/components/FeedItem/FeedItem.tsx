@@ -1,7 +1,8 @@
 import { useCallback } from "react";
-import { State, useSelector } from "src/store";
+import { State, useDispatch, useSelector } from "src/store";
 import { selectFeedItem } from "./selectors";
 import * as styles from "./FeedItem.css";
+import { markFeedItemAsRead } from "src/Feed/usecases/markFeedItemAsRead";
 
 interface Props {
   id: string;
@@ -12,6 +13,12 @@ export default function FeedItem({ id }: Props) {
     [id]
   );
   const feedItem = useSelector(selectFeedItemCb);
+  const dispatch = useDispatch();
+  const onMarkAsRead = useCallback(
+    () => dispatch(markFeedItemAsRead({ feedItemId: id })),
+    [dispatch, id]
+  );
+
   if (!feedItem) return null;
   const { date, title, url, isRead } = feedItem;
   return (
@@ -26,7 +33,9 @@ export default function FeedItem({ id }: Props) {
             checked={isRead}
           />
         ) : (
-          <button className={styles.markAsRead}>Mark as read</button>
+          <button onClick={onMarkAsRead} className={styles.markAsRead}>
+            Mark as read
+          </button>
         )}
       </span>
       <a

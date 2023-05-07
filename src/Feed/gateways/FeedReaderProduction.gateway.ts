@@ -1,4 +1,4 @@
-import type { Feed } from "src/Feed/entities/Feed";
+import type { Feed, FeedItem } from "src/Feed/entities/Feed";
 import type { FeedReaderGateway } from "./FeedReader.gateway";
 import { supabase } from "src/utils/supabaseClient";
 
@@ -77,6 +77,28 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       feedItems: [],
       name: data.name ?? "",
       website: data.url,
+    };
+  }
+  async updateFeedItemReadingStatus(
+    feedItemId: string,
+    status: "READ" | "UNREAD"
+  ): Promise<FeedItem> {
+    const { data, error } = await supabase
+      .from("feed_items")
+      .update({
+        is_read: status === "READ",
+      })
+      .eq("id", feedItemId)
+      .select()
+      .maybeSingle();
+    if (error || !data) throw new Error("Failed to mark feed item as read");
+
+    return {
+      id: data.id,
+      url: data.url,
+      title: data.title,
+      date: data.pub_date,
+      isRead: data.is_read ?? false,
     };
   }
 }
