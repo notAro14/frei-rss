@@ -65,9 +65,9 @@ const commonStyles = {
   },
 };
 
-export const [themeClass, vars] = createTheme({
+export const [light, vars] = createTheme({
   colors: {
-    bg: props.gray0,
+    bg: props.gray1,
 
     "text-vibrant-low": props.pink7,
     "text-vibrant": props.pink12,
@@ -75,6 +75,8 @@ export const [themeClass, vars] = createTheme({
     "text-functional-low": props.gray7,
     "text-functional": props.gray12,
 
+    surface: props.gray0,
+    "surface-vibrant-low": props.pink0,
     success: props.green7,
   },
   ...commonStyles,
@@ -90,6 +92,8 @@ export const dark = createTheme(vars, {
     "text-functional-low": props.gray5,
     "text-functional": props.gray0,
 
+    surface: props.gray8,
+    "surface-vibrant-low": props.yellow12,
     success: props.green4,
   },
   ...commonStyles,
