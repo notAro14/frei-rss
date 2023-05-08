@@ -1,19 +1,16 @@
-import Head from "next/head";
-import HomePage from "src/components/HomePage";
-import Layout from "src/components/Layout";
+import { Fragment } from "react";
+import AddFeedForm from "src/components/AddFeedForm";
+import FeedList from "src/components/FeedList";
+import ThisMonthArticles from "src/components/ThisMonthArticles";
 
-export default function Home() {
+import { heading } from "src/styles/common/heading.css";
+
+export default function HomePage() {
   return (
-    <>
-      <Head>
-        <title>Frei RSS</title>
-        <meta name="description" content="RSS reader" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <Layout>
-        <HomePage />
-      </Layout>
-    </>
+    <Fragment>
+      <AddFeedForm />
+      <h2 className={heading()}>This month</h2>
+      <ThisMonthArticles />
+    </Fragment>
   );
 }

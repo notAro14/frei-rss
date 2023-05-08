@@ -21,7 +21,7 @@ export const link = recipe({
   variants: {
     isRead: {
       true: {
-        color: vars.colors["text-vibrant"],
+        color: vars.colors["text-functional"],
       },
     },
   },

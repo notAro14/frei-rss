@@ -5,15 +5,10 @@ export const ul = style({
   display: "flex",
   flexDirection: "column",
   gap: vars.space["3xl"],
-  maxHeight: 300,
-  overflow: "auto",
-  scrollbarGutter: "stable",
-  overscrollBehavior: "contain",
-});
-
-export const header = style({
-  color: vars.colors["text-vibrant"],
-  fontSize: vars.fontSizes["lg-fluid"],
+  // maxHeight: 500,
+  // overflow: "auto",
+  // scrollbarGutter: "stable",
+  // overscrollBehavior: "contain",
 });
 
 export const text = style({
