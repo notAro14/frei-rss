@@ -44,7 +44,7 @@ export const isRead = style({
 });
 
 export const markAsRead = style({
-  borderRadius: vars.radii.round,
+  borderRadius: vars.radii[1],
   border: "none",
   backgroundColor: vars.colors["text-vibrant-low"],
   color: vars.colors.bg,
