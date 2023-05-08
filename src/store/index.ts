@@ -4,17 +4,17 @@ import {
   useDispatch as _useDispatch,
 } from "react-redux";
 import { configureStore } from "@reduxjs/toolkit";
-import type { FeedReaderGateway } from "src/Feed/gateways/FeedReader.gateway";
+import type { FeedReaderGateway } from "src/domain/Feed/gateways/FeedReader.gateway";
 import {
   getFeedsSlice,
   GetFeeds,
   initialState as getFeedsState,
-} from "src/Feed/usecases/getFeeds/getFeeds.reducer";
+} from "src/domain/Feed/usecases/getFeeds/getFeeds.reducer";
 import {
   RegisterFeed,
   registerFeedSlice,
   initialState as registerFeedState,
-} from "src/Feed/usecases/registerFeed/registerFeed.reducer";
+} from "src/domain/Feed/usecases/registerFeed/registerFeed.reducer";
 
 export function setupStore(dependencies: Dependencies, preloadedState?: State) {
   if (typeof dependencies.feedReaderGateway === "undefined")

@@ -2,12 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 import type {
   NormalizedFeedItem,
   NormalizedFeed,
-} from "src/Feed/entities/Feed";
+} from "src/domain/Feed/entities/Feed";
 import { getFeeds } from "./getFeeds";
 import {
   updateFeedItemAsRead,
   markFeedItemAsRead,
-} from "src/Feed/usecases/markFeedItemAsRead";
+} from "src/domain/Feed/usecases/markFeedItemAsRead";
 
 export const initialState: GetFeeds = {
   result: null,

@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { State, useDispatch, useSelector } from "src/store";
 import { selectFeedItem } from "./selectors";
 import * as styles from "./FeedItem.css";
-import { markFeedItemAsRead } from "src/Feed/usecases/markFeedItemAsRead";
+import { markFeedItemAsRead } from "src/domain/Feed/usecases/markFeedItemAsRead";
 
 interface Props {
   id: string;

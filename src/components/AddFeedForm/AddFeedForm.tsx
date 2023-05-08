@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import * as styles from "./AddFeedForm.css";
 import { useDispatch, useSelector } from "src/store";
-import { registerFeed } from "src/Feed/usecases/registerFeed/registerFeed";
+import { registerFeed } from "src/domain/Feed/usecases/registerFeed/registerFeed";
 
 const FEED_URL = "feedUrl";
 

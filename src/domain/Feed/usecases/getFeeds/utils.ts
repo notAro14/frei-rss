@@ -3,7 +3,7 @@ import type {
   NormalizedFeedItem,
   NormalizedFeed,
   Feed,
-} from "src/Feed/entities/Feed";
+} from "src/domain/Feed/entities/Feed";
 
 const feedItem = new schema.Entity("feedItems");
 const feed = new schema.Entity("feeds", {

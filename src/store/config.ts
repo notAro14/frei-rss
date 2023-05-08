@@ -1,6 +1,6 @@
 import { setupStore } from "src/store";
-import { FeedReaderProductionGateway } from "src/Feed/gateways/FeedReaderProduction.gateway";
-import { FeedReaderInMemoryGateway } from "src/Feed/gateways/FeedReaderInMemory.gateway";
+import { FeedReaderProductionGateway } from "src/domain/Feed/gateways/FeedReaderProduction.gateway";
+import { FeedReaderInMemoryGateway } from "src/domain/Feed/gateways/FeedReaderInMemory.gateway";
 
 const OFFLINE = process.env.NEXT_PUBLIC_OFFLINE === "true";
 
