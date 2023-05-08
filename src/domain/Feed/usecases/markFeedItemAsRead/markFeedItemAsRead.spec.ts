@@ -75,4 +75,5 @@ const PRELOADED_STATE = {
     entities: NORMALIZED_MOCK.entities,
     result: NORMALIZED_MOCK.result,
   },
+  removeFeed: INITIAL_STATE.removeFeed,
 };

@@ -8,6 +8,7 @@ import {
   updateFeedItemAsRead,
   markFeedItemAsRead,
 } from "src/domain/Feed/usecases/markFeedItemAsRead";
+import { removeFeed } from "src/domain/Feed/usecases/removeFeed/removeFeed";
 
 export const initialState: GetFeeds = {
   result: null,
@@ -34,6 +35,19 @@ export const getFeedsSlice = createSlice({
       const { feedItemId } = action.meta.arg;
       if (state.entities?.feedItems) {
         state.entities.feedItems[feedItemId].isRead = false;
+      }
+    });
+    builder.addCase(removeFeed.fulfilled, function (state, action) {
+      const feedId = action.payload.id;
+      if (!state.entities || !state.result) return;
+
+      const feed = state.entities.feeds[feedId];
+      delete state.entities.feeds[feedId];
+
+      state.result = state.result.filter((id) => id !== feedId);
+
+      for (const feedItemId of feed.feedItems) {
+        delete state.entities.feedItems[feedItemId];
       }
     });
   },

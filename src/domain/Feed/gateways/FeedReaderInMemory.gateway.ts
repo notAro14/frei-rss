@@ -29,4 +29,7 @@ export class FeedReaderInMemoryGateway implements FeedReaderGateway {
   ): Promise<FeedItem> {
     return this._registeredFeed.feedItems[0];
   }
+  async deleteFeed(_id: string): Promise<Feed> {
+    return this._registeredFeed;
+  }
 }

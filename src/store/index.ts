@@ -15,6 +15,11 @@ import {
   registerFeedSlice,
   initialState as registerFeedState,
 } from "src/domain/Feed/usecases/registerFeed/registerFeed.reducer";
+import {
+  RemoveFeed,
+  removeFeedSlice,
+  initialState as removeFeedState,
+} from "src/domain/Feed/usecases/removeFeed/removeFeed.reducer";
 
 export function setupStore(dependencies: Dependencies, preloadedState?: State) {
   if (typeof dependencies.feedReaderGateway === "undefined")
@@ -24,6 +29,7 @@ export function setupStore(dependencies: Dependencies, preloadedState?: State) {
     reducer: {
       [getFeedsSlice.name]: getFeedsSlice.reducer,
       [registerFeedSlice.name]: registerFeedSlice.reducer,
+      [removeFeedSlice.name]: removeFeedSlice.reducer,
     },
     preloadedState,
     middleware(gdm) {
@@ -45,6 +51,7 @@ export type Store = ReturnType<typeof setupStore>;
 export interface State {
   getFeeds: GetFeeds;
   registerFeed: RegisterFeed;
+  removeFeed: RemoveFeed;
 }
 export type Dispatch = Store["dispatch"];
 
@@ -54,4 +61,5 @@ export const useDispatch: () => Dispatch = _useDispatch;
 export const INITIAL_STATE: State = {
   getFeeds: getFeedsState,
   registerFeed: registerFeedState,
+  removeFeed: removeFeedState,
 };

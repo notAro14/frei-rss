@@ -7,4 +7,5 @@ export interface FeedReaderGateway {
     feedItemId: string,
     status: "READ" | "UNREAD"
   ): Promise<FeedItem>;
+  deleteFeed?(id: string): Promise<Feed>;
 }
