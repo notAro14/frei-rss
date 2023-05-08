@@ -2,6 +2,12 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "src/styles/theme.css";
 
 export const remove = style({
+  width: 100,
+  display: "flex",
+  gap: vars.space.sm,
+  alignItems: "center",
+  justifyContent: "space-around",
+
   fontSize: vars.fontSizes["sm-fluid"],
   marginRight: vars.space.sm,
   border: "none",
