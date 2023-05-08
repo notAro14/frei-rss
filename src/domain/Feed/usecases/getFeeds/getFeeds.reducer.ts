@@ -8,7 +8,8 @@ import {
   updateFeedItemAsRead,
   markFeedItemAsRead,
 } from "src/domain/Feed/usecases/markFeedItemAsRead";
-import { removeFeed } from "src/domain/Feed/usecases/removeFeed/removeFeed";
+// import { removeFeed } from "src/domain/Feed/usecases/removeFeed/removeFeed";
+import { removeFeedDone } from "src/domain/Feed/usecases/removeFeed/removeFeed.reducer";
 
 export const initialState: GetFeeds = {
   result: null,
@@ -37,7 +38,7 @@ export const getFeedsSlice = createSlice({
         state.entities.feedItems[feedItemId].isRead = false;
       }
     });
-    builder.addCase(removeFeed.fulfilled, function (state, action) {
+    builder.addCase(removeFeedDone, function (state, action) {
       const feedId = action.payload.feedId;
       if (!state.entities || !state.result) return;
 
