@@ -5,6 +5,8 @@ import Head from "next/head";
 import useGetFeeds from "src/hooks/useGetFeeds";
 import * as styles from "./Layout.css";
 import { useRouter } from "next/router";
+import { useSelector } from "src/store";
+import unreadFeedItemsSelector from "src/selectors/unreadFeedItems.selector";
 
 interface Props {
   children: ReactNode;
@@ -12,6 +14,7 @@ interface Props {
 
 export default function Layout(props: Props) {
   useGetFeeds();
+  const ids = useSelector(unreadFeedItemsSelector);
   const { pathname } = useRouter();
   return (
     <Fragment>
@@ -36,17 +39,20 @@ export default function Layout(props: Props) {
                 className={styles.navlink({ isActive: pathname === "/unread" })}
                 href="/unread"
               >
-                Unread
+                <span>Unread</span>
+                {ids?.length && (
+                  <data className={styles.unread}>{ids.length}</data>
+                )}
               </Link>
             </li>
-            <li>
+            {/* <li>
               <Link
                 className={styles.navlink({ isActive: pathname === "/feeds" })}
                 href="/feeds"
               >
                 All
               </Link>
-            </li>
+            </li> */}
           </ul>
         </nav>
       </main>

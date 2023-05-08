@@ -18,7 +18,7 @@ export const navbar = style({
   position: "sticky",
   bottom: "1rem",
   width: "min(100%, 80ch)",
-  minHeight: 50,
+  minHeight: 75,
   margin: "0 auto",
   marginTop: "auto",
 
@@ -46,6 +46,7 @@ export const navlink = recipe({
     textTransform: "uppercase",
     padding: vars.space.sm,
     borderRadius: vars.radii[2],
+    position: "relative",
     ":hover": {
       backgroundColor: vars.colors["surface-vibrant-low"],
     },
@@ -57,4 +58,15 @@ export const navlink = recipe({
       },
     },
   },
+});
+
+export const unread = style({
+  position: "absolute",
+  top: -10,
+  right: -10,
+  borderRadius: vars.radii.round,
+  backgroundColor: vars.colors["text-vibrant-low"],
+  color: vars.colors.bg,
+  padding: `${vars.space.xs} ${vars.space.sm}`,
+  fontSize: vars.fontSizes["sm-fluid"],
 });

@@ -10,7 +10,7 @@ export default function UnreadPage() {
   if (!ids) return null;
   return (
     <Fragment>
-      <h2 className={heading()}>Unread</h2>
+      <h2 className={heading()}>Unread ({ids.length})</h2>
       <ul className={flex({ direction: "column", gap: "md" })}>
         {ids.map((id) => {
           return <FeedItem key={id} id={id} />;
