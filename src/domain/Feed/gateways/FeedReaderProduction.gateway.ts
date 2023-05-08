@@ -101,4 +101,18 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       isRead: data.is_read ?? false,
     };
   }
+
+  async deleteFeed(id: string): Promise<{ feedId: string }> {
+    const { error } = await supabase
+      .from("feeds")
+      .delete()
+      .eq("id", id)
+      .select()
+      .maybeSingle();
+
+    if (error) throw new Error("Failed to remove feed");
+    return {
+      feedId: id,
+    };
+  }
 }

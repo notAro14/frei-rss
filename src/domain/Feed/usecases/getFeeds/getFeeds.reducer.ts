@@ -38,7 +38,7 @@ export const getFeedsSlice = createSlice({
       }
     });
     builder.addCase(removeFeed.fulfilled, function (state, action) {
-      const feedId = action.payload.id;
+      const feedId = action.payload.feedId;
       if (!state.entities || !state.result) return;
 
       const feed = state.entities.feeds[feedId];
