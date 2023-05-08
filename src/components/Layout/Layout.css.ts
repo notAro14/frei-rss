@@ -42,6 +42,7 @@ export const navlink = recipe({
   base: {
     color: vars.colors["text-functional"],
     lineHeight: 1,
+    fontSize: vars.fontSizes["sm-fluid"],
     textDecoration: "none",
     textTransform: "uppercase",
     padding: vars.space.sm,
@@ -62,11 +63,11 @@ export const navlink = recipe({
 
 export const unread = style({
   position: "absolute",
-  top: -10,
-  right: -10,
+  top: -2,
+  right: -5,
   borderRadius: vars.radii.round,
   backgroundColor: vars.colors["text-vibrant-low"],
   color: vars.colors.bg,
   padding: `${vars.space.xs} ${vars.space.sm}`,
-  fontSize: vars.fontSizes["sm-fluid"],
+  fontSize: vars.fontSizes.xs,
 });

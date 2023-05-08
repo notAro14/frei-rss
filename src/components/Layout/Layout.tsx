@@ -41,18 +41,20 @@ export default function Layout(props: Props) {
               >
                 <span>Unread</span>
                 {ids?.length && (
-                  <data className={styles.unread}>{ids.length}</data>
+                  <data className={styles.unread}>
+                    {ids.length > 50 ? "+50" : ids.length}
+                  </data>
                 )}
               </Link>
             </li>
-            {/* <li>
+            <li>
               <Link
                 className={styles.navlink({ isActive: pathname === "/feeds" })}
                 href="/feeds"
               >
-                All
+                All feeds
               </Link>
-            </li> */}
+            </li>
           </ul>
         </nav>
       </main>
