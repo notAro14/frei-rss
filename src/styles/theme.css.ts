@@ -73,6 +73,8 @@ export const [light, vars] = createTheme({
     "text-vibrant-low": props.pink7,
     "text-vibrant": props.pink12,
 
+    "error-low": props.red7,
+
     "text-functional-low": props.gray7,
     "text-functional": props.gray12,
 
@@ -94,6 +96,8 @@ export const dark = createTheme(vars, {
 
     "text-vibrant-low": props.yellow5,
     "text-vibrant": props.yellow0,
+
+    "error-low": props.red5,
 
     "text-functional-low": props.gray5,
     "text-functional": props.gray0,

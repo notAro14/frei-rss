@@ -11,7 +11,7 @@ export default function FeedList() {
   return (
     <ul className={styles.feeds}>
       {feeds.map(({ name, feedItems, id }) => {
-        return <Feed name={name} key={id} feedItemsKeys={feedItems} />;
+        return <Feed id={id} name={name} key={id} feedItemsKeys={feedItems} />;
       })}
     </ul>
   );
