@@ -20,6 +20,7 @@ export const navbar = style({
   width: "min(100%, 80ch)",
   minHeight: 50,
   margin: "0 auto",
+  marginTop: "auto",
 
   display: "grid",
   placeItems: "center",

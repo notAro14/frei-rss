@@ -33,6 +33,14 @@ export default function Layout(props: Props) {
             </li>
             <li>
               <Link
+                className={styles.navlink({ isActive: pathname === "/unread" })}
+                href="/unread"
+              >
+                Unread
+              </Link>
+            </li>
+            <li>
+              <Link
                 className={styles.navlink({ isActive: pathname === "/feeds" })}
                 href="/feeds"
               >
