@@ -2,11 +2,11 @@ import { style } from "@vanilla-extract/css";
 import { vars } from "src/styles/theme.css";
 
 export const remove = style({
-  width: 100,
+  width: "fit-content",
   display: "flex",
   gap: vars.space.sm,
   alignItems: "center",
-  justifyContent: "space-around",
+  justifyContent: "space-between",
 
   fontSize: vars.fontSizes["sm-fluid"],
   marginRight: vars.space.sm,
@@ -14,6 +14,7 @@ export const remove = style({
   backgroundColor: vars.colors["error-low"],
   color: vars.colors["text-functional"],
   padding: vars.space.xs,
+  marginTop: vars.space.md,
   borderRadius: vars.radii[2],
   ":hover": {
     cursor: "pointer",
