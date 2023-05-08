@@ -1,5 +1,3 @@
-import props from "open-props";
-
 import { style } from "@vanilla-extract/css";
 import { recipe } from "@vanilla-extract/recipes";
 import { vars } from "src/styles/theme.css";
@@ -26,11 +24,9 @@ export const navbar = style({
   display: "grid",
   placeItems: "center",
 
-  boxShadow: props.shadow6,
+  boxShadow: vars.shadow,
 
   backgroundColor: vars.colors.surface,
-  border: "1px solid",
-  borderColor: vars.colors["text-functional-low"],
   borderRadius: vars.radii[2],
 });
 
@@ -43,12 +39,15 @@ export const navlinks = style({
 
 export const navlink = recipe({
   base: {
-    color: vars.colors["text-vibrant-low"],
+    color: vars.colors["text-functional"],
     lineHeight: 1,
     textDecoration: "none",
     textTransform: "uppercase",
     padding: vars.space.sm,
     borderRadius: vars.radii[2],
+    ":hover": {
+      backgroundColor: vars.colors["surface-vibrant-low"],
+    },
   },
   variants: {
     isActive: {

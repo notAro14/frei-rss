@@ -65,6 +65,7 @@ const commonStyles = {
   },
 };
 
+const SHADOW_COLOR_LIGHT = "211deg 5% 60%";
 export const [light, vars] = createTheme({
   colors: {
     bg: props.gray1,
@@ -76,12 +77,17 @@ export const [light, vars] = createTheme({
     "text-functional": props.gray12,
 
     surface: props.gray0,
-    "surface-vibrant-low": props.pink0,
+    "surface-vibrant-low": props.pink1,
     success: props.green7,
   },
+  shadow: `0.3px 0.5px 0.7px hsl(${SHADOW_COLOR_LIGHT} / 0.36),
+  0.8px 1.6px 2px -0.8px hsl(${SHADOW_COLOR_LIGHT} / 0.36),
+  2.1px 4.1px 5.2px -1.7px hsl(${SHADOW_COLOR_LIGHT} / 0.36),
+  5px 10px 12.6px -2.5px hsl(${SHADOW_COLOR_LIGHT} / 0.36)`,
   ...commonStyles,
 });
 
+const SHADOW_COLOR_DARK = "210deg 17% 5%";
 export const dark = createTheme(vars, {
   colors: {
     bg: props.gray9,
@@ -93,8 +99,12 @@ export const dark = createTheme(vars, {
     "text-functional": props.gray0,
 
     surface: props.gray8,
-    "surface-vibrant-low": props.yellow12,
+    "surface-vibrant-low": props.yellow11,
     success: props.green4,
   },
+  shadow: `0.3px 0.5px 0.7px hsl(${SHADOW_COLOR_DARK} / 0.36),
+  0.8px 1.6px 2px -0.8px hsl(${SHADOW_COLOR_DARK} / 0.36),
+  2.1px 4.1px 5.2px -1.7px hsl(${SHADOW_COLOR_DARK} / 0.36),
+  5px 10px 12.6px -2.5px hsl(${SHADOW_COLOR_DARK} / 0.36)`,
   ...commonStyles,
 });

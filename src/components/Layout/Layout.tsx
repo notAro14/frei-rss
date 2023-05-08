@@ -28,7 +28,7 @@ export default function Layout(props: Props) {
                 className={styles.navlink({ isActive: pathname === "/" })}
                 href="/"
               >
-                Home
+                This Month
               </Link>
             </li>
             <li>
@@ -36,7 +36,7 @@ export default function Layout(props: Props) {
                 className={styles.navlink({ isActive: pathname === "/feeds" })}
                 href="/feeds"
               >
-                Feeds
+                All
               </Link>
             </li>
           </ul>
