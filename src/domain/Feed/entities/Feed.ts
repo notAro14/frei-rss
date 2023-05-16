@@ -16,5 +16,5 @@ export interface FeedItem {
   date: string;
   title: string;
   url: string;
-  isRead: boolean;
+  readStatus: "UNREAD" | "READ" | "READ_LATER";
 }

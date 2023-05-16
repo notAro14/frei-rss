@@ -29,13 +29,13 @@ export const getFeedsSlice = createSlice({
     builder.addCase(updateFeedItemAsRead, function (state, action) {
       const { feedItemId } = action.payload;
       if (state.entities?.feedItems) {
-        state.entities.feedItems[feedItemId].isRead = true;
+        state.entities.feedItems[feedItemId].readStatus = "READ";
       }
     });
     builder.addCase(markFeedItemAsRead.rejected, function (state, action) {
       const { feedItemId } = action.meta.arg;
       if (state.entities?.feedItems) {
-        state.entities.feedItems[feedItemId].isRead = false;
+        state.entities.feedItems[feedItemId].readStatus = "UNREAD";
       }
     });
     builder.addCase(removeFeedDone, function (state, action) {

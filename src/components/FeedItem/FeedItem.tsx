@@ -20,7 +20,8 @@ export default function FeedItem({ id }: Props) {
   );
 
   if (!feedItem) return null;
-  const { date, title, url, isRead } = feedItem;
+  const { date, title, url, readStatus } = feedItem;
+  const isRead = readStatus === "READ";
   return (
     <li className={styles.feedItem}>
       <span className={styles.isReadContainer}>

@@ -45,7 +45,7 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
               date,
               title,
               url,
-              isRead: isRead ?? false,
+              readStatus: isRead ? "READ" : "UNREAD",
             })
           ),
         };
@@ -58,7 +58,7 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
             date: feedItems.pub_date,
             title: feedItems.title,
             url: feedItems.url,
-            isRead: feedItems.is_read ?? false,
+            readStatus: feedItems.is_read ? "READ" : "UNREAD",
           },
         ],
       };
@@ -98,7 +98,7 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       url: data.url,
       title: data.title,
       date: data.pub_date,
-      isRead: data.is_read ?? false,
+      readStatus: data.is_read ? "READ" : "UNREAD",
     };
   }
 

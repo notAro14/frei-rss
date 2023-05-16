@@ -16,7 +16,7 @@ const feedReaderGateway = OFFLINE
             title: "Hello World Article",
             url: "https://example.com/hello-world/",
             date: "2023-01-01",
-            isRead: false,
+            readStatus: "UNREAD",
           },
         ],
       },

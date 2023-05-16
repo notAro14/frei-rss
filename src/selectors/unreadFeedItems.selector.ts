@@ -5,7 +5,7 @@ export default function unreadFeedItemsSelector(state: State) {
   const entities = state.getFeeds.entities;
   if (!entities) return null;
   const feedItems = Object.values(entities.feedItems).filter((value) => {
-    return value.isRead === false;
+    return value.readStatus === "UNREAD";
   });
   feedItems.sort((a, b) => {
     if (isAfter(a.date, b.date)) return -1;

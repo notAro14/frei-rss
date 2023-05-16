@@ -12,7 +12,7 @@ export const remove = style({
   marginRight: vars.space.sm,
   border: "none",
   backgroundColor: vars.colors["error-low"],
-  color: vars.colors["text-functional"],
+  color: vars.colors.bg,
   padding: vars.space.xs,
   marginTop: vars.space.md,
   borderRadius: vars.radii[2],
