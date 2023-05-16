@@ -5,7 +5,7 @@ export interface FeedReaderGateway {
   registerFeed?(url: string): Promise<Feed>;
   updateFeedItemReadingStatus?(
     feedItemId: string,
-    status: "READ" | "UNREAD"
+    status: "READ" | "UNREAD" | "READ_LATER"
   ): Promise<FeedItem>;
   deleteFeed?(id: string): Promise<{ feedId: string }>;
 }

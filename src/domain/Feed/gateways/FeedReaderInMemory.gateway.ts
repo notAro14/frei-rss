@@ -25,8 +25,9 @@ export class FeedReaderInMemoryGateway implements FeedReaderGateway {
 
   async updateFeedItemReadingStatus(
     _feedItemId: string,
-    _status: "READ" | "UNREAD"
+    status: "READ" | "UNREAD"
   ): Promise<FeedItem> {
+    this._registeredFeed.feedItems[0].readStatus = status;
     return this._registeredFeed.feedItems[0];
   }
   async deleteFeed(id: string): Promise<{ feedId: string }> {
