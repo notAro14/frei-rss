@@ -79,7 +79,7 @@ export const [light, vars] = createTheme({
     "text-functional": props.gray12,
 
     surface: props.gray0,
-    "surface-vibrant-low": props.pink1,
+    "surface-vibrant-low": props.gray2,
     success: props.green7,
   },
   shadow: `0.3px 0.5px 0.7px hsl(${SHADOW_COLOR_LIGHT} / 0.36),
@@ -103,7 +103,7 @@ export const dark = createTheme(vars, {
     "text-functional": props.gray0,
 
     surface: props.gray8,
-    "surface-vibrant-low": props.yellow11,
+    "surface-vibrant-low": props.gray7,
     success: props.green4,
   },
   shadow: `0.3px 0.5px 0.7px hsl(${SHADOW_COLOR_DARK} / 0.36),
