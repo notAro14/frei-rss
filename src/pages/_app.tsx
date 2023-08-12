@@ -6,8 +6,8 @@ import Layout from "src/components/Layout/Layout";
 
 import { store } from "src/store/config";
 
-import "src/styles/reset.css";
 import "src/styles/global.css";
+import "src/styles/globals.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
