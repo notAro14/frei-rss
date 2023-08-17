@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "format": "prettier --write --ignore-unknown .",
-    "test": "jest --watch",
+    "test": "jest --watchAll",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

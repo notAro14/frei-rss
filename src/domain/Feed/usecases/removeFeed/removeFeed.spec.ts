@@ -55,7 +55,7 @@ describe("Remove Feed", () => {
         isFulfilled: true,
       },
       removeFeed: {
-        status: "fulfilled",
+        status: "idle",
         feedToRemove: {},
       },
     });

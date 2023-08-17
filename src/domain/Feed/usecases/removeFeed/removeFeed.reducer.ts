@@ -35,7 +35,7 @@ export const removeFeedSlice = createSlice({
       const { feedId } = action.payload;
       clearTimeout(state.feedToRemove[feedId].timerId);
       delete state.feedToRemove[feedId];
-      state.status = "fulfilled";
+      state.status = "idle";
     });
     builder.addCase(removeFeedDone, (state, action) => {
       delete state.feedToRemove[action.payload.feedId];
