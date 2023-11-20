@@ -1,3 +1,4 @@
+import { ClerkProvider } from "@clerk/nextjs";
 import { Provider } from "react-redux";
 import type { AppProps } from "next/app";
 
@@ -11,12 +12,14 @@ import "src/styles/global.css";
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <Provider store={store}>
-      <ThemeProvider>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </ThemeProvider>
-    </Provider>
+    <ClerkProvider>
+      <Provider store={store}>
+        <ThemeProvider>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </ThemeProvider>
+      </Provider>
+    </ClerkProvider>
   );
 }
