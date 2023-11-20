@@ -8,22 +8,32 @@ datasource db {
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model feed_items {
-  created_at DateTime? @default(now()) @db.Timestamptz(6)
-  url        String    @unique(map: "article_url_key")
-  fk_feed_id String    @db.Uuid
-  pub_date   DateTime  @db.Date
+model FeedItem {
+  created_at DateTime? @default(now())
+  url        String    @unique
+  fk_feed_id String
+  pub_date   DateTime
   title      String
-  id         String    @id(map: "article_pkey") @unique(map: "article_id_key") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  id         String    @id @unique @default(cuid())
   is_read    Boolean?  @default(false)
-  feeds      feeds     @relation(fields: [fk_feed_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  fk_user_id String
+  user       User      @relation(fields: [fk_user_id], references: [id])
+  feed       Feed      @relation(fields: [fk_feed_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
 }
 
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model feeds {
-  created_at DateTime?    @default(now()) @db.Timestamptz(6)
-  url        String       @unique(map: "feed_url_key")
+model Feed {
+  created_at DateTime?  @default(now())
+  url        String     @unique
   name       String?
-  id         String       @id(map: "feed_pkey") @unique(map: "feed_id_key") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  feed_items feed_items[]
+  id         String     @id @unique @default(cuid())
+  fk_user_id String
+  user       User       @relation(fields: [fk_user_id], references: [id], onDelete: Cascade)
+  feed_item  FeedItem[]
+}
+
+model User {
+  id        String     @id @unique
+  feed_item FeedItem[]
+  feed      Feed[]
 }
