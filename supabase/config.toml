@@ -4,10 +4,16 @@ project_id = "frei-rss"
 
 [api]
 enabled = true
+# Port to use for the API URL.
 port = 54321
+# Schemas to expose in your API. Tables, views and stored procedures in this schema will get API
+# endpoints. public and storage are always included.
 schemas = ["public", "storage", "graphql_public"]
+# Extra schemas to add to the search_path of every request. public is always included.
 extra_search_path = ["public", "extensions"]
-max_rows = 10000
+# The maximum number of rows returns from a view, table, or stored procedure. Limits payload size
+# for accidental or malicious requests.
+max_rows = 1000
 
 [db]
 # Port to use for the local database URL.
@@ -18,11 +24,16 @@ shadow_port = 54320
 # server_version;` on the remote database to check.
 major_version = 15
 
-["db.pooler"]
+[db.pooler]
 enabled = false
+# Port to use for the local connection pooler.
 port = 54329
+# Specifies when a server connection can be reused by other clients.
+# Configure one of the supported pooler modes: `transaction`, `session`.
 pool_mode = "transaction"
-default_pool_size = 15
+# How many server connections to allow per user/database pair.
+default_pool_size = 20
+# Maximum number of client connections allowed.
 max_client_conn = 100
 
 [realtime]
