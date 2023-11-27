@@ -16,7 +16,7 @@ export default function ThisMonthArticles() {
   return (
     <Box mt={"8"}>
       {feedItems.length ? (
-        <Flex direction={"column"} gap={"6"}>
+        <Flex direction={"column"} gap={"8"}>
           {feedItems.map((id) => {
             return <FeedItem key={id} id={id} />;
           })}

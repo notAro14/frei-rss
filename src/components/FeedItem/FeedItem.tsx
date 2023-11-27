@@ -1,5 +1,6 @@
 import { useCallback } from "react";
-import { Card, Button, Text, Flex, Link } from "@radix-ui/themes";
+import { Check, BookCheck } from "lucide-react";
+import { Card, Text, Flex, Link, IconButton } from "@radix-ui/themes";
 
 import { State, useDispatch, useSelector } from "src/store";
 import { selectFeedItem } from "./selectors";
@@ -24,19 +25,29 @@ export default function FeedItem({ id }: Props) {
   const { date, title, url, readStatus } = feedItem;
   const isRead = readStatus === "READ";
   return (
-    <Card variant="classic">
-      <Flex direction={"column"} gap={"4"} align={"start"}>
+    <Card
+      variant={isRead ? "ghost" : "surface"}
+      style={{ opacity: isRead ? "0.5" : "1" }}
+    >
+      <Flex gap={"2"} align={"center"} justify={"between"}>
         <Flex direction={"column"} gap={"2"}>
-          <Link size={"6"} href={url} target="_blank" rel="noopener">
-            {title}
-          </Link>
+          <Flex align={"baseline"} gap={"2"}>
+            {isRead && (
+              <Text color="grass">
+                <Check size={"1em"} />
+              </Text>
+            )}
+            <Link size={"6"} href={url} target="_blank" rel="noopener">
+              {title}
+            </Link>
+          </Flex>
           {date && <Text size={"1"}>{date}</Text>}
         </Flex>
 
-        {isRead ? (
-          <Text color="grass">Read</Text>
-        ) : (
-          <Button onClick={onMarkAsRead}>Mark as read</Button>
+        {!isRead && (
+          <IconButton onClick={onMarkAsRead}>
+            <BookCheck size={"1em"} />
+          </IconButton>
         )}
       </Flex>
     </Card>
