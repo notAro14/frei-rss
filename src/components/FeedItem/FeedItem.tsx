@@ -29,12 +29,19 @@ export default function FeedItem({ id }: Props) {
       variant={isRead ? "ghost" : "surface"}
       style={{ opacity: isRead ? "0.5" : "1" }}
     >
-      <Flex gap={"2"} align={"center"} justify={"between"}>
+      <Flex gap={"3"} align={"center"} justify={"between"}>
         <Flex direction={"column"} gap={"2"}>
-          <Link size={"6"} href={url} target="_blank" rel="noopener">
+          <Link
+            weight={"bold"}
+            size={{ initial: "4", xs: "6" }}
+            href={url}
+            target="_blank"
+            rel="noopener"
+            title={title}
+          >
             {title}{" "}
             {isRead && (
-              <Text size={"2"} color="grass">
+              <Text size={"4"} color="grass">
                 <BookCheck size={"1em"} />
               </Text>
             )}

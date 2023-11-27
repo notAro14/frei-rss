@@ -53,12 +53,7 @@ export default function Auth() {
           <Text size={"2"}>Or</Text>
           <Separator size={"3"} />
         </Flex>
-        <Button
-          size={"3"}
-          color="gray"
-          disabled={loading}
-          onClick={signInWithGithub}
-        >
+        <Button size={"3"} disabled={loading} onClick={signInWithGithub}>
           <Github size={16} /> Sign in With Github
         </Button>
       </Flex>

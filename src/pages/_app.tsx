@@ -1,3 +1,4 @@
+import { ThemeProvider } from "next-themes";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import { Session } from "@supabase/supabase-js";
@@ -43,7 +44,11 @@ export default function App({ Component, pageProps }: AppProps) {
         <title>Frei RSS</title>
       </Head>
       <Provider store={store}>
-        <Theme>{session ? <Component {...pageProps} /> : <Auth />}</Theme>
+        <ThemeProvider attribute="class">
+          <Theme radius="full" accentColor="gray" panelBackground="translucent">
+            {session ? <Component {...pageProps} /> : <Auth />}
+          </Theme>
+        </ThemeProvider>
       </Provider>
     </>
   );
