@@ -2,7 +2,6 @@ import { useSelector } from "src/store";
 import { Box, Flex, Text } from "@radix-ui/themes";
 import { selectThisMonthArticles } from "./selectors";
 
-import * as styles from "./ThisMonthArticle.css";
 import FeedItem from "src/components/FeedItem";
 
 function Loading() {

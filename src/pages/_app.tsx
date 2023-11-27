@@ -1,3 +1,4 @@
+import Head from "next/head";
 import { useEffect, useState } from "react";
 import { Session } from "@supabase/supabase-js";
 import { Theme } from "@radix-ui/themes";
@@ -12,12 +13,20 @@ import Auth from "src/components/Auth";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(false);
 
-  console.log(session?.user.email);
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-    });
+    async function getSession() {
+      setLoading(true);
+      const { data, error } = await supabase.auth.getSession();
+
+      if (error) alert("Failed to get session");
+      else setSession(data.session);
+
+      setLoading(false);
+    }
+
+    getSession();
 
     supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
@@ -26,9 +35,16 @@ export default function App({ Component, pageProps }: AppProps) {
     return;
   }, []);
 
+  if (loading) return null;
+
   return (
-    <Provider store={store}>
-      <Theme>{session ? <Component {...pageProps} /> : <Auth />}</Theme>
-    </Provider>
+    <>
+      <Head>
+        <title>Frei RSS</title>
+      </Head>
+      <Provider store={store}>
+        <Theme>{session ? <Component {...pageProps} /> : <Auth />}</Theme>
+      </Provider>
+    </>
   );
 }
