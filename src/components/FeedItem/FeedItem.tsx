@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { Check, BookCheck } from "lucide-react";
+import { BookCheck } from "lucide-react";
 import { Card, Text, Flex, Link, IconButton } from "@radix-ui/themes";
 
 import { State, useDispatch, useSelector } from "src/store";
@@ -31,16 +31,14 @@ export default function FeedItem({ id }: Props) {
     >
       <Flex gap={"2"} align={"center"} justify={"between"}>
         <Flex direction={"column"} gap={"2"}>
-          <Flex align={"baseline"} gap={"2"}>
+          <Link size={"6"} href={url} target="_blank" rel="noopener">
+            {title}{" "}
             {isRead && (
-              <Text color="grass">
-                <Check size={"1em"} />
+              <Text size={"2"} color="grass">
+                <BookCheck size={"1em"} />
               </Text>
             )}
-            <Link size={"6"} href={url} target="_blank" rel="noopener">
-              {title}
-            </Link>
-          </Flex>
+          </Link>
           {date && <Text size={"1"}>{date}</Text>}
         </Flex>
 
