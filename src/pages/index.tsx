@@ -6,7 +6,7 @@ import { supabase } from "src/utils/supabaseClient";
 export default function HomePage() {
   useGetFeeds();
   return (
-    <Container size={"2"}>
+    <Container size={"2"} p={"4"}>
       <Flex justify={"between"} mt={"4"}>
         <Heading>FreiRSS</Heading>
         <Button
