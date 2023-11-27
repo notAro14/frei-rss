@@ -1,7 +1,8 @@
 import { useCallback } from "react";
+import { Card, Button, Text, Flex, Link } from "@radix-ui/themes";
+
 import { State, useDispatch, useSelector } from "src/store";
 import { selectFeedItem } from "./selectors";
-import * as styles from "./FeedItem.css";
 import { markFeedItemAsRead } from "src/domain/Feed/usecases/markFeedItemAsRead";
 
 interface Props {
@@ -23,30 +24,21 @@ export default function FeedItem({ id }: Props) {
   const { date, title, url, readStatus } = feedItem;
   const isRead = readStatus === "READ";
   return (
-    <li className={styles.feedItem}>
-      <span className={styles.isReadContainer}>
-        {date && <span className={styles.date}>{date}</span>}
+    <Card variant="classic">
+      <Flex direction={"column"} gap={"4"} align={"start"}>
+        <Flex direction={"column"} gap={"2"}>
+          <Link size={"6"} href={url} target="_blank" rel="noopener">
+            {title}
+          </Link>
+          {date && <Text size={"1"}>{date}</Text>}
+        </Flex>
+
         {isRead ? (
-          <input
-            type="checkbox"
-            className={styles.isRead}
-            readOnly
-            checked={isRead}
-          />
+          <Text color="grass">Read</Text>
         ) : (
-          <button onClick={onMarkAsRead} className={styles.markAsRead}>
-            Mark as read
-          </button>
+          <Button onClick={onMarkAsRead}>Mark as read</Button>
         )}
-      </span>
-      <a
-        className={styles.link({ isRead })}
-        href={url}
-        target="_blank"
-        rel="noopener"
-      >
-        {title}
-      </a>
-    </li>
+      </Flex>
+    </Card>
   );
 }

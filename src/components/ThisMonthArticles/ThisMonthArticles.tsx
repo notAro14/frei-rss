@@ -1,4 +1,5 @@
 import { useSelector } from "src/store";
+import { Box, Flex, Text } from "@radix-ui/themes";
 import { selectThisMonthArticles } from "./selectors";
 
 import * as styles from "./ThisMonthArticle.css";
@@ -14,16 +15,16 @@ export default function ThisMonthArticles() {
   if (!feedItems) return <Loading />;
 
   return (
-    <aside>
+    <Box mt={"8"}>
       {feedItems.length ? (
-        <ul className={styles.ul}>
+        <Flex direction={"column"} gap={"6"}>
           {feedItems.map((id) => {
             return <FeedItem key={id} id={id} />;
           })}
-        </ul>
+        </Flex>
       ) : (
-        <p className={styles.text}>There aren&apos;t articles this month yet</p>
+        <Text>There aren&apos;t articles this month yet</Text>
       )}
-    </aside>
+    </Box>
   );
 }
