@@ -1,5 +1,5 @@
 import { FormEvent, useState } from "react";
-import { Wand2, Github } from "lucide-react";
+import { Wand2, Github, Rss } from "lucide-react";
 import {
   TextField,
   Button,
@@ -19,7 +19,18 @@ export default function Auth() {
   return (
     <Container size={"2"}>
       <Flex direction={"column"} gap={"6"}>
-        <Heading size={"8"}>Frei RSS - Sign In</Heading>
+        <Heading
+          as="h1"
+          id="logo"
+          size={{ initial: "6", xs: "8" }}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "var(--space-2)",
+          }}
+        >
+          <Rss size={"1em"} /> FreiRSS
+        </Heading>
         <Flex direction={"column"} gap={"4"} asChild>
           <form onSubmit={handleLogin}>
             <Flex direction={"column"} gap={"2"}>
