@@ -3,7 +3,7 @@ export type Json =
   | number
   | boolean
   | null
-  | { [key: string]: Json }
+  | { [key: string]: Json | undefined }
   | Json[]
 
 export interface Database {
@@ -18,6 +18,7 @@ export interface Database {
           pub_date: string
           title: string
           url: string
+          user_id: string
         }
         Insert: {
           created_at?: string | null
@@ -27,6 +28,7 @@ export interface Database {
           pub_date: string
           title: string
           url: string
+          user_id: string
         }
         Update: {
           created_at?: string | null
@@ -36,7 +38,24 @@ export interface Database {
           pub_date?: string
           title?: string
           url?: string
+          user_id?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: "feed_items_fk_feed_id_fkey"
+            columns: ["fk_feed_id"]
+            isOneToOne: false
+            referencedRelation: "feeds"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "feed_items_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
       feeds: {
         Row: {
@@ -44,19 +63,31 @@ export interface Database {
           id: string
           name: string | null
           url: string
+          user_id: string
         }
         Insert: {
           created_at?: string | null
           id?: string
           name?: string | null
           url: string
+          user_id: string
         }
         Update: {
           created_at?: string | null
           id?: string
           name?: string | null
           url?: string
+          user_id?: string
         }
+        Relationships: [
+          {
+            foreignKeyName: "feeds_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
       }
     }
     Views: {

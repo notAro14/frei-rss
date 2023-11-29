@@ -68,7 +68,7 @@ const MOCK: Feed[] = [
   },
 ];
 const NORMALIZED_MOCK = normalize(MOCK);
-const PRELOADED_STATE = {
+const PRELOADED_STATE: State = {
   registerFeed: INITIAL_STATE.registerFeed,
   getFeeds: {
     isFulfilled: true,
@@ -76,4 +76,5 @@ const PRELOADED_STATE = {
     result: NORMALIZED_MOCK.result,
   },
   removeFeed: INITIAL_STATE.removeFeed,
+  auth: INITIAL_STATE.auth,
 };

@@ -50,7 +50,7 @@ export default function FeedItem({ id }: Props) {
         </Flex>
 
         {!isRead && (
-          <IconButton onClick={onMarkAsRead}>
+          <IconButton variant="soft" onClick={onMarkAsRead}>
             <BookCheck size={"1em"} />
           </IconButton>
         )}

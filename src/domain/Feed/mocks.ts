@@ -1,4 +1,4 @@
-import { INITIAL_STATE } from "src/store";
+import { INITIAL_STATE, State } from "src/store";
 import type { Feed } from "./entities/Feed";
 import { normalize } from "./usecases/getFeeds/utils";
 
@@ -24,7 +24,7 @@ export const MOCK: Feed[] = [
 ];
 
 export const NORMALIZED_MOCK = normalize(MOCK);
-export const PRELOADED_STATE = {
+export const PRELOADED_STATE: State = {
   registerFeed: INITIAL_STATE.registerFeed,
   getFeeds: {
     isFulfilled: true,
@@ -32,4 +32,5 @@ export const PRELOADED_STATE = {
     result: NORMALIZED_MOCK.result,
   },
   removeFeed: INITIAL_STATE.removeFeed,
+  auth: INITIAL_STATE.auth,
 };

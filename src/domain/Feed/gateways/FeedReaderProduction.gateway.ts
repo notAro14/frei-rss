@@ -64,10 +64,10 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       };
     });
   }
-  async registerFeed(url: string): Promise<Feed> {
+  async registerFeed(url: string, userId: string): Promise<Feed> {
     const { error, data } = await supabase
       .from("feeds")
-      .upsert({ url })
+      .upsert({ url, user_id: userId })
       .select()
       .maybeSingle();
     if (error || !data) throw new Error("Failed to register feed");

@@ -3,6 +3,7 @@ import type { FeedReaderGateway } from "src/domain/Feed/gateways/FeedReader.gate
 import { registerFeed } from "./registerFeed";
 import { FeedReaderInMemoryGateway } from "src/domain/Feed/gateways/FeedReaderInMemory.gateway";
 import type { Feed } from "src/domain/Feed/entities/Feed";
+import { PRELOADED_STATE } from "src/domain/Feed/mocks";
 
 const FEED_URL = "https://example.com/rss";
 const MOCK: Feed[] = [
@@ -29,7 +30,10 @@ describe("Register feed", () => {
 
   beforeEach(() => {
     gateway = new FeedReaderInMemoryGateway(MOCK);
-    store = setupStore({ feedReaderGateway: gateway });
+    store = setupStore(
+      { feedReaderGateway: gateway },
+      { ...PRELOADED_STATE, auth: { user: { id: "1234", email: "" } } }
+    );
     initialState = store.getState();
   });
 
