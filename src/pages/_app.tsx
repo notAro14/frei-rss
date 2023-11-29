@@ -26,8 +26,8 @@ export default function App({ Component, pageProps }: AppProps) {
           <Theme accentColor={"iris"} panelBackground="translucent">
             <AuthGuard>
               <Component {...pageProps} />
-              <Toaster />
             </AuthGuard>
+            <Toaster />
           </Theme>
         </ThemeProvider>
       </Provider>

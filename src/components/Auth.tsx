@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import { Wand2, Github, Rss } from "lucide-react";
 import {
   TextField,
@@ -12,10 +12,39 @@ import {
 import toast from "react-hot-toast";
 
 import { supabase } from "src/utils/supabaseClient";
+import { SubmitHandler, useForm } from "react-hook-form";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const emailSignInFormSchema = z.object({
+  email: z
+    .string()
+    .min(1, { message: "Can not be empty" })
+    .email("Must be a valid email address"),
+});
+type EmailSignInForm = z.infer<typeof emailSignInFormSchema>;
 
 export default function Auth() {
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("");
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<EmailSignInForm>({
+    resolver: zodResolver(emailSignInFormSchema),
+  });
+
+  const handleEmailSignIn: SubmitHandler<EmailSignInForm> = async (data) => {
+    setLoading(true);
+    const { error } = await supabase.auth.signInWithOtp({
+      email: data.email,
+    });
+    if (error) toast.error(error.message);
+    else toast.success("Check your email for the login link!");
+
+    setLoading(false);
+  };
 
   return (
     <Container size={"2"}>
@@ -33,20 +62,21 @@ export default function Auth() {
           <Rss size={"1em"} /> FreiRSS
         </Heading>
         <Flex direction={"column"} gap={"4"} asChild>
-          <form onSubmit={handleLogin}>
+          <form onSubmit={handleSubmit(handleEmailSignIn)}>
             <Flex direction={"column"} gap={"2"}>
               <Text as="label" htmlFor="email">
                 Sign in via magic link with your email below
               </Text>
               <TextField.Input
-                size={"3"}
-                type="email"
-                id="email"
                 placeholder="Your mail"
-                value={email}
-                required={true}
-                onChange={(e) => setEmail(e.target.value)}
+                {...register("email")}
+                size={"3"}
               />
+              {errors.email && (
+                <Text role="alert" color="crimson">
+                  {errors.email.message}
+                </Text>
+              )}
             </Flex>
             <Button size={"3"} type="submit" disabled={loading}>
               {loading ? (
@@ -78,22 +108,6 @@ export default function Auth() {
       provider: "github",
     });
     if (error) toast.error(error.message);
-    setLoading(false);
-  }
-
-  async function handleLogin(event: FormEvent) {
-    event.preventDefault();
-
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithOtp({
-      email,
-    });
-
-    if (error) {
-      toast.error(error.message);
-    } else {
-      toast.success("Check your email for the login link!");
-    }
     setLoading(false);
   }
 }
