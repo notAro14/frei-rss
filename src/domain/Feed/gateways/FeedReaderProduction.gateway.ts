@@ -71,10 +71,9 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       .select()
       .maybeSingle();
     if (error || !data) {
-      console.log(error?.code);
-      if (error?.code === "23505") {
+      if (error?.code === "23505")
         throw new Error("Feed URL already registered");
-      }
+
       throw new Error("Failed to register feed");
     }
 
