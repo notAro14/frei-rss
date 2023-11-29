@@ -43,6 +43,7 @@ describe("Register feed", () => {
       ...initialState,
       registerFeed: {
         status: "pending",
+        message: null,
       },
     });
   });
@@ -53,6 +54,7 @@ describe("Register feed", () => {
       ...initialState,
       registerFeed: {
         status: "success",
+        message: null,
       },
     });
   });
@@ -64,6 +66,7 @@ describe("Register feed", () => {
       ...initialState,
       registerFeed: {
         status: "error",
+        message: "Url already registered",
       },
     });
   });

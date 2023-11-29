@@ -20,6 +20,8 @@ import useGetFeeds from "src/hooks/useGetFeeds";
 import { useSelector, useDispatch } from "src/store";
 import { supabase } from "src/utils/supabaseClient";
 import { registerFeed } from "src/domain/Feed/usecases/registerFeed/registerFeed";
+import toast from "react-hot-toast";
+import { useEffect } from "react";
 
 export default function HomePage() {
   useGetFeeds();
@@ -125,17 +127,19 @@ function AddFeedForm() {
     resolver: zodResolver(addFeedFormInSchema),
   });
 
-  const { status } = useSelector((state) => state.registerFeed);
+  const { status, message } = useSelector((state) => state.registerFeed);
   const dispatch = useDispatch();
 
-  const onSubmit: SubmitHandler<AddFeedFormIn> = async (data) => {
-    try {
-      await dispatch(registerFeed(data.feed)).unwrap();
+  useEffect(() => {
+    if (status === "success") {
+      toast.success("Feed added successfully");
       reset();
-      alert("Feed added successfully");
-    } catch (e) {
-      alert("Unable to register feed");
     }
+    if (status === "error") toast.error(message ?? "Unable to register feed");
+  }, [message, status, reset]);
+
+  const onSubmit: SubmitHandler<AddFeedFormIn> = (data) => {
+    dispatch(registerFeed(data.feed));
   };
   return (
     <Card my={"8"}>

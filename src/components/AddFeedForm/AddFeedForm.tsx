@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import * as styles from "./AddFeedForm.css";
 import { useDispatch, useSelector } from "src/store";
 import { registerFeed } from "src/domain/Feed/usecases/registerFeed/registerFeed";
+import toast from "react-hot-toast";
 
 const FEED_URL = "feedUrl";
 
@@ -24,9 +25,9 @@ export default function AddFeedForm() {
         try {
           await dispatch(registerFeed(data.feedUrl)).unwrap();
           reset();
-          alert("Feed added successfully");
+          toast.success("Feed added successfully");
         } catch (e) {
-          alert("Unable to register feed");
+          toast.error("Unable to register feed");
         }
       })}
       className={styles.form}

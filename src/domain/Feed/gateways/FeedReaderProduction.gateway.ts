@@ -70,7 +70,13 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       .upsert({ url, user_id: userId })
       .select()
       .maybeSingle();
-    if (error || !data) throw new Error("Failed to register feed");
+    if (error || !data) {
+      console.log(error?.code);
+      if (error?.code === "23505") {
+        throw new Error("Feed URL already registered");
+      }
+      throw new Error("Failed to register feed");
+    }
 
     return {
       id: data.id,

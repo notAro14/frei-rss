@@ -7,4 +7,5 @@ export const createAppAsyncThunk = createAsyncThunk.withTypes<{
   extra: {
     dependencies: Dependencies;
   };
+  rejectValue: string;
 }>();

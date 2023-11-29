@@ -2,7 +2,7 @@ import { createAppAsyncThunk } from "src/store/thunk";
 
 export const registerFeed = createAppAsyncThunk(
   "feed/registerFeed",
-  async function (feedUrl: string, { extra, getState }) {
+  async function (feedUrl: string, { extra, getState, rejectWithValue }) {
     const {
       dependencies: { feedReaderGateway },
     } = extra;
@@ -12,6 +12,13 @@ export const registerFeed = createAppAsyncThunk(
     const userId = getState().auth.user?.id;
     if (!userId) throw new Error("Unauthorised");
 
-    return feedReaderGateway.registerFeed(feedUrl, userId);
+    try {
+      const res = await feedReaderGateway.registerFeed(feedUrl, userId);
+      return res;
+    } catch (e) {
+      return rejectWithValue(
+        e instanceof Error ? e.message : "Failed to register feed"
+      );
+    }
   }
 );

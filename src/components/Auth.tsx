@@ -9,6 +9,7 @@ import {
   Flex,
   Separator,
 } from "@radix-ui/themes";
+import toast from "react-hot-toast";
 
 import { supabase } from "src/utils/supabaseClient";
 
@@ -76,11 +77,7 @@ export default function Auth() {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "github",
     });
-    if (error) {
-      alert(error.message);
-    } else {
-      // alert("Check your email for the login link!");
-    }
+    if (error) toast.error(error.message);
     setLoading(false);
   }
 
@@ -93,9 +90,9 @@ export default function Auth() {
     });
 
     if (error) {
-      alert(error.message);
+      toast.error(error.message);
     } else {
-      alert("Check your email for the login link!");
+      toast.success("Check your email for the login link!");
     }
     setLoading(false);
   }

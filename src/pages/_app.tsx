@@ -5,6 +5,7 @@ import { Session } from "@supabase/supabase-js";
 import { Theme } from "@radix-ui/themes";
 import { Provider } from "react-redux";
 import type { AppProps } from "next/app";
+import toast, { Toaster } from "react-hot-toast";
 
 import { store } from "src/store/config";
 import { supabase } from "src/utils/supabaseClient";
@@ -25,6 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <Theme accentColor={"iris"} panelBackground="translucent">
             <AuthGuard>
               <Component {...pageProps} />
+              <Toaster />
             </AuthGuard>
           </Theme>
         </ThemeProvider>
@@ -40,7 +42,7 @@ function AuthGuard(props: { children: ReactNode }) {
   useEffect(() => {
     async function getSession() {
       const { data, error } = await supabase.auth.getSession();
-      if (error) alert("Failed to get session");
+      if (error) toast.error("Failed to get session");
       else setSession(data.session);
     }
 
