@@ -10,6 +10,8 @@ import {
   Text,
   TextField,
 } from "@radix-ui/themes";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { MoveUp, Rss, Signpost } from "lucide-react";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -102,9 +104,16 @@ export default function HomePage() {
   );
 }
 
-interface AddFeedFormInputs {
-  feed: string;
-}
+/* ---------- AddFeedForm ---------- */
+
+const addFeedFormInSchema = z.object({
+  feed: z
+    .string()
+    .min(1, { message: "Can not be empty" })
+    .url("Must be a valid URL"),
+});
+
+type AddFeedFormIn = z.infer<typeof addFeedFormInSchema>;
 
 function AddFeedForm() {
   const {
@@ -112,12 +121,14 @@ function AddFeedForm() {
     handleSubmit,
     formState: { errors },
     reset,
-  } = useForm<AddFeedFormInputs>();
+  } = useForm<AddFeedFormIn>({
+    resolver: zodResolver(addFeedFormInSchema),
+  });
 
   const { status } = useSelector((state) => state.registerFeed);
   const dispatch = useDispatch();
 
-  const onSubmit: SubmitHandler<AddFeedFormInputs> = async (data) => {
+  const onSubmit: SubmitHandler<AddFeedFormIn> = async (data) => {
     try {
       await dispatch(registerFeed(data.feed)).unwrap();
       reset();
@@ -138,7 +149,7 @@ function AddFeedForm() {
               type="url"
               placeholder={"https://lorem-rss.herokuapp.com/feed"}
               size={"3"}
-              {...register("feed", { required: "Fedd URL is required" })}
+              {...register("feed")}
             />
             {errors.feed && (
               <Text size={"1"} color="crimson">
