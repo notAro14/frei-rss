@@ -1,5 +1,5 @@
 import { useSelector } from "src/store";
-import { Box, Flex, Text } from "@radix-ui/themes";
+import { Box, Flex, Text, Strong } from "@radix-ui/themes";
 import { selectThisMonthArticles } from "./selectors";
 
 import FeedItem from "src/components/FeedItem";
@@ -17,6 +17,9 @@ export default function ThisMonthArticles() {
     <Box>
       {feedItems.length ? (
         <Flex direction={"column"} gap={"8"}>
+          <Text>
+            You have <Strong>{feedItems.length}</Strong> article(s) this month
+          </Text>
           {feedItems.map((id) => {
             return <FeedItem key={id} id={id} />;
           })}

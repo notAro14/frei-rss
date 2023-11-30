@@ -10,6 +10,7 @@ import {
   Text,
   TextField,
   Tabs,
+  Strong,
 } from "@radix-ui/themes";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -61,6 +62,9 @@ function UnreadArticles() {
 
   return (
     <Flex direction={"column"} gap={"8"}>
+      <Text>
+        You have <Strong>{unreadFeedItemIds.length}</Strong> unread article(s)
+      </Text>
       {unreadFeedItemIds.map((feedItemId) => {
         return <FeedItem key={feedItemId} id={feedItemId} />;
       })}
