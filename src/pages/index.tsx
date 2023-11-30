@@ -23,7 +23,7 @@ import { useSelector, useDispatch } from "src/store";
 import { supabase } from "src/utils/supabaseClient";
 import { registerFeed } from "src/domain/Feed/usecases/registerFeed/registerFeed";
 import toast from "react-hot-toast";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import unreadFeedItemsSelector from "src/selectors/unreadFeedItems.selector";
 import FeedItem from "src/components/FeedItem";
 
@@ -55,19 +55,52 @@ export default function HomePage() {
   );
 }
 
+const STEP = 100;
 /* ---------- UnreadArticles ---------- */
 function UnreadArticles() {
   const unreadFeedItemIds = useSelector(unreadFeedItemsSelector);
-  if (!unreadFeedItemIds) return null;
 
+  const ref = useRef(null);
+  const count = useRef(0);
+  const [visible, setVisible] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (!ref.current) return;
+    if (!unreadFeedItemIds) return;
+
+    const observer = new IntersectionObserver(function (entries, instance) {
+      if (entries[0].isIntersecting) {
+        const next = unreadFeedItemIds.slice(
+          count.current,
+          count.current + STEP
+        );
+        if (!next.length) {
+          instance.disconnect();
+          return;
+        }
+        setVisible((prev) => [...prev, ...next]);
+        setTimeout(() => {
+          count.current += STEP;
+        }, 0);
+      }
+    });
+    observer.observe(ref.current);
+
+    return function () {
+      observer.disconnect();
+    };
+  }, [unreadFeedItemIds]);
+
+  if (!unreadFeedItemIds) return <Text role="alert">Loading...</Text>;
   return (
     <Flex direction={"column"} gap={"8"}>
       <Text>
         You have <Strong>{unreadFeedItemIds.length}</Strong> unread article(s)
       </Text>
-      {unreadFeedItemIds.map((feedItemId) => {
-        return <FeedItem key={feedItemId} id={feedItemId} />;
+      {visible.map((id) => {
+        return <FeedItem key={id} id={id} />;
       })}
+      <div ref={ref} />
     </Flex>
   );
 }
