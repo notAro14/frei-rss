@@ -48,7 +48,9 @@ function AuthGuard(props: { children: ReactNode }) {
 
     getSession();
 
-    supabase.auth.onAuthStateChange((_event, session) => {
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
       setSession(session);
       if (session) {
         dispatch(
@@ -61,6 +63,8 @@ function AuthGuard(props: { children: ReactNode }) {
         dispatch(signOut());
       }
     });
+
+    return () => subscription.unsubscribe();
   }, [dispatch]);
 
   if (!session) return <Auth />;
