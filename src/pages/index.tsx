@@ -9,6 +9,7 @@ import {
   Separator,
   Text,
   TextField,
+  Tabs,
 } from "@radix-ui/themes";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -22,6 +23,8 @@ import { supabase } from "src/utils/supabaseClient";
 import { registerFeed } from "src/domain/Feed/usecases/registerFeed/registerFeed";
 import toast from "react-hot-toast";
 import { useEffect } from "react";
+import unreadFeedItemsSelector from "src/selectors/unreadFeedItems.selector";
+import FeedItem from "src/components/FeedItem";
 
 export default function HomePage() {
   useGetFeeds();
@@ -29,15 +32,43 @@ export default function HomePage() {
     <Container size={"2"} p={"4"}>
       <Header />
       <AddFeedForm />
-      <ThisMonthArticles />
+      <Tabs.Root defaultValue="this-month">
+        <Tabs.List>
+          <Tabs.Trigger value="this-month">This Month</Tabs.Trigger>
+          <Tabs.Trigger value="unread">Unread</Tabs.Trigger>
+        </Tabs.List>
+
+        <Box py={"4"}>
+          <Tabs.Content value="this-month">
+            <ThisMonthArticles />
+          </Tabs.Content>
+
+          <Tabs.Content value="unread">
+            <UnreadArticles />
+          </Tabs.Content>
+        </Box>
+      </Tabs.Root>
       <Separator size={"3"} mx={"auto"} my={"8"} />
       <Footer />
     </Container>
   );
 }
 
-/* ---------- Header ---------- */
+/* ---------- UnreadArticles ---------- */
+function UnreadArticles() {
+  const unreadFeedItemIds = useSelector(unreadFeedItemsSelector);
+  if (!unreadFeedItemIds) return null;
 
+  return (
+    <Flex direction={"column"} gap={"8"}>
+      {unreadFeedItemIds.map((feedItemId) => {
+        return <FeedItem key={feedItemId} id={feedItemId} />;
+      })}
+    </Flex>
+  );
+}
+
+/* ---------- Header ---------- */
 function Header() {
   return (
     <Flex justify={"between"} mt={"4"}>
@@ -74,7 +105,6 @@ function Header() {
 }
 
 /* ---------- Footer ---------- */
-
 function Footer() {
   return (
     <Box asChild>
@@ -120,7 +150,6 @@ function Footer() {
 }
 
 /* ---------- AddFeedForm ---------- */
-
 const addFeedFormInSchema = z.object({
   feed: z
     .string()
