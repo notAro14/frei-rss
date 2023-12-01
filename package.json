@@ -38,6 +38,7 @@
     "react-redux": "^8.0.5",
     "svix": "^1.14.0",
     "typescript": "5.0.4",
+    "vaul": "^0.7.9",
     "zod": "^3.21.4"
   },
   "devDependencies": {

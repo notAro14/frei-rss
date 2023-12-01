@@ -5,16 +5,20 @@ import {
   Container,
   Flex,
   Heading,
-  Link as RxLink,
-  Separator,
   Text,
   TextField,
   Tabs,
   Strong,
+  IconButton,
+  Theme,
+  Separator,
+  TextFieldInput,
+  Avatar,
 } from "@radix-ui/themes";
+import { Drawer } from "vaul";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { MoveUp, Rss, Signpost } from "lucide-react";
+import { MoveUp, Rss, Signpost, Menu } from "lucide-react";
 import Link from "next/link";
 import { SubmitHandler, useForm } from "react-hook-form";
 import ThisMonthArticles from "src/components/ThisMonthArticles";
@@ -49,8 +53,6 @@ export default function HomePage() {
           </Tabs.Content>
         </Box>
       </Tabs.Root>
-      <Separator size={"3"} mx={"auto"} my={"8"} />
-      <Footer />
     </Container>
   );
 }
@@ -107,9 +109,11 @@ function UnreadArticles() {
 
 /* ---------- Header ---------- */
 function Header() {
+  const user = useSelector((state) => state.auth.user);
+  if (!user) return null;
   return (
-    <Flex justify={"between"} mt={"4"}>
-      <Flex gap={"4"} align={"baseline"}>
+    <Drawer.Root>
+      <Flex justify={"between"} mt={"4"}>
         <Heading
           as="h1"
           id="logo"
@@ -122,67 +126,67 @@ function Header() {
         >
           <Rss size={"1em"} /> FreiRSS
         </Heading>
-        <Separator orientation="vertical" />
-        <RxLink asChild>
-          <Link href={"#navigation"}>Menu</Link>
-        </RxLink>
+
+        <Drawer.Trigger asChild>
+          <IconButton variant="ghost">
+            <Menu />
+          </IconButton>
+        </Drawer.Trigger>
       </Flex>
-
-      <Button
-        color="crimson"
-        variant="outline"
-        onClick={async () => {
-          await supabase.auth.signOut();
-        }}
-      >
-        Sign out
-      </Button>
-    </Flex>
-  );
-}
-
-/* ---------- Footer ---------- */
-function Footer() {
-  return (
-    <Box asChild>
-      <footer>
-        <Heading
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "var(--space-2)",
-          }}
-          as="h2"
-          id="navigation"
-        >
-          <Signpost size={"1em"} /> Menu
-        </Heading>
-        <Flex direction={"column"} mt={"4"} asChild gap={"2"}>
-          <nav>
-            <RxLink asChild>
-              <Link href={"#"}>All feeds</Link>
-            </RxLink>
-            <RxLink asChild>
-              <Link href={"/"}>This Month articles</Link>
-            </RxLink>
-            <RxLink asChild>
-              <Link href={"#"}>Unread articles</Link>
-            </RxLink>
-            <Separator size={"4"} my={"4"} />
-            <RxLink
-              underline="always"
-              style={{ alignSelf: "flex-end" }}
-              asChild
+      <Drawer.Portal>
+        <Theme>
+          <Drawer.Overlay
+            style={{
+              position: "fixed",
+              inset: 0,
+              backgroundColor: "var(--gray-a10)",
+            }}
+          />
+          <Drawer.Content asChild>
+            <Flex
+              direction={"column"}
+              position={"fixed"}
+              justify={"between"}
+              bottom={"0"}
+              left={"0"}
+              right={"0"}
+              p={"4"}
+              gap={"6"}
+              style={{
+                backgroundColor: "var(--color-page-background)",
+              }}
             >
-              <Link href={"#logo"}>
-                <MoveUp size={"1em"} />
-                Top
-              </Link>
-            </RxLink>
-          </nav>
-        </Flex>
-      </footer>
-    </Box>
+              <Box
+                width={"8"}
+                height={"1"}
+                mx={"auto"}
+                style={{
+                  backgroundColor: "var(--gray-a10)",
+                  borderRadius: 9999,
+                }}
+              />
+              <Flex direction={"column"} gap={"8"}>
+                <Flex direction={"column"} gap={"4"} align={"center"}>
+                  <Avatar
+                    fallback={`${user.email.charAt(0)}${user.email.charAt(1)}`}
+                  />
+                  <Text size={"4"}>{user.email}</Text>
+                </Flex>
+                <Button
+                  size={"3"}
+                  color="crimson"
+                  onClick={async () => {
+                    await supabase.auth.signOut();
+                  }}
+                >
+                  Sign out
+                </Button>
+              </Flex>
+            </Flex>
+          </Drawer.Content>
+        </Theme>
+      </Drawer.Portal>
+    </Drawer.Root>
   );
 }
 
