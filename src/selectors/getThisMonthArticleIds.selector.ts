@@ -2,7 +2,7 @@ import { isAfter } from "src/utils/date";
 import { isThisMonth } from "src/utils/date";
 import type { State } from "src/store";
 
-export function selectThisMonthArticles(state: State) {
+export function getThisMonthArticleIds(state: State) {
   const { entities, result } = state.getFeeds;
 
   if (entities && result) {

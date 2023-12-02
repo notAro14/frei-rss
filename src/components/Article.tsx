@@ -3,15 +3,15 @@ import { BookCheck } from "lucide-react";
 import { Card, Text, Flex, Link, IconButton } from "@radix-ui/themes";
 
 import { State, useDispatch, useSelector } from "src/store";
-import { selectFeedItem } from "./selectors";
+import { getArticle } from "../selectors/getArticle.selector";
 import { markFeedItemAsRead } from "src/domain/Feed/usecases/markFeedItemAsRead";
 
 interface Props {
   id: string;
 }
-export default function FeedItem({ id }: Props) {
+export function Article({ id }: Props) {
   const selectFeedItemCb = useCallback(
-    (state: State) => selectFeedItem(id)(state),
+    (state: State) => getArticle(id)(state),
     [id]
   );
   const feedItem = useSelector(selectFeedItemCb);

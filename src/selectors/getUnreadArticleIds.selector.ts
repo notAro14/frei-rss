@@ -1,7 +1,7 @@
 import type { State } from "src/store";
 import { isAfter } from "src/utils/date";
 
-export default function unreadFeedItemsSelector(state: State) {
+export function getUnreadArticleIds(state: State) {
   const entities = state.getFeeds.entities;
   if (!entities) return null;
   const feedItems = Object.values(entities.feedItems).filter((value) => {

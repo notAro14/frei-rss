@@ -1,15 +1,15 @@
 import { useSelector } from "src/store";
 import { Box, Flex, Text, Strong } from "@radix-ui/themes";
-import { selectThisMonthArticles } from "./selectors";
+import { getThisMonthArticleIds } from "src/selectors/getThisMonthArticleIds.selector";
 
-import FeedItem from "src/components/FeedItem";
+import { Article } from "src/components/Article";
 
 function Loading() {
   return <p role="progressbar">Loading...</p>;
 }
 
-export default function ThisMonthArticles() {
-  const feedItems = useSelector(selectThisMonthArticles);
+export function ThisMonthArticles() {
+  const feedItems = useSelector(getThisMonthArticleIds);
 
   if (!feedItems) return <Loading />;
 
@@ -21,7 +21,7 @@ export default function ThisMonthArticles() {
             You have <Strong>{feedItems.length}</Strong> article(s) this month
           </Text>
           {feedItems.map((id) => {
-            return <FeedItem key={id} id={id} />;
+            return <Article key={id} id={id} />;
           })}
         </Flex>
       ) : (

@@ -5,7 +5,7 @@ import useGetFeeds from "src/hooks/useGetFeeds";
 
 import { AddFeedForm } from "src/components/AddFeedForm";
 import { Header } from "src/components/Header";
-import ThisMonthArticles from "src/components/ThisMonthArticles";
+import { ThisMonthArticles } from "src/components/ThisMonthArticles";
 import { UnreadArticles } from "src/components/UnreadArticles";
 
 function Layout(props: { children: ReactNode }) {

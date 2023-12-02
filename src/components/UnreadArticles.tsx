@@ -2,13 +2,13 @@ import { useState, useRef, useEffect } from "react";
 import { Text, Flex, Strong } from "@radix-ui/themes";
 
 import { useSelector } from "src/store";
-import unreadFeedItemsSelector from "src/selectors/unreadFeedItems.selector";
-import FeedItem from "src/components/FeedItem";
+import { getUnreadArticleIds } from "src/selectors/getUnreadArticleIds.selector";
+import { Article } from "src/components/Article";
 
 const STEP = 100;
 
 export function UnreadArticles() {
-  const unreadFeedItemIds = useSelector(unreadFeedItemsSelector);
+  const unreadFeedItemIds = useSelector(getUnreadArticleIds);
 
   const ref = useRef(null);
   const count = useRef(0);
@@ -48,7 +48,7 @@ export function UnreadArticles() {
         You have <Strong>{unreadFeedItemIds.length}</Strong> unread article(s)
       </Text>
       {visible.map((id) => {
-        return <FeedItem key={id} id={id} />;
+        return <Article key={id} id={id} />;
       })}
       <div ref={ref} />
     </Flex>

@@ -1,7 +1,7 @@
 import { format } from "src/utils/date";
 import type { State } from "src/store";
 
-export function selectFeedItem(id: string) {
+export function getArticle(id: string) {
   return (state: State) => {
     const feedItems = state.getFeeds.entities?.feedItems;
     if (!feedItems) return null;
