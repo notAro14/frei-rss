@@ -24,7 +24,7 @@ const emailSignInFormSchema = z.object({
 });
 type EmailSignInForm = z.infer<typeof emailSignInFormSchema>;
 
-export default function Auth() {
+export function Auth() {
   const [loading, setLoading] = useState(false);
 
   const {
