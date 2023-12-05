@@ -18,7 +18,7 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
           url,
           is_read
         )
-      `
+      `,
       )
       .neq("name", null)
       .order("name");
@@ -36,31 +36,17 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
           feedItems: [],
         };
 
-      if (Array.isArray(feedItems))
-        return {
-          ...common,
-          feedItems: feedItems.map(
-            ({ id, pub_date: date, title, url, is_read: isRead }) => ({
-              id,
-              date,
-              title,
-              url,
-              readStatus: isRead ? "READ" : "UNREAD",
-            })
-          ),
-        };
-
       return {
         ...common,
-        feedItems: [
-          {
-            id: feedItems.id,
-            date: feedItems.pub_date,
-            title: feedItems.title,
-            url: feedItems.url,
-            readStatus: feedItems.is_read ? "READ" : "UNREAD",
-          },
-        ],
+        feedItems: feedItems.map(
+          ({ id, pub_date: date, title, url, is_read: isRead }) => ({
+            id,
+            date,
+            title,
+            url,
+            readStatus: isRead ? "READ" : "UNREAD",
+          }),
+        ),
       };
     });
   }
@@ -86,7 +72,7 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
   }
   async updateFeedItemReadingStatus(
     feedItemId: string,
-    status: "READ" | "UNREAD"
+    status: "READ" | "UNREAD",
   ): Promise<FeedItem> {
     const { data, error } = await supabase
       .from("feed_items")
