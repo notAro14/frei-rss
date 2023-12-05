@@ -2,7 +2,7 @@ import { useCallback } from "react";
 import { BookCheck } from "lucide-react";
 import { Card, Text, Flex, Link, IconButton } from "@radix-ui/themes";
 
-import { State, useDispatch, useSelector } from "src/store";
+import { useDispatch, useSelector } from "src/store";
 import { getArticle } from "../selectors/getArticle.selector";
 import { markFeedItemAsRead } from "src/domain/Feed/usecases/markFeedItemAsRead";
 
@@ -10,15 +10,11 @@ interface Props {
   id: string;
 }
 export function Article({ id }: Props) {
-  const selectFeedItemCb = useCallback(
-    (state: State) => getArticle(id)(state),
-    [id]
-  );
-  const feedItem = useSelector(selectFeedItemCb);
+  const feedItem = useSelector((state) => getArticle(state, id));
   const dispatch = useDispatch();
   const onMarkAsRead = useCallback(
     () => dispatch(markFeedItemAsRead({ feedItemId: id })),
-    [dispatch, id]
+    [dispatch, id],
   );
 
   if (!feedItem) return null;
