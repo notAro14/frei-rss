@@ -7,7 +7,7 @@ import {
 
 export const removeFeed = createAppAsyncThunk<void, { feedId: string }>(
   "feed/removeFeed",
-  function ({ feedId }, { extra, rejectWithValue, dispatch }) {
+  async function ({ feedId }, { extra, rejectWithValue, dispatch }) {
     const {
       dependencies: { feedReaderGateway },
     } = extra;
@@ -31,5 +31,5 @@ export const removeFeed = createAppAsyncThunk<void, { feedId: string }>(
     // } catch (e) {
     //   return rejectWithValue("Could not remove feed");
     // }
-  }
+  },
 );
