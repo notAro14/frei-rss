@@ -1,4 +1,4 @@
-import { setupStore, State, Store, INITIAL_STATE } from "src/store";
+import { configureStore, State, Store, INITIAL_STATE } from "src/store";
 import type { FeedReaderGateway } from "src/domain/Feed/gateways/FeedReader.gateway";
 import type { Feed } from "src/domain/Feed/entities/Feed";
 import { normalize } from "src/domain/Feed/usecases/getFeeds/utils";
@@ -13,7 +13,7 @@ describe("Mark feed item as read", () => {
 
   beforeEach(() => {
     feedReaderGateway = new FeedReaderInMemoryGateway(MOCK);
-    store = setupStore({ feedReaderGateway }, PRELOADED_STATE);
+    store = configureStore({ feedReaderGateway }, PRELOADED_STATE);
     initialState = store.getState();
   });
 

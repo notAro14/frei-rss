@@ -1,4 +1,4 @@
-import { setupStore } from "src/store";
+import { configureStore } from "src/store";
 import { FeedReaderProductionGateway } from "src/domain/Feed/gateways/FeedReaderProduction.gateway";
 import { FeedReaderInMemoryGateway } from "src/domain/Feed/gateways/FeedReaderInMemory.gateway";
 
@@ -22,6 +22,6 @@ const feedReaderGateway = OFFLINE
       },
     ])
   : new FeedReaderProductionGateway();
-export const store = setupStore({ feedReaderGateway });
+export const store = configureStore({ feedReaderGateway });
 
 export const { dispatch } = store;

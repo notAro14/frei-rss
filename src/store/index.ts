@@ -3,7 +3,7 @@ import {
   useSelector as _useSelector,
   useDispatch as _useDispatch,
 } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore as _configureStore } from "@reduxjs/toolkit";
 import type { FeedReaderGateway } from "src/domain/Feed/gateways/FeedReader.gateway";
 import {
   getFeedsSlice,
@@ -26,11 +26,14 @@ import {
   initialState as authSliceState,
 } from "src/domain/Auth/auth.reducer";
 
-export function setupStore(dependencies: Dependencies, preloadedState?: State) {
+export function configureStore(
+  dependencies: Dependencies,
+  preloadedState?: State,
+) {
   if (typeof dependencies.feedReaderGateway === "undefined")
     throw new Error("feedReaderGateway has not been injected");
 
-  return configureStore({
+  return _configureStore({
     reducer: {
       [getFeedsSlice.name]: getFeedsSlice.reducer,
       [registerFeedSlice.name]: registerFeedSlice.reducer,
@@ -52,7 +55,7 @@ export function setupStore(dependencies: Dependencies, preloadedState?: State) {
 export type Dependencies = Partial<{
   feedReaderGateway: FeedReaderGateway;
 }>;
-export type Store = ReturnType<typeof setupStore>;
+export type Store = ReturnType<typeof configureStore>;
 // export type State = ReturnType<Store["getState"]>;
 export interface State {
   getFeeds: GetFeeds;

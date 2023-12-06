@@ -1,4 +1,4 @@
-import { State, Store, setupStore } from "src/store";
+import { State, Store, configureStore } from "src/store";
 import type { FeedReaderGateway } from "src/domain/Feed/gateways/FeedReader.gateway";
 import { FeedReaderInMemoryGateway } from "src/domain/Feed/gateways/FeedReaderInMemory.gateway";
 import { getFeeds } from "src/domain/Feed/usecases/getFeeds";
@@ -14,7 +14,7 @@ describe("Remove Feed", () => {
   beforeEach(() => {
     jest.useFakeTimers();
     gateway = new FeedReaderInMemoryGateway(MOCK);
-    store = setupStore({ feedReaderGateway: gateway });
+    store = configureStore({ feedReaderGateway: gateway });
     initialState = store.getState();
   });
   afterEach(() => {

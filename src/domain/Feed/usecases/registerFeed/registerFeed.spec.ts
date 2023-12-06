@@ -1,4 +1,4 @@
-import { setupStore, State, Store } from "src/store";
+import { configureStore, State, Store } from "src/store";
 import type { FeedReaderGateway } from "src/domain/Feed/gateways/FeedReader.gateway";
 import { registerFeed } from "./registerFeed";
 import { FeedReaderInMemoryGateway } from "src/domain/Feed/gateways/FeedReaderInMemory.gateway";
@@ -30,9 +30,9 @@ describe("Register feed", () => {
 
   beforeEach(() => {
     gateway = new FeedReaderInMemoryGateway(MOCK);
-    store = setupStore(
+    store = configureStore(
       { feedReaderGateway: gateway },
-      { ...PRELOADED_STATE, auth: { user: { id: "1234", email: "" } } }
+      { ...PRELOADED_STATE, auth: { user: { id: "1234", email: "" } } },
     );
     initialState = store.getState();
   });

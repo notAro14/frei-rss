@@ -1,4 +1,4 @@
-import { setupStore, State, Store } from "src/store";
+import { configureStore, State, Store } from "src/store";
 import { FeedReaderInMemoryGateway } from "src/domain/Feed/gateways/FeedReaderInMemory.gateway";
 import {
   PRELOADED_STATE,
@@ -14,13 +14,16 @@ describe("Update feed item reading status", () => {
   let initialState: State;
   beforeEach(() => {
     gateway = new FeedReaderInMemoryGateway(MOCK);
-    store = setupStore({ feedReaderGateway: gateway }, PRELOADED_STATE);
+    store = configureStore({ feedReaderGateway: gateway }, PRELOADED_STATE);
     initialState = store.getState();
   });
   it("should mark a feed item as 'Read later'", async () => {
     expect(store.getState()).toEqual<State>(initialState);
     await store.dispatch(
-      changeFeedItemReadingStatus({ id: FEED_ITEM_ID, newStatus: "READ_LATER" })
+      changeFeedItemReadingStatus({
+        id: FEED_ITEM_ID,
+        newStatus: "READ_LATER",
+      }),
     );
     expect(store.getState()).toEqual<State>({
       ...initialState,
