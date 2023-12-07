@@ -1,5 +1,6 @@
 import "@radix-ui/themes/styles.css";
 
+import { useRef } from "react";
 import { ThemeProvider } from "next-themes";
 import Head from "next/head";
 import { Theme } from "@radix-ui/themes";
@@ -7,17 +8,21 @@ import { Provider } from "react-redux";
 import type { AppProps } from "next/app";
 import { Toaster } from "react-hot-toast";
 
-import { store } from "src/store/config";
+import { type Store, configureStore } from "src/store";
 
 import { AuthGuard } from "src/components/AuthGuard";
+import { dependencies } from "src/dependencies";
 
 export default function App({ Component, pageProps }: AppProps) {
+  const storeRef = useRef<Store>();
+  if (!storeRef.current) storeRef.current = configureStore(dependencies);
+
   return (
     <>
       <Meta />
       <ThemeProvider attribute="class">
         <Theme accentColor={"iris"} panelBackground="translucent">
-          <Provider store={store}>
+          <Provider store={storeRef.current}>
             <AuthGuard>
               <Component {...pageProps} />
             </AuthGuard>

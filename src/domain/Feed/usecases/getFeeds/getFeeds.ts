@@ -1,4 +1,4 @@
-import { createAppAsyncThunk } from "src/store/thunk";
+import { createAppAsyncThunk } from "src/thunk";
 import { isAfter } from "src/utils/date";
 import { normalize } from "./utils";
 
@@ -20,5 +20,5 @@ export const getFeeds = createAppAsyncThunk(
       });
     });
     return normalize(data);
-  }
+  },
 );

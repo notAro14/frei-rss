@@ -22,7 +22,7 @@ export function UnreadArticles() {
       if (entries[0].isIntersecting) {
         const next = unreadFeedItemIds.slice(
           count.current,
-          count.current + STEP
+          count.current + STEP,
         );
         if (!next.length) {
           instance.disconnect();

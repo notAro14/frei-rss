@@ -1,12 +1,12 @@
 import { createAction } from "@reduxjs/toolkit";
 import { FeedItem } from "src/domain/Feed/entities/Feed";
-import { createAppAsyncThunk } from "src/store/thunk";
+import { createAppAsyncThunk } from "src/thunk";
 
 interface MarkFeedItemAsReadArg {
   feedItemId: string;
 }
 export const updateFeedItemAsRead = createAction<MarkFeedItemAsReadArg>(
-  "feedItem/updateFeedItemAsRead"
+  "feedItem/updateFeedItemAsRead",
 );
 export const markFeedItemAsRead = createAppAsyncThunk<
   FeedItem,
@@ -19,7 +19,7 @@ export const markFeedItemAsRead = createAppAsyncThunk<
     } = extra;
     if (!feedReaderGateway?.updateFeedItemReadingStatus) {
       throw new Error(
-        "FeedReaderGateway.updateFeedItemReadingStatus is not defined"
+        "FeedReaderGateway.updateFeedItemReadingStatus is not defined",
       );
     }
 
@@ -27,11 +27,11 @@ export const markFeedItemAsRead = createAppAsyncThunk<
     try {
       const feedItem = await feedReaderGateway.updateFeedItemReadingStatus(
         feedItemId,
-        "READ"
+        "READ",
       );
       return feedItem;
     } catch (e) {
       return rejectWithValue("Could not mark feed item as read");
     }
-  }
+  },
 );

@@ -1,4 +1,4 @@
-import { createAppAsyncThunk } from "src/store/thunk";
+import { createAppAsyncThunk } from "src/thunk";
 import {
   removeFeedInit,
   removeFeedDone,

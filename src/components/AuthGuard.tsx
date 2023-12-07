@@ -30,7 +30,7 @@ export function AuthGuard(props: { children: ReactNode }) {
           signIn({
             id: session.user.id,
             email: session.user.email ?? "Unknown email",
-          })
+          }),
         );
       } else {
         dispatch(signOut());

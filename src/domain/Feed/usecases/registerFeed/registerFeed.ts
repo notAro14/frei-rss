@@ -1,4 +1,4 @@
-import { createAppAsyncThunk } from "src/store/thunk";
+import { createAppAsyncThunk } from "src/thunk";
 
 export const registerFeed = createAppAsyncThunk(
   "feed/registerFeed",
@@ -17,8 +17,8 @@ export const registerFeed = createAppAsyncThunk(
       return res;
     } catch (e) {
       return rejectWithValue(
-        e instanceof Error ? e.message : "Failed to register feed"
+        e instanceof Error ? e.message : "Failed to register feed",
       );
     }
-  }
+  },
 );
