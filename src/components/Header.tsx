@@ -51,7 +51,6 @@ export function Header() {
             <Flex
               direction={"column"}
               position={"fixed"}
-              justify={"between"}
               bottom={"0"}
               left={"0"}
               right={"0"}
@@ -59,8 +58,21 @@ export function Header() {
               gap={"6"}
               style={{
                 backgroundColor: "var(--color-page-background)",
+                height: "96%",
               }}
             >
+              <Drawer.Close asChild>
+                <Button
+                  style={{
+                    position: "absolute",
+                    right: "var(--space-4)",
+                    top: "var(--space-4)",
+                  }}
+                  variant="ghost"
+                >
+                  Done
+                </Button>
+              </Drawer.Close>
               <Box
                 width={"8"}
                 height={"1"}
