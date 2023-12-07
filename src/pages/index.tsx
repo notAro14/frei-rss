@@ -1,23 +1,9 @@
-import { type ReactNode } from "react";
-import { Box, Container, Tabs } from "@radix-ui/themes";
-
-import useGetFeeds from "src/hooks/useGetFeeds";
+import { Box, Tabs } from "@radix-ui/themes";
 
 import { AddFeedForm } from "src/components/AddFeedForm";
-import { Header } from "src/components/Header";
 import { ThisMonthArticles } from "src/components/ThisMonthArticles";
 import { UnreadArticles } from "src/components/UnreadArticles";
-
-function Layout(props: { children: ReactNode }) {
-  useGetFeeds();
-  const { children } = props;
-  return (
-    <Container size={"2"} p={"4"}>
-      <Header />
-      {children}
-    </Container>
-  );
-}
+import { Layout } from "src/components/Layout";
 
 export default function HomePage() {
   return (
