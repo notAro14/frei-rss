@@ -6,9 +6,6 @@ export const registerFeed = createAppAsyncThunk(
     const {
       dependencies: { feedReaderGateway },
     } = extra;
-    if (!feedReaderGateway?.registerFeed)
-      throw new Error("FeedReaderGateway.registerFeed is not defined");
-
     const userId = getState().auth.user?.id;
     if (!userId) throw new Error("Unauthorised");
 

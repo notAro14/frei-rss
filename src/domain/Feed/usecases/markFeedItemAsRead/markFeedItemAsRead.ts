@@ -17,12 +17,6 @@ export const markFeedItemAsRead = createAppAsyncThunk<
     const {
       dependencies: { feedReaderGateway },
     } = extra;
-    if (!feedReaderGateway?.updateFeedItemReadingStatus) {
-      throw new Error(
-        "FeedReaderGateway.updateFeedItemReadingStatus is not defined",
-      );
-    }
-
     dispatch(updateFeedItemAsRead({ feedItemId }));
     try {
       const feedItem = await feedReaderGateway.updateFeedItemReadingStatus(

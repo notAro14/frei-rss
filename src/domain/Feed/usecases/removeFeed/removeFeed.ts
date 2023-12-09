@@ -11,12 +11,9 @@ export const removeFeed = createAppAsyncThunk<void, { feedId: string }>(
     const {
       dependencies: { feedReaderGateway },
     } = extra;
-    if (!feedReaderGateway?.deleteFeed)
-      throw new Error("FeedReaderGateway.deleteFeed is not defined");
-
     const timerId = setTimeout(async () => {
       try {
-        await feedReaderGateway?.deleteFeed?.(feedId);
+        await feedReaderGateway.deleteFeed(feedId);
         dispatch(removeFeedDone({ feedId }));
       } catch (e) {
         dispatch(removeFeedCancel({ feedId }));

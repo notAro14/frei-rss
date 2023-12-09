@@ -1,6 +1,6 @@
 import "@radix-ui/themes/styles.css";
 
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { ThemeProvider } from "next-themes";
 import Head from "next/head";
 import { Theme } from "@radix-ui/themes";
@@ -11,11 +11,23 @@ import { Toaster } from "react-hot-toast";
 import { type Store, configureStore } from "src/store";
 
 import { AuthGuard } from "src/components/AuthGuard";
-import { dependencies } from "src/dependencies";
+import {
+  dependencies,
+  registerOnAuthStateChangedListener,
+} from "src/dependencies";
 
 export default function App({ Component, pageProps }: AppProps) {
-  const storeRef = useRef<Store>();
+  const storeRef = useRef<Store | null>(null);
+  const unsubscribeRef = useRef<(() => void) | null>(null);
+
   if (!storeRef.current) storeRef.current = configureStore(dependencies);
+
+  useEffect(() => {
+    const store = storeRef.current;
+    if (store)
+      unsubscribeRef.current = registerOnAuthStateChangedListener(store);
+    return () => unsubscribeRef.current?.();
+  }, []);
 
   return (
     <>

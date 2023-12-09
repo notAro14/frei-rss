@@ -5,6 +5,7 @@ import {
 } from "react-redux";
 import { configureStore as _configureStore } from "@reduxjs/toolkit";
 import type { FeedReaderGateway } from "src/domain/Feed/gateways/FeedReader.gateway";
+import type { AuthGateway } from "src/domain/Auth/gateways/Auth.gateway";
 import {
   getFeedsSlice,
   GetFeeds,
@@ -24,7 +25,7 @@ import {
   authSlice,
   type Auth,
   initialState as authSliceState,
-} from "src/domain/Auth/auth.reducer";
+} from "src/domain/Auth/auth.slice";
 
 export function configureStore(
   dependencies: Dependencies,
@@ -52,9 +53,10 @@ export function configureStore(
     },
   });
 }
-export type Dependencies = Partial<{
+export type Dependencies = {
   feedReaderGateway: FeedReaderGateway;
-}>;
+  authGateway: AuthGateway;
+};
 export type Store = ReturnType<typeof configureStore>;
 // export type State = ReturnType<Store["getState"]>;
 export interface State {
