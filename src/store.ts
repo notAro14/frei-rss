@@ -4,28 +4,28 @@ import {
   useDispatch as _useDispatch,
 } from "react-redux";
 import { configureStore as _configureStore } from "@reduxjs/toolkit";
-import type { FeedReaderGateway } from "src/domain/Feed/gateways/FeedReader.gateway";
-import type { AuthGateway } from "src/domain/Auth/gateways/Auth.gateway";
+import type { FeedReaderGateway } from "src/lib/Feed/gateways/FeedReader.gateway";
+import type { AuthGateway } from "src/lib/Auth/gateways/Auth.gateway";
 import {
   getFeedsSlice,
   GetFeeds,
   initialState as getFeedsState,
-} from "src/domain/Feed/usecases/getFeeds/getFeeds.reducer";
+} from "src/lib/Feed/usecases/getFeeds/getFeeds.reducer";
 import {
   RegisterFeed,
   registerFeedSlice,
   initialState as registerFeedState,
-} from "src/domain/Feed/usecases/registerFeed/registerFeed.reducer";
+} from "src/lib/Feed/usecases/registerFeed/registerFeed.reducer";
 import {
   RemoveFeed,
   removeFeedSlice,
   initialState as removeFeedState,
-} from "src/domain/Feed/usecases/removeFeed/removeFeed.reducer";
+} from "src/lib/Feed/usecases/removeFeed/removeFeed.reducer";
 import {
   authSlice,
   type Auth,
   initialState as authSliceState,
-} from "src/domain/Auth/auth.slice";
+} from "src/lib/Auth/auth.slice";
 
 export function configureStore(
   dependencies: Dependencies,

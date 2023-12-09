@@ -4,7 +4,7 @@ import { Card, Text, Flex, Link, IconButton } from "@radix-ui/themes";
 
 import { useDispatch, useSelector } from "src/store";
 import { getArticle } from "../selectors/getArticle.selector";
-import { markFeedItemAsRead } from "src/domain/Feed/usecases/markFeedItemAsRead";
+import { markFeedItemAsRead } from "src/lib/Feed/usecases/markFeedItemAsRead";
 
 interface Props {
   id: string;

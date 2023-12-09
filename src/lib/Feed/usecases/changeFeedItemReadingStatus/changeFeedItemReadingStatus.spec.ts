@@ -1,11 +1,11 @@
 import { configureStore, State, Store } from "src/store";
-import { FeedReaderInMemoryGateway } from "src/domain/Feed/gateways/FeedReaderInMemory.gateway";
+import { FeedReaderInMemoryGateway } from "src/lib/Feed/gateways/FeedReaderInMemory.gateway";
 import {
   PRELOADED_STATE,
   MOCK,
   FEED_ITEM_ID,
   NORMALIZED_MOCK,
-} from "src/domain/Feed/mocks";
+} from "src/lib/Feed/mocks";
 import { changeFeedItemReadingStatus } from "./changeFeedItemReadingStatus";
 
 describe("Update feed item reading status", () => {

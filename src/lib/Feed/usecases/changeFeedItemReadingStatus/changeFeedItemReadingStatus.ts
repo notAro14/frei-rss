@@ -1,5 +1,5 @@
 import { createAppAsyncThunk } from "src/thunk";
-import { FeedItem } from "src/domain/Feed/entities/Feed";
+import { FeedItem } from "src/lib/Feed/entities/Feed";
 
 export const changeFeedItemReadingStatus = createAppAsyncThunk<
   FeedItem,

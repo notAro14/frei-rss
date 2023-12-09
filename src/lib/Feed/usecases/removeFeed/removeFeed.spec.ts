@@ -1,8 +1,8 @@
 import { State, Store, configureStore } from "src/store";
-import type { FeedReaderGateway } from "src/domain/Feed/gateways/FeedReader.gateway";
-import { FeedReaderInMemoryGateway } from "src/domain/Feed/gateways/FeedReaderInMemory.gateway";
-import { getFeeds } from "src/domain/Feed/usecases/getFeeds";
-import { MOCK, FEED_ID, NORMALIZED_MOCK } from "src/domain/Feed/mocks";
+import type { FeedReaderGateway } from "src/lib/Feed/gateways/FeedReader.gateway";
+import { FeedReaderInMemoryGateway } from "src/lib/Feed/gateways/FeedReaderInMemory.gateway";
+import { getFeeds } from "src/lib/Feed/usecases/getFeeds";
+import { MOCK, FEED_ID, NORMALIZED_MOCK } from "src/lib/Feed/mocks";
 import { removeFeed } from "./removeFeed";
 import { removeFeedCancel } from "./removeFeed.reducer";
 

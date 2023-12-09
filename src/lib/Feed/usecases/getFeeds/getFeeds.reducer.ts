@@ -2,15 +2,15 @@ import { createSlice } from "@reduxjs/toolkit";
 import type {
   NormalizedFeedItem,
   NormalizedFeed,
-} from "src/domain/Feed/entities/Feed";
+} from "src/lib/Feed/entities/Feed";
 import { getFeeds } from "./getFeeds";
 import {
   updateFeedItemAsRead,
   markFeedItemAsRead,
-} from "src/domain/Feed/usecases/markFeedItemAsRead";
+} from "src/lib/Feed/usecases/markFeedItemAsRead";
 // import { removeFeed } from "src/domain/Feed/usecases/removeFeed/removeFeed";
-import { removeFeedDone } from "src/domain/Feed/usecases/removeFeed/removeFeed.reducer";
-import { changeFeedItemReadingStatus } from "src/domain/Feed/usecases/changeFeedItemReadingStatus/changeFeedItemReadingStatus";
+import { removeFeedDone } from "src/lib/Feed/usecases/removeFeed/removeFeed.reducer";
+import { changeFeedItemReadingStatus } from "src/lib/Feed/usecases/changeFeedItemReadingStatus/changeFeedItemReadingStatus";
 export const initialState: GetFeeds = {
   result: null,
   entities: null,
@@ -58,7 +58,7 @@ export const getFeedsSlice = createSlice({
         if (state.entities?.feedItems) {
           state.entities.feedItems[id].readStatus = readStatus;
         }
-      }
+      },
     );
   },
 });

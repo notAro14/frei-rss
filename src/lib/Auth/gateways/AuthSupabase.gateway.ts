@@ -2,8 +2,8 @@ import { supabase } from "src/utils/supabaseClient";
 import type {
   AuthGateway,
   OnAuthStateChangedListener,
-} from "src/domain/Auth/gateways/Auth.gateway";
-import { type User } from "src/domain/Auth/entities/User";
+} from "src/lib/Auth/gateways/Auth.gateway";
+import { type User } from "src/lib/Auth/entities/User";
 
 export class AuthSupabase implements AuthGateway {
   async signInWithSocial(provider: "github" = "github"): Promise<void> {

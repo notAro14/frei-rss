@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, Flex, Button, Text, TextFieldInput } from "@radix-ui/themes";
 
 import { useSelector, useDispatch } from "src/store";
-import { registerFeed } from "src/domain/Feed/usecases/registerFeed/registerFeed";
+import { registerFeed } from "src/lib/Feed/usecases/registerFeed/registerFeed";
 
 const addFeedFormInSchema = z.object({
   feed: z

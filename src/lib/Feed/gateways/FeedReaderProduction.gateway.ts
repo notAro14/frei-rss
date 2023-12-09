@@ -1,4 +1,4 @@
-import type { Feed, FeedItem } from "src/domain/Feed/entities/Feed";
+import type { Feed, FeedItem } from "src/lib/Feed/entities/Feed";
 import type { FeedReaderGateway } from "./FeedReader.gateway";
 import { supabase } from "src/utils/supabaseClient";
 

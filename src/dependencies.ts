@@ -1,7 +1,7 @@
-import { AuthSupabase } from "src/domain/Auth/gateways/AuthSupabase.gateway";
-import { FeedReaderProductionGateway as FeedReaderGateway } from "src/domain/Feed/gateways/FeedReaderProduction.gateway";
+import { AuthSupabase } from "src/lib/Auth/gateways/AuthSupabase.gateway";
+import { FeedReaderProductionGateway as FeedReaderGateway } from "src/lib/Feed/gateways/FeedReaderProduction.gateway";
 import { Store, type Dependencies } from "src/store";
-import { onAuthStateChangedListener } from "src/domain/Auth/usecases/onAuthStateChangeListener";
+import { onAuthStateChangedListener } from "src/lib/Auth/usecases/onAuthStateChangeListener";
 
 const authGateway = new AuthSupabase();
 const feedReaderGateway = new FeedReaderGateway();
