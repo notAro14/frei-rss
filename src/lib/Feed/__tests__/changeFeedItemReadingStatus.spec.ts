@@ -1,5 +1,6 @@
-import { configureStore, State, Store } from "src/store";
+import { configureStore, type State, type Store } from "src/store";
 import { FeedReaderInMemoryGateway } from "src/lib/Feed/gateways/FeedReaderInMemory.gateway";
+import { AuthInMemoryGateway } from "src/lib/Auth/gateways/AuthInMemory.gateway";
 import {
   PRELOADED_STATE,
   MOCK,
@@ -10,11 +11,12 @@ import { changeFeedItemReadingStatus } from "src/lib/Feed/usecases/changeFeedIte
 
 describe("Update feed item reading status", () => {
   let store: Store;
-  let gateway: FeedReaderInMemoryGateway;
   let initialState: State;
   beforeEach(() => {
-    gateway = new FeedReaderInMemoryGateway(MOCK);
-    store = configureStore({ feedReaderGateway: gateway }, PRELOADED_STATE);
+    const feedReaderGateway = new FeedReaderInMemoryGateway(MOCK);
+    const authGateway = new AuthInMemoryGateway();
+    const dep = { feedReaderGateway, authGateway };
+    store = configureStore(dep, PRELOADED_STATE);
     initialState = store.getState();
   });
   it("should mark a feed item as 'Read later'", async () => {

@@ -1,7 +1,7 @@
 import { configureStore, State, Store } from "src/store";
-import type { FeedReaderGateway } from "src/lib/Feed/models/FeedReader.gateway";
 import { getFeeds } from "src/lib/Feed/usecases/getFeeds";
 import { FeedReaderInMemoryGateway } from "src/lib/Feed/gateways/FeedReaderInMemory.gateway";
+import { AuthInMemoryGateway } from "src/lib/Auth/gateways/AuthInMemory.gateway";
 import type { Feed } from "src/lib/Feed/models/Feed.entity";
 import { normalize } from "src/lib/Feed/utils/normalize";
 
@@ -24,13 +24,14 @@ const MOCK: Feed[] = [
 const NORMALIZED_MOCK = normalize(MOCK);
 
 describe("Get feeds", () => {
-  let gateway: FeedReaderGateway;
   let store: Store;
   let initialState: State;
 
   beforeEach(() => {
-    gateway = new FeedReaderInMemoryGateway(MOCK);
-    store = configureStore({ feedReaderGateway: gateway });
+    const feedReaderGateway = new FeedReaderInMemoryGateway(MOCK);
+    const authGateway = new AuthInMemoryGateway();
+    const dep = { feedReaderGateway, authGateway };
+    store = configureStore(dep);
     initialState = store.getState();
   });
 
