@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { registerFeed } from "./registerFeed";
+import { registerFeed } from "../usecases/registerFeed";
 
 export interface RegisterFeed {
   status: "success" | "pending" | "idle" | "error";

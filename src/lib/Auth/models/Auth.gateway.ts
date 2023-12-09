@@ -1,4 +1,4 @@
-import type { User } from "src/lib/Auth/entities/User";
+import type { User } from "src/lib/Auth/models/User.entity";
 
 export type OnAuthStateChangedListener = (user: User | null) => void;
 

@@ -3,7 +3,7 @@ import {
   removeFeedInit,
   removeFeedDone,
   removeFeedCancel,
-} from "./removeFeed.reducer";
+} from "src/lib/Feed/slices/removeFeed.slice";
 
 export const removeFeed = createAppAsyncThunk<void, { feedId: string }>(
   "feed/removeFeed",

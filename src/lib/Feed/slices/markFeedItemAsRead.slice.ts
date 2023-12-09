@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { markFeedItemAsRead } from "./markFeedItemAsRead";
+import { markFeedItemAsRead } from "../usecases/markFeedItemAsRead";
 
 export interface MarkFeedItemAsRead {
   status: "idle" | "pending" | "rejected" | "fulfilled";

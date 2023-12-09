@@ -6,7 +6,7 @@ import {
   FEED_ITEM_ID,
   NORMALIZED_MOCK,
 } from "src/lib/Feed/mocks";
-import { changeFeedItemReadingStatus } from "./changeFeedItemReadingStatus";
+import { changeFeedItemReadingStatus } from "src/lib/Feed/usecases/changeFeedItemReadingStatus";
 
 describe("Update feed item reading status", () => {
   let store: Store;

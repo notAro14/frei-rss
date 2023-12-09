@@ -1,6 +1,6 @@
 import { createAppAsyncThunk } from "src/thunk";
 import { isAfter } from "src/utils/date";
-import { normalize } from "./utils";
+import { normalize } from "src/lib/Feed/utils/normalize";
 
 export const getFeeds = createAppAsyncThunk(
   "feed/getFeeds",

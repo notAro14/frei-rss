@@ -1,5 +1,5 @@
 import { createSlice, createAction } from "@reduxjs/toolkit";
-import type { User } from "./entities/User";
+import type { User } from "../models/User.entity";
 
 export interface Auth {
   user: User | null;

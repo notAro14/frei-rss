@@ -1,8 +1,8 @@
 import { configureStore, State, Store } from "src/store";
-import type { FeedReaderGateway } from "src/lib/Feed/gateways/FeedReader.gateway";
-import { registerFeed } from "./registerFeed";
+import type { FeedReaderGateway } from "src/lib/Feed/models/FeedReader.gateway";
+import { registerFeed } from "src/lib/Feed/usecases/registerFeed";
 import { FeedReaderInMemoryGateway } from "src/lib/Feed/gateways/FeedReaderInMemory.gateway";
-import type { Feed } from "src/lib/Feed/entities/Feed";
+import type { Feed } from "src/lib/Feed/models/Feed.entity";
 import { PRELOADED_STATE } from "src/lib/Feed/mocks";
 
 const FEED_URL = "https://example.com/rss";

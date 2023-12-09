@@ -1,9 +1,9 @@
 import { configureStore, State, Store } from "src/store";
-import type { FeedReaderGateway } from "src/lib/Feed/gateways/FeedReader.gateway";
-import { getFeeds } from "./getFeeds";
+import type { FeedReaderGateway } from "src/lib/Feed/models/FeedReader.gateway";
+import { getFeeds } from "src/lib/Feed/usecases/getFeeds";
 import { FeedReaderInMemoryGateway } from "src/lib/Feed/gateways/FeedReaderInMemory.gateway";
-import type { Feed } from "src/lib/Feed/entities/Feed";
-import { normalize } from "./utils";
+import type { Feed } from "src/lib/Feed/models/Feed.entity";
+import { normalize } from "src/lib/Feed/utils/normalize";
 
 const MOCK: Feed[] = [
   {

@@ -1,5 +1,5 @@
-import type { FeedReaderGateway } from "./FeedReader.gateway";
-import type { Feed, FeedItem } from "src/lib/Feed/entities/Feed";
+import type { FeedReaderGateway } from "src/lib/Feed/models/FeedReader.gateway";
+import type { Feed, FeedItem } from "src/lib/Feed/models/Feed.entity";
 
 export class FeedReaderInMemoryGateway implements FeedReaderGateway {
   _feeds: Feed[] = [];

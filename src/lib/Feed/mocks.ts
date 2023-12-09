@@ -1,6 +1,6 @@
 import { INITIAL_STATE, State } from "src/store";
-import type { Feed } from "./entities/Feed";
-import { normalize } from "./usecases/getFeeds/utils";
+import type { Feed } from "./models/Feed.entity";
+import { normalize } from "./utils/normalize";
 
 export const FEED_URL = "https://example.com/rss";
 export const FEED_ID = "1";

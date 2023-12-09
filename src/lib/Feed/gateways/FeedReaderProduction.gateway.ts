@@ -1,5 +1,5 @@
-import type { Feed, FeedItem } from "src/lib/Feed/entities/Feed";
-import type { FeedReaderGateway } from "./FeedReader.gateway";
+import type { Feed, FeedItem } from "src/lib/Feed/models/Feed.entity";
+import type { FeedReaderGateway } from "src/lib/Feed/models/FeedReader.gateway";
 import { supabase } from "src/utils/supabaseClient";
 
 export class FeedReaderProductionGateway implements FeedReaderGateway {

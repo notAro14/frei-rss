@@ -1,9 +1,9 @@
 import { type Store } from "src/store";
-import { AuthGateway } from "src/lib/Auth/gateways/Auth.gateway";
+import { AuthGateway } from "src/lib/Auth/models/Auth.gateway";
 import {
   userAuthenticated,
   userUnAuthenticated,
-} from "src/lib/Auth/auth.slice";
+} from "src/lib/Auth/slices/auth.slice";
 
 export const onAuthStateChangedListener = ({
   authGateway,

@@ -1,5 +1,5 @@
 import { createAction } from "@reduxjs/toolkit";
-import { FeedItem } from "src/lib/Feed/entities/Feed";
+import { FeedItem } from "src/lib/Feed/models/Feed.entity";
 import { createAppAsyncThunk } from "src/thunk";
 
 interface MarkFeedItemAsReadArg {

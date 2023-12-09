@@ -1,10 +1,10 @@
 import { State, Store, configureStore } from "src/store";
-import type { FeedReaderGateway } from "src/lib/Feed/gateways/FeedReader.gateway";
+import type { FeedReaderGateway } from "src/lib/Feed/models/FeedReader.gateway";
 import { FeedReaderInMemoryGateway } from "src/lib/Feed/gateways/FeedReaderInMemory.gateway";
 import { getFeeds } from "src/lib/Feed/usecases/getFeeds";
 import { MOCK, FEED_ID, NORMALIZED_MOCK } from "src/lib/Feed/mocks";
-import { removeFeed } from "./removeFeed";
-import { removeFeedCancel } from "./removeFeed.reducer";
+import { removeFeed } from "src/lib/Feed/usecases/removeFeed";
+import { removeFeedCancel } from "src/lib/Feed/slices/removeFeed.slice";
 
 describe("Remove Feed", () => {
   let initialState: State;

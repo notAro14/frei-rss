@@ -1,10 +1,10 @@
 import { configureStore, State, Store, INITIAL_STATE } from "src/store";
-import type { FeedReaderGateway } from "src/lib/Feed/gateways/FeedReader.gateway";
-import type { Feed } from "src/lib/Feed/entities/Feed";
-import { normalize } from "src/lib/Feed/usecases/getFeeds/utils";
+import type { FeedReaderGateway } from "src/lib/Feed/models/FeedReader.gateway";
+import type { Feed } from "src/lib/Feed/models/Feed.entity";
+import { normalize } from "src/lib/Feed/utils/normalize";
 import { FeedReaderInMemoryGateway } from "src/lib/Feed/gateways/FeedReaderInMemory.gateway";
 
-import { markFeedItemAsRead } from "./markFeedItemAsRead";
+import { markFeedItemAsRead } from "src/lib/Feed/usecases/markFeedItemAsRead";
 
 describe("Mark feed item as read", () => {
   let feedReaderGateway: FeedReaderGateway;
