@@ -4,6 +4,7 @@ import { AddFeedForm } from "src/components/AddFeedForm";
 import { ThisMonthArticles } from "src/components/ThisMonthArticles";
 import { UnreadArticles } from "src/components/UnreadArticles";
 import { Layout } from "src/components/Layout";
+import { Feeds } from "src/components/Feeds";
 
 export default function HomePage() {
   return (
@@ -13,6 +14,7 @@ export default function HomePage() {
         <Tabs.List>
           <Tabs.Trigger value="this-month">This Month</Tabs.Trigger>
           <Tabs.Trigger value="unread">Unread</Tabs.Trigger>
+          <Tabs.Trigger value="all">All Feeds</Tabs.Trigger>
         </Tabs.List>
 
         <Box py={"4"}>
@@ -22,6 +24,10 @@ export default function HomePage() {
 
           <Tabs.Content value="unread">
             <UnreadArticles />
+          </Tabs.Content>
+
+          <Tabs.Content value="all">
+            <Feeds />
           </Tabs.Content>
         </Box>
       </Tabs.Root>

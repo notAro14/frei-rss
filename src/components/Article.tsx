@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { BookCheck } from "lucide-react";
-import { Card, Text, Flex, Link, IconButton } from "@radix-ui/themes";
+import { Card, Text, Flex, Link, IconButton, Badge } from "@radix-ui/themes";
 
 import { useDispatch, useSelector } from "src/store";
 import { getArticle } from "../selectors/getArticle.selector";
@@ -23,10 +23,15 @@ export function Article({ id }: Props) {
   return (
     <Card
       variant={isRead ? "ghost" : "surface"}
-      style={{ opacity: isRead ? "0.5" : "1" }}
+      style={{ opacity: isRead ? "0.65" : "1" }}
     >
       <Flex gap={"3"} align={"center"} justify={"between"}>
-        <Flex direction={"column"} gap={"2"}>
+        <Flex direction={"column"} gap={"2"} align={"start"}>
+          {isRead && (
+            <Badge variant="surface" color="grass">
+              Read
+            </Badge>
+          )}
           <Link
             weight={"bold"}
             size={{ initial: "4", xs: "6" }}
@@ -35,12 +40,7 @@ export function Article({ id }: Props) {
             rel="noopener"
             title={title}
           >
-            {title}{" "}
-            {isRead && (
-              <Text size={"4"} color="grass">
-                <BookCheck size={"1em"} />
-              </Text>
-            )}
+            {title}
           </Link>
           {date && <Text size={"1"}>{date}</Text>}
         </Flex>
