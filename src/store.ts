@@ -31,9 +31,6 @@ export function configureStore(
   dependencies: Dependencies,
   preloadedState?: State,
 ) {
-  if (typeof dependencies.feedReaderGateway === "undefined")
-    throw new Error("feedReaderGateway has not been injected");
-
   return _configureStore({
     reducer: {
       [getFeedsSlice.name]: getFeedsSlice.reducer,
@@ -58,7 +55,7 @@ export type Dependencies = {
   authGateway: AuthGateway;
 };
 export type Store = ReturnType<typeof configureStore>;
-// export type State = ReturnType<Store["getState"]>;
+
 export interface State {
   getFeeds: GetFeeds;
   registerFeed: RegisterFeed;
