@@ -8,4 +8,7 @@ module.exports = {
   },
   plugins: [],
   presets: [radixThemePreset],
+  corePlugins: {
+    preflight: false,
+  },
 };

@@ -1,4 +1,4 @@
-import { Box, Flex, Text } from "@radix-ui/themes";
+import { Badge, Box, Flex, Text } from "@radix-ui/themes";
 import { createSelector } from "@reduxjs/toolkit";
 import { State, useSelector } from "src/store";
 import { Article } from "src/components/Article";
@@ -28,12 +28,27 @@ export function Feeds() {
   const feeds = useSelector(getAllFeeds);
   if (!feeds) return null;
   return (
-    <Flex direction={"column"} gap={"4"}>
+    <Flex direction={"column"} gap={"2"}>
       {feeds.map((f) => (
-        <Box asChild key={f.id}>
-          <details>
-            <Text size={"4"} asChild>
-              <summary>{f.name}</summary>
+        <Box
+          p={"2"}
+          className="rounded-4 border-solid"
+          style={{
+            borderColor: "var(--gray-surface)",
+          }}
+          asChild
+          key={f.id}
+        >
+          <details key={f.id}>
+            <Text
+              asChild
+              className="flex cursor-pointer items-center justify-between gap-rx-2"
+              size={"4"}
+            >
+              <summary>
+                <span>{f.name}</span>
+                <Badge>{f.articleIds.length}</Badge>
+              </summary>
             </Text>
             <Flex direction={"column"} gap={"8"} p={"4"}>
               {f.articleIds.map((id) => (
