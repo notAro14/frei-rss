@@ -53,11 +53,7 @@ export function Auth() {
           as="h1"
           id="logo"
           size={{ initial: "6", xs: "8" }}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "var(--space-2)",
-          }}
+          className="flex items-center gap-rx-2"
         >
           <Rss size={"1em"} /> FreiRSS
         </Heading>

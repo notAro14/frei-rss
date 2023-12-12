@@ -23,11 +23,7 @@ export function Header() {
           as="h1"
           id="logo"
           size={{ initial: "6", xs: "8" }}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: "var(--space-2)",
-          }}
+          className="flex items-center gap-rx-2"
         >
           <Rss size={"1em"} /> FreiRSS
         </Heading>
@@ -41,9 +37,8 @@ export function Header() {
       <Drawer.Portal>
         <Theme>
           <Drawer.Overlay
+            className="rx- fixed inset-0"
             style={{
-              position: "fixed",
-              inset: 0,
               backgroundColor: "var(--gray-a10)",
             }}
           />
@@ -56,18 +51,14 @@ export function Header() {
               right={"0"}
               p={"4"}
               gap={"6"}
+              className="h-5/6"
               style={{
                 backgroundColor: "var(--color-page-background)",
-                height: "96%",
               }}
             >
               <Drawer.Close asChild>
                 <Button
-                  style={{
-                    position: "absolute",
-                    right: "var(--space-4)",
-                    top: "var(--space-4)",
-                  }}
+                  className="absolute right-rx-4 top-rx-4"
                   variant="ghost"
                 >
                   Done
@@ -77,9 +68,9 @@ export function Header() {
                 width={"8"}
                 height={"1"}
                 mx={"auto"}
+                className="rounded-item"
                 style={{
                   backgroundColor: "var(--gray-a10)",
-                  borderRadius: 9999,
                 }}
               />
               <Flex direction={"column"} gap={"8"}>

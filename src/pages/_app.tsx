@@ -1,4 +1,5 @@
 import "@radix-ui/themes/styles.css";
+import "src/globals.css";
 
 import { useEffect, useRef } from "react";
 import { ThemeProvider } from "next-themes";

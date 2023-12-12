@@ -23,7 +23,7 @@ export function Article({ id }: Props) {
   return (
     <Card
       variant={isRead ? "ghost" : "surface"}
-      style={{ opacity: isRead ? "0.65" : "1" }}
+      className={isRead ? "opacity-60" : "opacity-100"}
     >
       <Flex gap={"3"} align={"center"} justify={"between"}>
         <Flex direction={"column"} gap={"2"} align={"start"}>
