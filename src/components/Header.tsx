@@ -39,7 +39,7 @@ export function Header() {
           <Drawer.Overlay
             className="rx- fixed inset-0"
             style={{
-              backgroundColor: "var(--gray-a10)",
+              backgroundColor: "var(--color-overlay)",
             }}
           />
           <Drawer.Content asChild>
