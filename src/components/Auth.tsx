@@ -1,21 +1,18 @@
-import { useState } from "react";
 import { Github, Rss } from "lucide-react";
-import {
-  Button,
-  Heading,
-  Text,
-  Container,
-  Flex,
-  Separator,
-  Box,
-  Grid,
-} from "@radix-ui/themes";
+import { Button, Heading, Flex, Grid } from "@radix-ui/themes";
 import toast from "react-hot-toast";
 
-import { supabase } from "src/utils/supabaseClient";
+import { useDispatch, useSelector } from "src/store";
+import { signInWithGithub } from "src/lib/Auth/usecases/signInWithSocial";
+import { useEffect } from "react";
 
 export function Auth() {
-  const [loading, setLoading] = useState(false);
+  const signInError = useSelector((state) => state.auth.error);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (signInError) toast.error(signInError);
+  }, [signInError]);
 
   return (
     <Grid className="h-lvh h-100dvh place-items-center">
@@ -29,19 +26,10 @@ export function Auth() {
           <Rss size={"1em"} /> FreiRSS
         </Heading>
 
-        <Button size={"3"} disabled={loading} onClick={signInWithGithub}>
+        <Button size={"3"} onClick={() => dispatch(signInWithGithub())}>
           <Github size={16} /> Sign in With Github
         </Button>
       </Flex>
     </Grid>
   );
-
-  async function signInWithGithub() {
-    setLoading(true);
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: "github",
-    });
-    if (error) toast.error(error.message);
-    setLoading(false);
-  }
 }

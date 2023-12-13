@@ -6,8 +6,12 @@ import type {
 import { type User } from "src/lib/Auth/models/User.entity";
 
 export class AuthSupabase implements AuthGateway {
-  async signInWithSocial(provider: "github" = "github"): Promise<void> {
-    await supabase.auth.signInWithOAuth({ provider });
+  async signInWithSocial(
+    provider: "github" = "github",
+  ): Promise<{ ok: true; error: null } | { ok: false; error: string }> {
+    const { error } = await supabase.auth.signInWithOAuth({ provider });
+    if (error) return { error: error.message, ok: false };
+    return { ok: true, error: null };
   }
 
   onAuthStateChangedListener(listener: OnAuthStateChangedListener): () => void {
