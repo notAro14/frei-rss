@@ -33,7 +33,7 @@ describe("Register feed", () => {
     const dep = { feedReaderGateway, authGateway };
     store = configureStore(dep, {
       ...PRELOADED_STATE,
-      auth: { user: { id: "1234", email: "" } },
+      auth: { user: { id: "1234", email: "" }, error: null },
     });
     initialState = store.getState();
   });
