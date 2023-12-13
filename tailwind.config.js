@@ -4,7 +4,11 @@ const { radixThemePreset } = require("radix-themes-tw");
 module.exports = {
   content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
   theme: {
-    extend: {},
+    extend: {
+      height: {
+        "100dvh": "100dvh",
+      },
+    },
   },
   plugins: [],
   presets: [radixThemePreset],
