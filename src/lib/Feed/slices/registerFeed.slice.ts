@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { registerFeed } from "../usecases/registerFeed";
+import { signOut } from "src/lib/Auth/usecases/signOut";
+import { registerFeed } from "src/lib/Feed/usecases/registerFeed";
 
 export interface RegisterFeed {
   status: "success" | "pending" | "idle" | "error";
@@ -29,6 +30,10 @@ export const registerFeedSlice = createSlice({
     builder.addCase(registerFeed.rejected, function (state, action) {
       state.status = "error";
       if (action.payload) state.message = action.payload;
+    });
+
+    builder.addCase(signOut.fulfilled, (state) => {
+      state = initialState;
     });
   },
 });

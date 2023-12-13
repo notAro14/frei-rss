@@ -7,4 +7,5 @@ export interface AuthGateway {
     provider: "github",
   ): Promise<{ ok: true; error: null } | { ok: false; error: string }>;
   onAuthStateChangedListener(listener: OnAuthStateChangedListener): () => void;
+  signOut(): Promise<void>;
 }

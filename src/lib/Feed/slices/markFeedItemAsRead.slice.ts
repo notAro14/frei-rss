@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { markFeedItemAsRead } from "../usecases/markFeedItemAsRead";
+import { signOut } from "src/lib/Auth/usecases/signOut";
+import { markFeedItemAsRead } from "src/lib/Feed/usecases/markFeedItemAsRead";
 
 export interface MarkFeedItemAsRead {
   status: "idle" | "pending" | "rejected" | "fulfilled";
@@ -19,6 +20,9 @@ export const markFeedItemAsReadSlice = createSlice({
     });
     builder.addCase(markFeedItemAsRead.fulfilled, function (state) {
       state.status = "fulfilled";
+    });
+    builder.addCase(signOut.fulfilled, (state) => {
+      state = initialState;
     });
   },
 });

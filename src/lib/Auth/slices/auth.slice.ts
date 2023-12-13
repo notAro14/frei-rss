@@ -1,6 +1,7 @@
 import { createSlice, createAction } from "@reduxjs/toolkit";
 import type { User } from "src/lib/Auth/models/User.entity";
 import { signInWithGithub } from "src/lib/Auth/usecases/signInWithSocial";
+import { signOut } from "src/lib/Auth/usecases/signOut";
 
 export interface Auth {
   user: User | null;
@@ -31,6 +32,9 @@ export const authSlice = createSlice({
     builder.addCase(signInWithGithub.rejected, (state, action) => {
       state.user = null;
       state.error = action.payload ?? "Failed to sign in";
+    });
+    builder.addCase(signOut.fulfilled, (state) => {
+      state = initialState;
     });
   },
 });

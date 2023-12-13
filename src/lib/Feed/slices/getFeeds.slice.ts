@@ -8,9 +8,10 @@ import {
   updateFeedItemAsRead,
   markFeedItemAsRead,
 } from "src/lib/Feed/usecases/markFeedItemAsRead";
-// import { removeFeed } from "src/domain/Feed/usecases/removeFeed/removeFeed";
 import { removeFeedDone } from "src/lib/Feed/slices/removeFeed.slice";
 import { changeFeedItemReadingStatus } from "src/lib/Feed/usecases/changeFeedItemReadingStatus";
+import { signOut } from "src/lib/Auth/usecases/signOut";
+
 export const initialState: GetFeeds = {
   result: null,
   entities: null,
@@ -60,6 +61,9 @@ export const getFeedsSlice = createSlice({
         }
       },
     );
+    builder.addCase(signOut.fulfilled, (state) => {
+      state = initialState;
+    });
   },
 });
 

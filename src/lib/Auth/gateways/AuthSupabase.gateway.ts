@@ -25,4 +25,8 @@ export class AuthSupabase implements AuthGateway {
     });
     return subscription.unsubscribe;
   }
+
+  async signOut(): Promise<void> {
+    await supabase.auth.signOut();
+  }
 }

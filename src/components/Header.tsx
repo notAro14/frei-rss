@@ -10,11 +10,12 @@ import {
   Theme,
 } from "@radix-ui/themes";
 import { Rss, Menu } from "lucide-react";
-import { useSelector } from "src/store";
-import { supabase } from "src/utils/supabaseClient";
+import { useDispatch, useSelector } from "src/store";
+import { signOut } from "src/lib/Auth/usecases/signOut";
 
 export function Header() {
   const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
   if (!user) return null;
   return (
     <Drawer.Root>
@@ -83,9 +84,7 @@ export function Header() {
                 <Button
                   size={"3"}
                   color="crimson"
-                  onClick={async () => {
-                    await supabase.auth.signOut();
-                  }}
+                  onClick={() => dispatch(signOut())}
                 >
                   Sign out
                 </Button>

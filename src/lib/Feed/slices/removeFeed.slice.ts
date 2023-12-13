@@ -1,4 +1,5 @@
 import { createSlice, createAction } from "@reduxjs/toolkit";
+import { signOut } from "src/lib/Auth/usecases/signOut";
 
 export const initialState: RemoveFeed = {
   status: "idle",
@@ -10,16 +11,6 @@ export const removeFeedSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers(builder) {
-    // builder.addCase(removeFeed.pending, (state) => {
-    //   state.status = "pending";
-    // });
-    // builder.addCase(removeFeed.fulfilled, (state) => {
-    //   state.status = "fulfilled";
-    // });
-    // builder.addCase(removeFeed.rejected, (state) => {
-    //   state.status = "rejected";
-    // });
-
     builder.addCase(removeFeedInit, (state, action) => {
       const { feedId, timerId } = action.payload;
       state.feedToRemove = {
@@ -41,6 +32,9 @@ export const removeFeedSlice = createSlice({
       delete state.feedToRemove[action.payload.feedId];
       state.status = "fulfilled";
     });
+    builder.addCase(signOut.fulfilled, (state) => {
+      state = initialState;
+    });
   },
 });
 
@@ -58,8 +52,8 @@ export const removeFeedInit = createAction<{
   timerId: NodeJS.Timeout;
 }>("feed/removeFeed/init");
 export const removeFeedCancel = createAction<{ feedId: string }>(
-  "feed/removeFeed/cancel"
+  "feed/removeFeed/cancel",
 );
 export const removeFeedDone = createAction<{ feedId: string }>(
-  "feed/removeFeed/done"
+  "feed/removeFeed/done",
 );
