@@ -1,5 +1,9 @@
 import type { FeedReaderGateway } from "src/lib/Feed/models/FeedReader.gateway";
-import type { Feed, FeedItem } from "src/lib/Feed/models/Feed.entity";
+import type {
+  Feed,
+  FeedFreshlyParsed,
+  FeedItem,
+} from "src/lib/Feed/models/Feed.entity";
 
 export class FeedReaderInMemoryGateway implements FeedReaderGateway {
   _feeds: Feed[] = [];
@@ -32,5 +36,8 @@ export class FeedReaderInMemoryGateway implements FeedReaderGateway {
   }
   async deleteFeed(id: string): Promise<{ feedId: string }> {
     return { feedId: id };
+  }
+  async parse(_url: string): Promise<string | FeedFreshlyParsed> {
+    return "";
   }
 }
