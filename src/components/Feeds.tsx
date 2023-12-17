@@ -1,29 +1,8 @@
-import { Badge, Box, Flex, Text } from "@radix-ui/themes";
-import { createSelector } from "@reduxjs/toolkit";
-import { State, useSelector } from "src/store";
+import { Flex, Text } from "@radix-ui/themes";
+import { useSelector } from "src/store";
 import { Article } from "src/components/Article";
 import styles from "./Feeds.module.css";
-
-const getAllFeeds = createSelector(
-  [
-    (state: State) => state.getFeeds.entities?.feeds,
-    (state: State) => state.getFeeds.result,
-  ],
-  (feeds, feedIds) => {
-    if (!feeds) return null;
-    if (!feedIds) return null;
-
-    const res = feedIds.map((id) => {
-      const feed = feeds[id];
-      return {
-        id: feed.id,
-        name: feed.name,
-        articleIds: feed.feedItems,
-      };
-    });
-    return res;
-  },
-);
+import { getAllFeeds } from "src/selectors/getAllFeeds.selector";
 
 export function Feeds() {
   const feeds = useSelector(getAllFeeds);
