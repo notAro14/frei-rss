@@ -1,8 +1,9 @@
-import { Flex, Text } from "@radix-ui/themes";
+import { Button, Flex, Text } from "@radix-ui/themes";
+import { RefreshCcw } from "lucide-react";
 import { useSelector } from "src/store";
 import { Article } from "src/components/Article";
-import styles from "./Feeds.module.css";
 import { getAllFeeds } from "src/selectors/getAllFeeds.selector";
+import styles from "./Feeds.module.css";
 
 export function Feeds() {
   const feeds = useSelector(getAllFeeds);
@@ -17,7 +18,11 @@ export function Feeds() {
               {/* <Badge>{f.articleIds.length}</Badge> */}
             </summary>
           </Text>
-          <Flex direction={"column"} gap={"8"} p={"4"}>
+          <Button mt={"5"} mb={"4"}>
+            <RefreshCcw size={"1em"} />
+            Sync
+          </Button>
+          <Flex direction={"column"} gap={"8"}>
             {f.articleIds.map((id) => (
               <Article key={id} id={id} />
             ))}

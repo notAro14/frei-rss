@@ -1,8 +1,8 @@
 .summary {
-  padding: var(--space-4) var(--space-2);
   cursor: pointer;
   outline: none;
   list-style: none;
+  user-select: none;
 }
 .summary::after,
 .summary::before {
@@ -13,10 +13,11 @@
 }
 .details {
   border: 1px solid var(--gray-5);
+  padding: var(--space-4);
 }
-.details[open] > .summary {
+/* .details[open] > .summary {
   font-weight: var(--font-weight-bold);
-}
+} */
 .details:first-of-type {
   border-top-right-radius: var(--radius-4);
   border-top-left-radius: var(--radius-4);
