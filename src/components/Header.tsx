@@ -38,7 +38,7 @@ export function Header() {
       <Drawer.Portal>
         <Theme>
           <Drawer.Overlay
-            className="rx- fixed inset-0"
+            className="fixed inset-0"
             style={{
               backgroundColor: "var(--color-overlay)",
             }}
