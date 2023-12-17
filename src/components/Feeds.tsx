@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from "@radix-ui/themes";
+import { Button, Flex, Text, Badge } from "@radix-ui/themes";
 import { RefreshCcw } from "lucide-react";
 import { useSelector } from "src/store";
 import { Article } from "src/components/Article";
@@ -15,10 +15,10 @@ export function Feeds() {
           <Text asChild size={"4"}>
             <summary className={styles.summary}>
               <span>{f.name}</span>
-              {/* <Badge>{f.articleIds.length}</Badge> */}
+              <Badge>{f.articleIds.length}</Badge>
             </summary>
           </Text>
-          <Button mt={"5"} mb={"4"}>
+          <Button variant="soft" mt={"5"} mb={"4"}>
             <RefreshCcw size={"1em"} />
             Sync
           </Button>
