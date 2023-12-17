@@ -14,6 +14,7 @@ export const getAllFeeds = createSelector(
       const feed = feeds[id];
       return {
         id: feed.id,
+        url: feed.website,
         name: feed.name,
         articleIds: feed.feedItems,
       };

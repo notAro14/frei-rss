@@ -1,4 +1,8 @@
-import type { Feed, FeedItem } from "src/lib/Feed/models/Feed.entity";
+import type {
+  Feed,
+  FeedFreshlyParsed,
+  FeedItem,
+} from "src/lib/Feed/models/Feed.entity";
 
 export interface FeedReaderGateway {
   retrieveFeedList(): Promise<Feed[]>;
@@ -8,4 +12,5 @@ export interface FeedReaderGateway {
     status: "READ" | "UNREAD" | "READ_LATER",
   ): Promise<FeedItem>;
   deleteFeed(id: string): Promise<{ feedId: string }>;
+  parse(url: string): Promise<FeedFreshlyParsed | string>;
 }

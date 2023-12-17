@@ -1,12 +1,14 @@
 import { Button, Flex, Text, Badge } from "@radix-ui/themes";
 import { RefreshCcw } from "lucide-react";
-import { useSelector } from "src/store";
+import { useDispatch, useSelector } from "src/store";
 import { Article } from "src/components/Article";
 import { getAllFeeds } from "src/selectors/getAllFeeds.selector";
+import { syncFeed } from "src/lib/Feed/usecases/syncFeed";
 import styles from "./Feeds.module.css";
 
 export function Feeds() {
   const feeds = useSelector(getAllFeeds);
+  const dispatch = useDispatch();
   if (!feeds) return null;
   return (
     <Flex direction={"column"}>
@@ -18,7 +20,12 @@ export function Feeds() {
               <Badge>{f.articleIds.length}</Badge>
             </summary>
           </Text>
-          <Button variant="soft" mt={"5"} mb={"4"}>
+          <Button
+            onClick={() => dispatch(syncFeed({ feedId: f.id, feedUrl: f.url }))}
+            variant="soft"
+            mt={"5"}
+            mb={"4"}
+          >
             <RefreshCcw size={"1em"} />
             Sync
           </Button>

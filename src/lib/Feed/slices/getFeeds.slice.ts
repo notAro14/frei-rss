@@ -11,6 +11,7 @@ import {
 import { removeFeedDone } from "src/lib/Feed/slices/removeFeed.slice";
 import { changeFeedItemReadingStatus } from "src/lib/Feed/usecases/changeFeedItemReadingStatus";
 import { signOut } from "src/lib/Auth/usecases/signOut";
+import { syncFeed } from "src/lib/Feed/usecases/syncFeed";
 
 export const initialState: GetFeeds = {
   result: null,
@@ -26,6 +27,19 @@ export const getFeedsSlice = createSlice({
       state.isFulfilled = true;
       state.entities = action.payload.entities;
       state.result = action.payload.result;
+    });
+    builder.addCase(syncFeed.fulfilled, function (state, action) {
+      if (action.payload) {
+        const { feedId, newArticleIds, newArticles } = action.payload;
+        const prevArticles = state.entities!.feeds[feedId].feedItems;
+        state.entities!.feeds[feedId].feedItems = [
+          ...newArticleIds,
+          ...prevArticles,
+        ];
+        newArticles.forEach((a) => {
+          state.entities!.feedItems[a.id] = a;
+        });
+      }
     });
     builder.addCase(updateFeedItemAsRead, function (state, action) {
       const { feedItemId } = action.payload;

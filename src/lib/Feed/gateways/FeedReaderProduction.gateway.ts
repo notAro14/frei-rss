@@ -1,6 +1,11 @@
-import type { Feed, FeedItem } from "src/lib/Feed/models/Feed.entity";
+import type {
+  Feed,
+  FeedFreshlyParsed,
+  FeedItem,
+} from "src/lib/Feed/models/Feed.entity";
 import type { FeedReaderGateway } from "src/lib/Feed/models/FeedReader.gateway";
 import { supabase } from "src/utils/supabaseClient";
+import { parseFeed } from "src/lib/Feed/utils/parse";
 
 export class FeedReaderProductionGateway implements FeedReaderGateway {
   async retrieveFeedList(): Promise<Feed[]> {
@@ -100,5 +105,25 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
     return {
       feedId: id,
     };
+  }
+
+  async parse(url: string): Promise<FeedFreshlyParsed | string> {
+    const response = await fetch("/api/parse-feed", {
+      method: "POST",
+      mode: "same-origin",
+      body: JSON.stringify({
+        url,
+      }),
+    });
+    const json = (await response.json()) as
+      | {
+          data: FeedFreshlyParsed;
+          ok: true;
+        }
+      | {
+          ok: false;
+          error: string;
+        };
+    return json.ok ? json.data : json.error;
   }
 }
