@@ -16,15 +16,13 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>,
 ) {
-  const { url } = JSON.parse(req.body) as { url: string };
   if (req.method === "POST") {
     try {
+      const { url } = JSON.parse(req.body) as { url: string };
       const feed = await parseFeed(url);
       res.status(200).json({ ok: true, data: feed });
     } catch (e) {
       res.status(500).json({ ok: false, error: "Failed to parse feed" });
     }
-    return;
-  }
-  res.status(403).json({ ok: false, error: "Method not allowed" });
+  } else res.status(403).json({ ok: false, error: "Method not allowed" });
 }
