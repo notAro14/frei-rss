@@ -24,6 +24,7 @@ export default async function handler(
     } catch (e) {
       res.status(500).json({ ok: false, error: "Failed to parse feed" });
     }
+    return;
   }
   res.status(403).json({ ok: false, error: "Method not allowed" });
 }
