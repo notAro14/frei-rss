@@ -9,7 +9,12 @@ export class AuthSupabase implements AuthGateway {
   async signInWithSocial(
     provider: "github" = "github",
   ): Promise<{ ok: true; error: null } | { ok: false; error: string }> {
-    const { error } = await supabase.auth.signInWithOAuth({ provider });
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider,
+      options: {
+        redirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
     if (error) return { error: error.message, ok: false };
     return { ok: true, error: null };
   }
