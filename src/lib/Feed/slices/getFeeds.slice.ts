@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAction, createSlice } from "@reduxjs/toolkit";
 import type {
   NormalizedFeedItem,
   NormalizedFeed,
@@ -12,6 +12,13 @@ import { removeFeedDone } from "src/lib/Feed/slices/removeFeed.slice";
 import { changeFeedItemReadingStatus } from "src/lib/Feed/usecases/changeFeedItemReadingStatus";
 import { signOut } from "src/lib/Auth/usecases/signOut";
 import { syncFeed } from "src/lib/Feed/usecases/syncFeed";
+import type { FeedItem } from "src/lib/Feed/models/Feed.entity";
+
+export const newArticlesFetched = createAction<{
+  feedId: string;
+  newArticles: FeedItem[];
+  newArticleIds: string[];
+}>("newArticlesFetched");
 
 export const initialState: GetFeeds = {
   result: null,
@@ -28,18 +35,16 @@ export const getFeedsSlice = createSlice({
       state.entities = action.payload.entities;
       state.result = action.payload.result;
     });
-    builder.addCase(syncFeed.fulfilled, function (state, action) {
-      if (action.payload && typeof action.payload !== "string") {
-        const { feedId, newArticleIds, newArticles } = action.payload;
-        const prevArticles = state.entities!.feeds[feedId].feedItems;
-        state.entities!.feeds[feedId].feedItems = [
-          ...newArticleIds,
-          ...prevArticles,
-        ];
-        newArticles.forEach((a) => {
-          state.entities!.feedItems[a.id] = a;
-        });
-      }
+    builder.addCase(newArticlesFetched, function (state, action) {
+      const { feedId, newArticleIds, newArticles } = action.payload;
+      const prevArticles = state.entities!.feeds[feedId].feedItems;
+      state.entities!.feeds[feedId].feedItems = [
+        ...newArticleIds,
+        ...prevArticles,
+      ];
+      newArticles.forEach((a) => {
+        state.entities!.feedItems[a.id] = a;
+      });
     });
     builder.addCase(updateFeedItemAsRead, function (state, action) {
       const { feedItemId } = action.payload;

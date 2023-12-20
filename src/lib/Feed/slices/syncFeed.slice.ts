@@ -27,11 +27,7 @@ export const syncFeedSlice = createSlice({
 
     builder.addCase(syncFeed.fulfilled, function (state, action) {
       state.status = "success";
-      if (typeof action.payload === "string") {
-        state.message = action.payload;
-        return;
-      }
-      state.message = "Synced";
+      state.message = action.payload ?? "Synced";
     });
 
     builder.addCase(syncFeed.rejected, function (state, action) {

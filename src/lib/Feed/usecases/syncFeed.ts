@@ -1,14 +1,16 @@
 import { createAppAsyncThunk } from "src/thunk";
 import { FeedItem } from "src/lib/Feed/models/Feed.entity";
+import { newArticlesFetched } from "../slices/getFeeds.slice";
 
 export const syncFeed = createAppAsyncThunk<
-  | void
-  | { feedId: string; newArticles: FeedItem[]; newArticleIds: string[] }
-  | string,
+  void | string,
   { feedId: string; feedUrl: string }
 >(
   "feed/sync",
-  async function ({ feedId, feedUrl }, { extra, getState, rejectWithValue }) {
+  async function (
+    { feedId, feedUrl },
+    { extra, getState, rejectWithValue, dispatch },
+  ) {
     const feedFreshlyParsed =
       await extra.dependencies.feedReaderGateway.parse(feedUrl);
 
@@ -31,6 +33,13 @@ export const syncFeed = createAppAsyncThunk<
     }, [] as FeedItem[]);
 
     if (!newArticles.length) return "Already up to date";
+    dispatch(
+      newArticlesFetched({
+        feedId,
+        newArticles,
+        newArticleIds: newArticles.map((a) => a.id),
+      }),
+    );
 
     const userId = getState().auth.user!.id;
     const { ok: savingArticlesSuccessful } =
@@ -42,11 +51,5 @@ export const syncFeed = createAppAsyncThunk<
     if (!savingArticlesSuccessful) {
       return rejectWithValue("Failed to sync new articles");
     }
-
-    return {
-      feedId,
-      newArticles,
-      newArticleIds: newArticles.map((a) => a.id),
-    };
   },
 );
