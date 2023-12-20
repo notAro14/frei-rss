@@ -6,9 +6,16 @@ export const registerFeed = createAppAsyncThunk(
     const {
       dependencies: { feedReaderGateway },
     } = extra;
-    const userId = getState().auth.user?.id;
-    if (!userId) throw new Error("Unauthorised");
+    const feedEntities = getState().getFeeds.entities!.feeds;
+    const feedIds = getState().getFeeds.result!;
 
+    const feedAlreadyRegistered = feedIds
+      .map((feedId) => feedEntities[feedId].website)
+      .includes(feedUrl);
+    if (feedAlreadyRegistered)
+      return rejectWithValue("This feed is already registered");
+
+    const userId = getState().auth.user!.id;
     try {
       const res = await feedReaderGateway.registerFeed(feedUrl, userId);
       return res;
