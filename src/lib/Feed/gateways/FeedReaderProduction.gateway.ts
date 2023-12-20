@@ -126,4 +126,29 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
         };
     return json.ok ? json.data : json.error;
   }
+  async saveArticles(args: {
+    articles: FeedItem[];
+    userId: string;
+    feedId: string;
+  }): Promise<{ ok: boolean }> {
+    const { articles, userId, feedId } = args;
+    const insert: FeedItemInsert[] = articles.map((a) => ({
+      fk_feed_id: feedId,
+      url: a.url,
+      title: a.title,
+      pub_date: a.date,
+      user_id: userId,
+    }));
+
+    const { error } = await supabase.from("feed_items").upsert(insert);
+    return error ? { ok: false } : { ok: true };
+  }
+}
+
+interface FeedItemInsert {
+  fk_feed_id: string;
+  url: string;
+  title: string;
+  pub_date: string;
+  user_id: string;
 }

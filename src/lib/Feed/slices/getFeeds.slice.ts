@@ -29,7 +29,7 @@ export const getFeedsSlice = createSlice({
       state.result = action.payload.result;
     });
     builder.addCase(syncFeed.fulfilled, function (state, action) {
-      if (action.payload) {
+      if (action.payload && typeof action.payload !== "string") {
         const { feedId, newArticleIds, newArticles } = action.payload;
         const prevArticles = state.entities!.feeds[feedId].feedItems;
         state.entities!.feeds[feedId].feedItems = [

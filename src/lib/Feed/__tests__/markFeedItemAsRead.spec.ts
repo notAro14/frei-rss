@@ -78,4 +78,5 @@ const PRELOADED_STATE: State = {
   },
   removeFeed: INITIAL_STATE.removeFeed,
   auth: INITIAL_STATE.auth,
+  syncFeed: INITIAL_STATE.syncFeed,
 };

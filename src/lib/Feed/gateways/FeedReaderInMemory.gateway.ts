@@ -40,4 +40,11 @@ export class FeedReaderInMemoryGateway implements FeedReaderGateway {
   async parse(_url: string): Promise<string | FeedFreshlyParsed> {
     return "";
   }
+  async saveArticles(_args: {
+    articles: FeedItem[];
+    userId: string;
+    feedId: string;
+  }): Promise<{ ok: boolean }> {
+    return { ok: true };
+  }
 }

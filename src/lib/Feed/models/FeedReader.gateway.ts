@@ -13,4 +13,9 @@ export interface FeedReaderGateway {
   ): Promise<FeedItem>;
   deleteFeed(id: string): Promise<{ feedId: string }>;
   parse(url: string): Promise<FeedFreshlyParsed | string>;
+  saveArticles(args: {
+    articles: FeedItem[];
+    userId: string;
+    feedId: string;
+  }): Promise<{ ok: boolean }>;
 }

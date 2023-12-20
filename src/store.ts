@@ -26,6 +26,11 @@ import {
   type Auth,
   initialState as authSliceState,
 } from "src/lib/Auth/slices/auth.slice";
+import {
+  syncFeedSlice,
+  type SyncFeed,
+  initialState as syncFeedState,
+} from "src/lib/Feed/slices/syncFeed.slice";
 
 export function configureStore(
   dependencies: Dependencies,
@@ -37,6 +42,7 @@ export function configureStore(
       [registerFeedSlice.name]: registerFeedSlice.reducer,
       [removeFeedSlice.name]: removeFeedSlice.reducer,
       [authSlice.name]: authSlice.reducer,
+      [syncFeedSlice.name]: syncFeedSlice.reducer,
     },
     preloadedState,
     middleware(gdm) {
@@ -61,6 +67,7 @@ export interface State {
   registerFeed: RegisterFeed;
   removeFeed: RemoveFeed;
   auth: Auth;
+  syncFeed: SyncFeed;
 }
 export type Dispatch = Store["dispatch"];
 
@@ -72,4 +79,5 @@ export const INITIAL_STATE: State = {
   registerFeed: registerFeedState,
   removeFeed: removeFeedState,
   auth: authSliceState,
+  syncFeed: syncFeedState,
 };

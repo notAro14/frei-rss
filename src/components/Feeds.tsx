@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import toast from "react-hot-toast";
 import { Button, Flex, Text, Badge } from "@radix-ui/themes";
 import { RefreshCcw } from "lucide-react";
 import { useDispatch, useSelector } from "src/store";
@@ -5,10 +7,25 @@ import { Article } from "src/components/Article";
 import { getAllFeeds } from "src/selectors/getAllFeeds.selector";
 import { syncFeed } from "src/lib/Feed/usecases/syncFeed";
 import styles from "./Feeds.module.css";
+import { reset } from "src/lib/Feed/slices/syncFeed.slice";
 
 export function Feeds() {
   const feeds = useSelector(getAllFeeds);
+  const { status: syncFeedStatus, message: syncFeedMessage } = useSelector(
+    (state) => state.syncFeed,
+  );
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (syncFeedMessage) {
+      if (syncFeedStatus === "error") toast.error(syncFeedMessage);
+      if (syncFeedStatus === "success") toast.success(syncFeedMessage);
+    }
+    setTimeout(() => {
+      if (syncFeedStatus !== "idle") dispatch(reset());
+    }, 0);
+  }, [syncFeedMessage, syncFeedStatus, dispatch]);
+
   if (!feeds) return null;
   return (
     <Flex direction={"column"}>
@@ -23,11 +40,11 @@ export function Feeds() {
           <Button
             onClick={() => dispatch(syncFeed({ feedId: f.id, feedUrl: f.url }))}
             variant="soft"
-            mt={"5"}
             mb={"4"}
+            disabled={syncFeedStatus === "pending"}
           >
             <RefreshCcw size={"1em"} />
-            Sync
+            {syncFeedStatus === "pending" ? "Syncing" : "Sync"}
           </Button>
           <Flex direction={"column"} gap={"8"}>
             {f.articleIds.map((id) => (
