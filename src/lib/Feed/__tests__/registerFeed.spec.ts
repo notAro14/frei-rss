@@ -50,7 +50,7 @@ describe("Register feed", () => {
   });
 
   it("should have registered the feed", async function () {
-    await store.dispatch(registerFeed(FEED_URL));
+    await store.dispatch(registerFeed("https://new.feed"));
     expect(store.getState()).toEqual<State>({
       ...initialState,
       registerFeed: {
@@ -67,7 +67,7 @@ describe("Register feed", () => {
       ...initialState,
       registerFeed: {
         status: "error",
-        message: "Url already registered",
+        message: "This feed is already registered",
       },
     });
   });

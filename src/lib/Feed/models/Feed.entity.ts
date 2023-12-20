@@ -3,6 +3,7 @@ export interface Feed {
   name: string;
   feedItems: FeedItem[];
   website: string;
+  content?: string;
 }
 
 export interface NormalizedFeed {
