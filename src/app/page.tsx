@@ -10,10 +10,10 @@ export default function Page() {
   return (
     <>
       <AddFeedForm />
-      <Tabs.Root defaultValue="this-month">
+      <Tabs.Root defaultValue="unread">
         <Tabs.List>
-          <Tabs.Trigger value="this-month">This Month</Tabs.Trigger>
           <Tabs.Trigger value="unread">Unread</Tabs.Trigger>
+          <Tabs.Trigger value="this-month">This Month</Tabs.Trigger>
           <Tabs.Trigger value="all">All Feeds</Tabs.Trigger>
         </Tabs.List>
 
