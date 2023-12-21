@@ -1,3 +1,4 @@
+"use client";
 import { useCallback } from "react";
 import { BookCheck } from "lucide-react";
 import { Card, Text, Flex, Link, IconButton, Badge } from "@radix-ui/themes";

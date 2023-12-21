@@ -5,8 +5,10 @@ import { ThisMonthArticles } from "src/components/ThisMonthArticles";
 import { UnreadArticles } from "src/components/UnreadArticles";
 import { Layout } from "src/components/Layout";
 import { Feeds } from "src/components/Feeds";
+import useGetFeeds from "src/hooks/useGetFeeds";
 
 export default function HomePage() {
+  useGetFeeds();
   return (
     <Layout>
       <AddFeedForm />

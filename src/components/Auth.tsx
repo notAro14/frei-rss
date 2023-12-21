@@ -1,3 +1,4 @@
+"use client";
 import { Github, Rss } from "lucide-react";
 import { Button, Heading, Flex, Grid } from "@radix-ui/themes";
 import toast from "react-hot-toast";

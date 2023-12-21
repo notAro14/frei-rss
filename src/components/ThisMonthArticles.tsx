@@ -1,3 +1,4 @@
+"use client";
 import { useSelector } from "src/store";
 import { Box, Flex, Text, Strong } from "@radix-ui/themes";
 import { getThisMonthArticleIds } from "src/selectors/getThisMonthArticleIds.selector";

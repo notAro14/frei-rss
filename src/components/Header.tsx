@@ -1,3 +1,4 @@
+"use client";
 import { Drawer } from "vaul";
 import {
   Flex,
