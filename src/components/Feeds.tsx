@@ -2,14 +2,7 @@
 import { useEffect } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
-import {
-  IconButton,
-  Flex,
-  Text,
-  Badge,
-  Strong,
-  Button,
-} from "@radix-ui/themes";
+import { IconButton, Flex, Text, Badge, Strong } from "@radix-ui/themes";
 import { RefreshCcw, BookOpen } from "lucide-react";
 import { useDispatch, useSelector } from "src/store";
 import { Article } from "src/components/Article";
