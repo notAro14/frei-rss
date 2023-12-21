@@ -1,3 +1,4 @@
+"use client";
 import { Box, Tabs } from "@radix-ui/themes";
 
 import { AddFeedForm } from "src/components/AddFeedForm";
@@ -7,7 +8,7 @@ import { Layout } from "src/components/Layout";
 import { Feeds } from "src/components/Feeds";
 import useGetFeeds from "src/hooks/useGetFeeds";
 
-export default function HomePage() {
+export default function Page() {
   useGetFeeds();
   return (
     <Layout>
