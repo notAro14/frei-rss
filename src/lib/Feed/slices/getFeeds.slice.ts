@@ -69,8 +69,10 @@ export const getFeedsSlice = createSlice({
       state.entities!.feeds[newFeed.id] = newFeed;
       const allFeeds = Object.values(state.entities!.feeds);
       allFeeds.sort((a, b) => {
-        if (a.name.toUpperCase() < b.name.toUpperCase()) return -1;
-        if (a.name.toUpperCase() > b.name.toUpperCase()) return 1;
+        const nameA = a.name.trim().toUpperCase();
+        const nameB = b.name.trim().toUpperCase();
+        if (nameA < nameB) return -1;
+        if (nameA > nameB) return 1;
         return 0;
       });
 
