@@ -8,6 +8,9 @@ module.exports = {
       height: {
         "100dvh": "100dvh",
       },
+      textColor: {
+        current: "currentColor",
+      },
     },
   },
   plugins: [],

@@ -1,8 +1,16 @@
 "use client";
 import { useEffect } from "react";
+import Link from "next/link";
 import toast from "react-hot-toast";
-import { Button, Flex, Text, Badge, Strong } from "@radix-ui/themes";
-import { RefreshCcw } from "lucide-react";
+import {
+  IconButton,
+  Flex,
+  Text,
+  Badge,
+  Strong,
+  Button,
+} from "@radix-ui/themes";
+import { RefreshCcw, BookOpen } from "lucide-react";
 import { useDispatch, useSelector } from "src/store";
 import { Article } from "src/components/Article";
 import { getAllFeeds } from "src/selectors/getAllFeeds.selector";
@@ -41,15 +49,24 @@ export function Feeds() {
               <Badge>{f.articleIds.length}</Badge>
             </summary>
           </Text>
-          <Button
-            onClick={() => dispatch(syncFeed({ feedId: f.id, feedUrl: f.url }))}
-            variant="soft"
-            mb={"4"}
-            disabled={syncFeedStatus === "pending"}
-          >
-            <RefreshCcw size={"1em"} />
-            {syncFeedStatus === "pending" ? "Syncing" : "Sync"}
-          </Button>
+          <Flex gap={"3"}>
+            <IconButton
+              onClick={() =>
+                dispatch(syncFeed({ feedId: f.id, feedUrl: f.url }))
+              }
+              variant="soft"
+              mb={"4"}
+              disabled={syncFeedStatus === "pending"}
+              title="Sync"
+            >
+              <RefreshCcw size={"1em"} />
+            </IconButton>
+            <IconButton variant="soft" asChild>
+              <Link title="Open feed" href={`/feed/${f.id}`}>
+                <BookOpen size={"1em"} />
+              </Link>
+            </IconButton>
+          </Flex>
           <Flex direction={"column"} gap={"8"}>
             {f.articleIds.map((id) => (
               <Article key={id} id={id} />

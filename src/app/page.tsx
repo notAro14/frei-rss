@@ -5,10 +5,8 @@ import { AddFeedForm } from "src/components/AddFeedForm";
 import { ThisMonthArticles } from "src/components/ThisMonthArticles";
 import { UnreadArticles } from "src/components/UnreadArticles";
 import { Feeds } from "src/components/Feeds";
-import useGetFeeds from "src/hooks/useGetFeeds";
 
 export default function Page() {
-  useGetFeeds();
   return (
     <>
       <AddFeedForm />

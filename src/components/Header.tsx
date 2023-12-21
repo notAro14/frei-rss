@@ -1,8 +1,9 @@
 "use client";
+import Link from "next/link";
 import { Drawer } from "vaul";
 import {
   Flex,
-  Heading,
+  Link as RdxLink,
   IconButton,
   Box,
   Avatar,
@@ -21,14 +22,17 @@ export function Header() {
   return (
     <Drawer.Root>
       <Flex justify={"between"} mt={"4"}>
-        <Heading
-          as="h1"
+        <RdxLink
+          asChild
           id="logo"
+          weight={"bold"}
           size={{ initial: "6", xs: "8" }}
-          className="flex items-center gap-rx-2"
+          className="text-current flex items-center gap-rx-2 no-underline"
         >
-          <Rss size={"1em"} /> FreiRSS
-        </Heading>
+          <Link href={"/"}>
+            <Rss size={"1em"} /> FreiRSS
+          </Link>
+        </RdxLink>
 
         <Drawer.Trigger asChild>
           <IconButton variant="ghost">
