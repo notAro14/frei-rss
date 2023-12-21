@@ -36,7 +36,7 @@ export function Feeds() {
         <details className={styles.details} key={f.id}>
           <Text asChild size={"4"}>
             <summary className={styles.summary}>
-              <span>{f.name}</span>
+              <span dangerouslySetInnerHTML={{ __html: f.name }} />
               <Badge>{f.articleIds.length}</Badge>
             </summary>
           </Text>
