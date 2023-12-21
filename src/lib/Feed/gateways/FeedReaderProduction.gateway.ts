@@ -137,7 +137,6 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
   async parse(url: string): Promise<FeedFreshlyParsed | string> {
     const response = await fetch("/api/parse-feed", {
       method: "POST",
-      mode: "same-origin",
       body: JSON.stringify({
         url,
       }),
