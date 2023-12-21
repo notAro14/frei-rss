@@ -2,6 +2,7 @@
 import { Flex, Heading, Link, Text } from "@radix-ui/themes";
 import { useSelector } from "src/store";
 import { Article } from "src/components/Article";
+import { ExternalLink } from "lucide-react";
 
 export default function Page({ params }: { params: { slug: string } }) {
   const slug = params.slug;
@@ -14,7 +15,7 @@ export default function Page({ params }: { params: { slug: string } }) {
         <Text>
           Source:{" "}
           <Link href={feed.website} target="_blank" rel="noopener">
-            {feed.website}
+            {feed.website} <ExternalLink size={"1em"} />
           </Link>
         </Text>
       </Flex>

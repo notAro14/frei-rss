@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { IconButton, Flex, Text, Badge, Strong } from "@radix-ui/themes";
-import { RefreshCcw, BookOpen } from "lucide-react";
+import { RefreshCcw, ExternalLink } from "lucide-react";
 import { useDispatch, useSelector } from "src/store";
 import { Article } from "src/components/Article";
 import { getAllFeeds } from "src/selectors/getAllFeeds.selector";
@@ -56,7 +56,7 @@ export function Feeds() {
             </IconButton>
             <IconButton variant="soft" asChild>
               <Link title="Open feed" href={`/feed/${f.id}`}>
-                <BookOpen size={"1em"} />
+                <ExternalLink size={"1em"} />
               </Link>
             </IconButton>
           </Flex>
