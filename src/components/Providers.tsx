@@ -16,14 +16,14 @@ import {
 export function Providers(props: { children: ReactNode }) {
   const store = useStore();
   return (
-    <ThemeProvider attribute="class">
-      <Theme accentColor={"iris"} panelBackground="translucent">
-        <Provider store={store}>
+    <Provider store={store}>
+      <ThemeProvider attribute="class">
+        <Theme accentColor={"iris"} panelBackground="translucent">
           <AuthGuard>{props.children}</AuthGuard>
           <Toaster />
-        </Provider>
-      </Theme>
-    </ThemeProvider>
+        </Theme>
+      </ThemeProvider>
+    </Provider>
   );
 }
 

@@ -4,14 +4,13 @@ import { Box, Tabs } from "@radix-ui/themes";
 import { AddFeedForm } from "src/components/AddFeedForm";
 import { ThisMonthArticles } from "src/components/ThisMonthArticles";
 import { UnreadArticles } from "src/components/UnreadArticles";
-import { Layout } from "src/components/Layout";
 import { Feeds } from "src/components/Feeds";
 import useGetFeeds from "src/hooks/useGetFeeds";
 
 export default function Page() {
   useGetFeeds();
   return (
-    <Layout>
+    <>
       <AddFeedForm />
       <Tabs.Root defaultValue="this-month">
         <Tabs.List>
@@ -34,6 +33,6 @@ export default function Page() {
           </Tabs.Content>
         </Box>
       </Tabs.Root>
-    </Layout>
+    </>
   );
 }
