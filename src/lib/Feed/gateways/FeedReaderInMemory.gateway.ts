@@ -1,4 +1,7 @@
-import type { FeedReaderGateway } from "src/lib/Feed/models/FeedReader.gateway";
+import type {
+  FeedReaderGateway,
+  RegisterFeedRes,
+} from "src/lib/Feed/models/FeedReader.gateway";
 import type {
   Feed,
   FeedFreshlyParsed,
@@ -19,12 +22,17 @@ export class FeedReaderInMemoryGateway implements FeedReaderGateway {
     return this._feeds;
   }
 
-  async registerFeed(_url: string): Promise<Feed> {
-    if (this._registeredUrls.includes(_url)) {
+  async registerFeed({
+    feed,
+  }: {
+    feed: Feed;
+    userId: string;
+  }): Promise<RegisterFeedRes> {
+    if (this._registeredUrls.includes(feed.website)) {
       throw new Error("Url already registered");
     }
-    this._registeredUrls.push(_url);
-    return this._registeredFeed;
+    this._registeredUrls.push(feed.website);
+    return { ok: true, data: this._registeredFeed };
   }
 
   async updateFeedItemReadingStatus(
