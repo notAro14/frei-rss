@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import toast from "react-hot-toast";
-import { Button, Flex, Text, Badge } from "@radix-ui/themes";
+import { Button, Flex, Text, Badge, Strong } from "@radix-ui/themes";
 import { RefreshCcw } from "lucide-react";
 import { useDispatch, useSelector } from "src/store";
 import { Article } from "src/components/Article";
@@ -29,6 +29,9 @@ export function Feeds() {
   if (!feeds) return null;
   return (
     <Flex direction={"column"}>
+      <Text mb={"4"}>
+        You have <Strong>{feeds.length}</Strong> feeds
+      </Text>
       {feeds.map((f) => (
         <details className={styles.details} key={f.id}>
           <Text asChild size={"4"}>
