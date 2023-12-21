@@ -31,11 +31,10 @@ export function AddFeedForm() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (status === "success") {
-      toast.success("Feed added successfully");
-      reset();
-    }
+    if (status === "success") toast.success("Feed registered and synced");
     if (status === "error") toast.error(message ?? "Unable to register feed");
+
+    reset();
   }, [message, status, reset]);
 
   const onSubmit: SubmitHandler<AddFeedFormIn> = (data) => {

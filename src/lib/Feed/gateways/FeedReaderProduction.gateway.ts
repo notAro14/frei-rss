@@ -3,9 +3,15 @@ import type {
   FeedFreshlyParsed,
   FeedItem,
 } from "src/lib/Feed/models/Feed.entity";
-import type { FeedReaderGateway } from "src/lib/Feed/models/FeedReader.gateway";
-import { supabase } from "src/utils/supabaseClient";
-import { parseFeed } from "src/lib/Feed/utils/parse";
+import type {
+  FeedReaderGateway,
+  RegisterFeedRes,
+} from "src/lib/Feed/models/FeedReader.gateway";
+import {
+  supabase,
+  type FeedInsert,
+  type FeedItemInsert,
+} from "src/utils/supabaseClient";
 
 export class FeedReaderProductionGateway implements FeedReaderGateway {
   async retrieveFeedList(): Promise<Feed[]> {
@@ -55,25 +61,46 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       };
     });
   }
-  async registerFeed(url: string, userId: string): Promise<Feed> {
-    const { error, data } = await supabase
+  async registerFeed({
+    feed,
+    userId,
+  }: {
+    feed: Feed;
+    userId: string;
+  }): Promise<RegisterFeedRes> {
+    const feedInsert: FeedInsert = {
+      id: feed.id,
+      name: feed.name,
+      url: feed.website,
+      user_id: userId,
+    };
+    const { error: feedInsertError, data: feedInserted } = await supabase
       .from("feeds")
-      .upsert({ url, user_id: userId })
+      .upsert(feedInsert)
       .select()
       .maybeSingle();
-    if (error || !data) {
-      if (error?.code === "23505")
-        throw new Error("Feed URL already registered");
+    if (feedInsertError) {
+      return { ok: false, error: feedInsertError.message };
+    }
+    if (!feedInserted) return { ok: false, error: "Failed to register feed" };
 
-      throw new Error("Failed to register feed");
+    const articlesInsert: FeedItemInsert[] = feed.feedItems.map((a) => ({
+      fk_feed_id: feedInserted.id,
+      url: a.url,
+      title: a.title,
+      pub_date: a.date,
+      user_id: userId,
+    }));
+
+    const { error: feedItemsInsertError } = await supabase
+      .from("feed_items")
+      .upsert(articlesInsert);
+
+    if (feedItemsInsertError) {
+      return { ok: false, error: feedItemsInsertError.message };
     }
 
-    return {
-      id: data.id,
-      feedItems: [],
-      name: data.name ?? "",
-      website: data.url,
-    };
+    return { ok: true, data: feed };
   }
   async updateFeedItemReadingStatus(
     feedItemId: string,
@@ -143,12 +170,4 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
     const { error } = await supabase.from("feed_items").upsert(insert);
     return error ? { ok: false } : { ok: true };
   }
-}
-
-interface FeedItemInsert {
-  fk_feed_id: string;
-  url: string;
-  title: string;
-  pub_date: string;
-  user_id: string;
 }

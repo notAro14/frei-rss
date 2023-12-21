@@ -4,9 +4,13 @@ import type {
   FeedItem,
 } from "src/lib/Feed/models/Feed.entity";
 
+export type RegisterFeedRes =
+  | { ok: true; data: Feed }
+  | { ok: false; error: string };
+
 export interface FeedReaderGateway {
   retrieveFeedList(): Promise<Feed[]>;
-  registerFeed(url: string, userId: string): Promise<Feed>;
+  registerFeed(args: { feed: Feed; userId: string }): Promise<RegisterFeedRes>;
   updateFeedItemReadingStatus(
     feedItemId: string,
     status: "READ" | "UNREAD" | "READ_LATER",

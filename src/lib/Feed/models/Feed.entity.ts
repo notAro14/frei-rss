@@ -3,7 +3,6 @@ export interface Feed {
   name: string;
   feedItems: FeedItem[];
   website: string;
-  content?: string;
 }
 
 export interface NormalizedFeed {
@@ -17,6 +16,7 @@ export interface FeedItem {
   date: string;
   title: string;
   url: string;
+  content?: string;
   readStatus: "UNREAD" | "READ" | "READ_LATER";
 }
 export type FeedItemFreshlyParsed = Omit<FeedItem, "id" | "readStatus">;

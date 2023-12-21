@@ -2,6 +2,7 @@ import { createAction, createSlice } from "@reduxjs/toolkit";
 import type {
   NormalizedFeedItem,
   NormalizedFeed,
+  Feed,
 } from "src/lib/Feed/models/Feed.entity";
 import { getFeeds } from "../usecases/getFeeds";
 import {
@@ -11,8 +12,10 @@ import {
 import { removeFeedDone } from "src/lib/Feed/slices/removeFeed.slice";
 import { changeFeedItemReadingStatus } from "src/lib/Feed/usecases/changeFeedItemReadingStatus";
 import { signOut } from "src/lib/Auth/usecases/signOut";
-import { syncFeed } from "src/lib/Feed/usecases/syncFeed";
 import type { FeedItem } from "src/lib/Feed/models/Feed.entity";
+import { isAfter } from "src/utils/date";
+
+export const newFeedRegistered = createAction<Feed>("newFeedRegistered");
 
 export const newArticlesFetched = createAction<{
   feedId: string;
@@ -45,6 +48,34 @@ export const getFeedsSlice = createSlice({
       newArticles.forEach((a) => {
         state.entities!.feedItems[a.id] = a;
       });
+    });
+    builder.addCase(newFeedRegistered, function (state, action) {
+      const { feedItems, ...feed } = action.payload;
+
+      feedItems.sort((a, b) => {
+        if (isAfter(a.date, b.date)) return -1;
+        if (isAfter(b.date, a.date)) return 1;
+        return 0;
+      });
+      feedItems.forEach((a) => {
+        state.entities!.feedItems[a.id] = a;
+      });
+      const feedItemIds = feedItems.map((a) => a.id);
+
+      const newFeed = {
+        ...feed,
+        feedItems: feedItemIds,
+      };
+      state.entities!.feeds[newFeed.id] = newFeed;
+      const allFeeds = Object.values(state.entities!.feeds);
+      allFeeds.sort((a, b) => {
+        if (a.name.toUpperCase() < b.name.toUpperCase()) return -1;
+        if (a.name.toUpperCase() > b.name.toUpperCase()) return 1;
+        return 0;
+      });
+
+      const allFeedIds = allFeeds.map((f) => f.id);
+      state.result = allFeedIds;
     });
     builder.addCase(updateFeedItemAsRead, function (state, action) {
       const { feedItemId } = action.payload;

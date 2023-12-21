@@ -9,3 +9,7 @@ if (!supabaseUrl) throw new Error("supabaseUrl must be defined");
 if (!supabaseKey) throw new Error("supabaseKey must be defined");
 
 export const supabase = createBrowserClient<Database>(supabaseUrl, supabaseKey);
+
+export type FeedInsert = Database["public"]["Tables"]["feeds"]["Insert"];
+export type FeedItemInsert =
+  Database["public"]["Tables"]["feed_items"]["Insert"];
