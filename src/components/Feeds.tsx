@@ -67,7 +67,7 @@ export function Feeds() {
               </Link>
             </IconButton>
           </Flex>
-          <Flex direction={"column"} gap={"8"}>
+          <Flex direction={"column"} gap={"8"} pb={"8"}>
             {f.articleIds.map((id) => (
               <Article key={id} id={id} />
             ))}
