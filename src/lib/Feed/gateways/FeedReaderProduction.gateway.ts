@@ -27,7 +27,8 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
           pub_date,
           title,
           url,
-          is_read
+          is_read,
+          content
         )
       `,
       )
@@ -50,12 +51,13 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       return {
         ...common,
         feedItems: feedItems.map(
-          ({ id, pub_date: date, title, url, is_read: isRead }) => ({
+          ({ id, pub_date: date, title, url, is_read: isRead, content }) => ({
             id,
             date,
             title,
             url,
             readStatus: isRead ? "READ" : "UNREAD",
+            content: content || "",
           }),
         ),
       };
@@ -90,6 +92,7 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       title: a.title,
       pub_date: a.date,
       user_id: userId,
+      content: a.content ?? "",
     }));
 
     const { error: feedItemsInsertError } = await supabase
@@ -122,6 +125,7 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       title: data.title,
       date: data.pub_date,
       readStatus: data.is_read ? "READ" : "UNREAD",
+      content: data.content || "",
     };
   }
 

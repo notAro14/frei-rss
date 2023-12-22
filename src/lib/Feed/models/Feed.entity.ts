@@ -16,7 +16,7 @@ export interface FeedItem {
   date: string;
   title: string;
   url: string;
-  content?: string;
+  content: string;
   readStatus: "UNREAD" | "READ" | "READ_LATER";
 }
 export type FeedItemFreshlyParsed = Omit<FeedItem, "id" | "readStatus">;

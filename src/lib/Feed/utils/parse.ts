@@ -34,7 +34,7 @@ export async function parseFeed(url: string): Promise<FeedFreshlyParsed> {
       const url = i.link ?? i.id ?? ""; // "" just for TS
       return acc.concat({
         date: pubDate,
-        content: i.content,
+        content: i.content ?? "",
         title: i.title,
         url,
       });

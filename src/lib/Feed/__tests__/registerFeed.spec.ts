@@ -18,6 +18,7 @@ const MOCK: Feed[] = [
         title: "Article title",
         date: "2023-03-31",
         readStatus: "UNREAD",
+        content: "",
       },
     ],
   },

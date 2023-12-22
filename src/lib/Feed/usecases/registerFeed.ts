@@ -29,6 +29,7 @@ export const registerFeed = createAppAsyncThunk(
     const feedItems = parsedFeed.feedItems.map((a) => {
       const articles: FeedItem = {
         ...a,
+        content: a.content,
         readStatus: "UNREAD",
         id: crypto.randomUUID(),
       };
