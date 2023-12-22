@@ -9,9 +9,6 @@ export const getFeeds = createAppAsyncThunk(
     const {
       dependencies: { feedReaderGateway },
     } = extra;
-    if (!feedReaderGateway?.retrieveFeedList)
-      throw new Error("FeedReaderGateway.retrieveFeedList is not defined");
-
     const data = await feedReaderGateway.retrieveFeedList();
     if (!data.length)
       return {

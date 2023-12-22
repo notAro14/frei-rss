@@ -3,11 +3,16 @@ import { Flex, Heading, Link, Text } from "@radix-ui/themes";
 import { useSelector } from "src/store";
 import { Article } from "src/components/Article";
 import { ExternalLink } from "lucide-react";
+import { redirect } from "next/navigation";
 
 export default function Page({ params }: { params: { slug: string } }) {
   const slug = params.slug;
   const feed = useSelector((state) => state.getFeeds.entities?.feeds[slug]);
-  if (!feed) return null;
+  const getFeedsStatus = useSelector((state) => state.getFeeds.status);
+  if (!feed && getFeedsStatus === "pending")
+    return <Text role="alert">Loading...</Text>;
+  if (!feed && getFeedsStatus === "fulfilled") redirect("/");
+  if (!feed) redirect("/");
   return (
     <Flex mt={"8"} direction={"column"} gap={"8"}>
       <Flex direction="column" gap={"2"}>

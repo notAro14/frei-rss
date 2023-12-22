@@ -13,6 +13,9 @@ import { reset } from "src/lib/Feed/slices/syncFeed.slice";
 
 export function Feeds() {
   const feeds = useSelector(getAllFeeds);
+  const getFeedsPending = useSelector(
+    (state) => state.getFeeds.status === "pending",
+  );
   const { status: syncFeedStatus, message: syncFeedMessage } = useSelector(
     (state) => state.syncFeed,
   );
@@ -28,7 +31,10 @@ export function Feeds() {
     }, 0);
   }, [syncFeedMessage, syncFeedStatus, dispatch]);
 
+  if (getFeedsPending) return <Text role="alert">Loading...</Text>;
   if (!feeds) return null;
+  if (!feeds.length)
+    return <Text role="alert">You have to register a feed first</Text>;
   return (
     <Flex direction={"column"}>
       <Text mb={"4"}>
@@ -43,6 +49,11 @@ export function Feeds() {
             </summary>
           </Text>
           <Flex gap={"3"}>
+            <IconButton variant="soft" asChild>
+              <Link title="Open feed" href={`/feed/${f.id}`}>
+                <ExternalLink size={"1em"} />
+              </Link>
+            </IconButton>
             <IconButton
               onClick={() =>
                 dispatch(syncFeed({ feedId: f.id, feedUrl: f.url }))
@@ -53,11 +64,6 @@ export function Feeds() {
               title="Sync"
             >
               <RefreshCcw size={"1em"} />
-            </IconButton>
-            <IconButton variant="soft" asChild>
-              <Link title="Open feed" href={`/feed/${f.id}`}>
-                <ExternalLink size={"1em"} />
-              </Link>
             </IconButton>
           </Flex>
           <Flex direction={"column"} gap={"8"} pb={"8"}>

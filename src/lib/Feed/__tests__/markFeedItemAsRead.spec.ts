@@ -72,7 +72,7 @@ const NORMALIZED_MOCK = normalize(MOCK);
 const PRELOADED_STATE: State = {
   registerFeed: INITIAL_STATE.registerFeed,
   getFeeds: {
-    isFulfilled: true,
+    status: "fulfilled",
     entities: NORMALIZED_MOCK.entities,
     result: NORMALIZED_MOCK.result,
   },

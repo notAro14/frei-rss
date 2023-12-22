@@ -41,7 +41,19 @@ describe("Get feeds", () => {
       getFeeds: {
         result: null,
         entities: null,
-        isFulfilled: false,
+        status: "idle",
+      },
+    });
+  });
+
+  it("should wait for feeds", async () => {
+    store.dispatch(getFeeds());
+    expect(store.getState()).toEqual<State>({
+      ...initialState,
+      getFeeds: {
+        result: null,
+        entities: null,
+        status: "pending",
       },
     });
   });
@@ -53,7 +65,7 @@ describe("Get feeds", () => {
       getFeeds: {
         result: NORMALIZED_MOCK.result,
         entities: NORMALIZED_MOCK.entities,
-        isFulfilled: true,
+        status: "fulfilled",
       },
     });
   });

@@ -35,7 +35,7 @@ describe("Remove Feed", () => {
           feedItems: {},
         },
         result: [],
-        isFulfilled: true,
+        status: "fulfilled",
       },
       removeFeed: {
         status: "fulfilled",
@@ -53,7 +53,7 @@ describe("Remove Feed", () => {
       getFeeds: {
         entities: NORMALIZED_MOCK.entities,
         result: NORMALIZED_MOCK.result,
-        isFulfilled: true,
+        status: "fulfilled",
       },
       removeFeed: {
         status: "idle",

@@ -26,7 +26,7 @@ export const newArticlesFetched = createAction<{
 export const initialState: GetFeeds = {
   result: null,
   entities: null,
-  isFulfilled: false,
+  status: "idle",
 };
 export const getFeedsSlice = createSlice({
   name: "getFeeds",
@@ -34,9 +34,14 @@ export const getFeedsSlice = createSlice({
   reducers: {},
   extraReducers(builder) {
     builder.addCase(getFeeds.fulfilled, function (state, action) {
-      state.isFulfilled = true;
       state.entities = action.payload.entities;
       state.result = action.payload.result;
+      state.status = "fulfilled";
+    });
+    builder.addCase(getFeeds.pending, function (state) {
+      state.entities = null;
+      state.result = null;
+      state.status = "pending";
     });
     builder.addCase(newArticlesFetched, function (state, action) {
       const { feedId, newArticleIds, newArticles } = action.payload;
@@ -125,5 +130,5 @@ export interface GetFeeds {
     feeds: NormalizedFeed;
     feedItems: NormalizedFeedItem;
   } | null;
-  isFulfilled: boolean;
+  status: "idle" | "pending" | "fulfilled" | "rejected";
 }
