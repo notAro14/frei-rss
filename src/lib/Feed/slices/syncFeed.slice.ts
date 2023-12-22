@@ -14,11 +14,7 @@ export const initialState: SyncFeed = {
 export const syncFeedSlice = createSlice({
   name: "syncFeed",
   initialState,
-  reducers: {
-    reset() {
-      return initialState;
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder.addCase(syncFeed.pending, function (state) {
       state.status = "pending";
@@ -36,5 +32,3 @@ export const syncFeedSlice = createSlice({
     });
   },
 });
-
-export const { reset } = syncFeedSlice.actions;

@@ -1,5 +1,4 @@
 "use client";
-import { useEffect } from "react";
 import Link from "next/link";
 import toast from "react-hot-toast";
 import { IconButton, Flex, Text, Badge, Strong } from "@radix-ui/themes";
@@ -9,27 +8,14 @@ import { Article } from "src/components/Article";
 import { getAllFeeds } from "src/selectors/getAllFeeds.selector";
 import { syncFeed } from "src/lib/Feed/usecases/syncFeed";
 import styles from "./Feeds.module.css";
-import { reset } from "src/lib/Feed/slices/syncFeed.slice";
 
 export function Feeds() {
   const feeds = useSelector(getAllFeeds);
   const getFeedsPending = useSelector(
     (state) => state.getFeeds.status === "pending",
   );
-  const { status: syncFeedStatus, message: syncFeedMessage } = useSelector(
-    (state) => state.syncFeed,
-  );
+  const { status: syncFeedStatus } = useSelector((state) => state.syncFeed);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    if (syncFeedMessage) {
-      if (syncFeedStatus === "error") toast.error(syncFeedMessage);
-      if (syncFeedStatus === "success") toast.success(syncFeedMessage);
-    }
-    setTimeout(() => {
-      if (syncFeedStatus !== "idle") dispatch(reset());
-    }, 0);
-  }, [syncFeedMessage, syncFeedStatus, dispatch]);
 
   if (getFeedsPending) return <Text role="alert">Loading...</Text>;
   if (!feeds) return null;
@@ -55,9 +41,21 @@ export function Feeds() {
               </Link>
             </IconButton>
             <IconButton
-              onClick={() =>
-                dispatch(syncFeed({ feedId: f.id, feedUrl: f.url }))
-              }
+              onClick={async () => {
+                let res: string | void;
+                try {
+                  res = await dispatch(
+                    syncFeed({ feedId: f.id, feedUrl: f.url }),
+                  ).unwrap();
+                  setTimeout(() => {
+                    toast.success(res || "Synced");
+                  }, 0);
+                } catch (e) {
+                  setTimeout(() => {
+                    res && toast.error(res);
+                  }, 0);
+                }
+              }}
               variant="soft"
               mb={"4"}
               disabled={syncFeedStatus === "pending"}
