@@ -1,12 +1,11 @@
 "use client";
 import Link from "next/link";
-import toast from "react-hot-toast";
 import { IconButton, Flex, Text, Badge, Strong } from "@radix-ui/themes";
-import { RefreshCcw, ExternalLink } from "lucide-react";
-import { useDispatch, useSelector } from "src/store";
+import { ExternalLink, RefreshCcw } from "lucide-react";
+import { useSelector } from "src/store";
 import { Article } from "src/components/Article";
 import { getAllFeeds } from "src/selectors/getAllFeeds.selector";
-import { syncFeed } from "src/lib/Feed/usecases/syncFeed";
+import { useSyncFeed } from "src/hooks/useSyncFeed";
 import styles from "./Feeds.module.css";
 
 export function Feeds() {
@@ -14,8 +13,7 @@ export function Feeds() {
   const getFeedsPending = useSelector(
     (state) => state.getFeeds.status === "pending",
   );
-  const { status: syncFeedStatus } = useSelector((state) => state.syncFeed);
-  const dispatch = useDispatch();
+  const [syncFeed, syncFeedStatus] = useSyncFeed();
 
   if (getFeedsPending) return <Text role="alert">Loading...</Text>;
   if (!feeds) return null;
@@ -41,21 +39,7 @@ export function Feeds() {
               </Link>
             </IconButton>
             <IconButton
-              onClick={async () => {
-                let res: string | void;
-                try {
-                  res = await dispatch(
-                    syncFeed({ feedId: f.id, feedUrl: f.url }),
-                  ).unwrap();
-                  setTimeout(() => {
-                    toast.success(res || "Synced");
-                  }, 0);
-                } catch (e) {
-                  setTimeout(() => {
-                    res && toast.error(res);
-                  }, 0);
-                }
-              }}
+              onClick={() => syncFeed({ feedId: f.id, feedUrl: f.url })}
               variant="soft"
               mb={"4"}
               disabled={syncFeedStatus === "pending"}
