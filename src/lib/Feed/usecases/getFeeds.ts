@@ -13,6 +13,14 @@ export const getFeeds = createAppAsyncThunk(
       throw new Error("FeedReaderGateway.retrieveFeedList is not defined");
 
     const data = await feedReaderGateway.retrieveFeedList();
+    if (!data.length)
+      return {
+        entities: {
+          feedItems: {},
+          feeds: {},
+        },
+        result: [],
+      };
     data.sort(feedCompFn);
     data.forEach(({ feedItems }) => {
       feedItems.sort((a, b) => {
