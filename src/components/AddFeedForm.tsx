@@ -31,15 +31,17 @@ export function AddFeedForm() {
   const { status, message } = useSelector((state) => state.registerFeed);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (status === "success") toast.success("Feed registered and synced");
-    if (status === "error") toast.error(message ?? "Unable to register feed");
-
-    reset();
-  }, [message, status, reset]);
-
-  const onSubmit: SubmitHandler<AddFeedFormIn> = (data) => {
-    dispatch(registerFeed(data.feed));
+  const onSubmit: SubmitHandler<AddFeedFormIn> = async (data) => {
+    try {
+      await dispatch(registerFeed(data.feed)).unwrap();
+      toast.success("Feed registered and synced");
+    } catch (e) {
+      setTimeout(() => {
+        toast.error(message ?? "Unable to register feed");
+      }, 0);
+    } finally {
+      reset();
+    }
   };
   return (
     <Card my={"8"}>
