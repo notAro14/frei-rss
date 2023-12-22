@@ -67,7 +67,7 @@ export default function Page({ params }: { params: { slug: string } }) {
         />
       ) : (
         <Text color="crimson" role="alert">
-          Oops no preview found
+          Oups no preview was found
         </Text>
       )}
     </Card>
