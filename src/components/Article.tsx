@@ -1,6 +1,7 @@
 "use client";
 import { useCallback } from "react";
-import { BookCheck } from "lucide-react";
+import NextLink from "next/link";
+import { BookCheck, ChevronRight } from "lucide-react";
 import { Card, Text, Flex, Link, IconButton, Badge } from "@radix-ui/themes";
 
 import { useDispatch, useSelector } from "src/store";
@@ -44,6 +45,11 @@ export function Article({ id }: Props) {
             {title}
           </Link>
           {date && <Text size={"1"}>{date}</Text>}
+          <Link className="flex items-center gap-rx-1" asChild>
+            <NextLink href={`/article/${feedItem.id}`}>
+              Read more <ChevronRight size={"1em"} />
+            </NextLink>
+          </Link>
         </Flex>
 
         {!isRead && (

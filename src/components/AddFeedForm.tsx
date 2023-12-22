@@ -58,7 +58,7 @@ export function AddFeedForm() {
               {...register("feed")}
             />
             {errors.feed && (
-              <Text size={"1"} color="crimson">
+              <Text size={"1"} color="crimson" role="alert">
                 {errors.feed.message}
               </Text>
             )}

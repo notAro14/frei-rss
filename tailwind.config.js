@@ -13,7 +13,7 @@ module.exports = {
       },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/typography")],
   presets: [radixThemePreset],
   corePlugins: {
     preflight: false,
