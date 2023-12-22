@@ -2,10 +2,11 @@ import "@radix-ui/themes/styles.css";
 import "src/globals.css";
 
 import { ReactNode } from "react";
-import { Providers } from "src/components/Providers";
-import { Container } from "@radix-ui/themes";
-import { Header } from "src/components/Header";
 import { Metadata } from "next";
+import { Container } from "@radix-ui/themes";
+import { Providers } from "src/components/Providers";
+import { Header } from "src/components/Header";
+import { AddFeedForm } from "src/components/AddFeedForm";
 
 export const metadata: Metadata = {
   title: "Frei RSS",
@@ -18,6 +19,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         <Providers>
           <Container size={"2"} p={"4"}>
             <Header />
+            <AddFeedForm />
             {children}
           </Container>
         </Providers>

@@ -1,7 +1,6 @@
 "use client";
 import { Box, Tabs } from "@radix-ui/themes";
 
-import { AddFeedForm } from "src/components/AddFeedForm";
 import { ThisMonthArticles } from "src/components/ThisMonthArticles";
 import { UnreadArticles } from "src/components/UnreadArticles";
 import { Feeds } from "src/components/Feeds";
@@ -9,7 +8,6 @@ import { Feeds } from "src/components/Feeds";
 export default function Page() {
   return (
     <>
-      <AddFeedForm />
       <Tabs.Root defaultValue="unread">
         <Tabs.List>
           <Tabs.Trigger value="unread">Unread</Tabs.Trigger>
