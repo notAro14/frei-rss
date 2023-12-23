@@ -3,7 +3,7 @@ import { syncFeed } from "src/lib/Feed/usecases/syncFeed";
 
 export interface SyncFeed {
   status: "success" | "pending" | "idle" | "error";
-  message: string | null;
+  message: string | null | number;
 }
 
 export const initialState: SyncFeed = {

@@ -12,7 +12,10 @@ export function useSyncFeed() {
       toast.promise(promise, {
         loading: "Fetching new articles...",
         success(data) {
-          return data || "Synced";
+          if (typeof data === "string") return data;
+          if (data)
+            return data > 1 ? `${data} new articles` : `${data} new article`;
+          return "Synced";
         },
         error() {
           return '"Failed to sync new articles"';

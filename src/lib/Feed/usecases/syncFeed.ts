@@ -3,7 +3,7 @@ import { FeedItem } from "src/lib/Feed/models/Feed.entity";
 import { newArticlesFetched } from "../slices/getFeeds.slice";
 
 export const syncFeed = createAppAsyncThunk<
-  void | string,
+  void | string | number,
   { feedId: string; feedUrl: string }
 >(
   "feed/sync",
@@ -51,5 +51,6 @@ export const syncFeed = createAppAsyncThunk<
     if (!savingArticlesSuccessful) {
       return rejectWithValue("Failed to sync new articles");
     }
+    return newArticles.length;
   },
 );
