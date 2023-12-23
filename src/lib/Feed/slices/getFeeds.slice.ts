@@ -51,7 +51,10 @@ export const getFeedsSlice = createSlice({
         ...prevArticles,
       ];
       newArticles.forEach((a) => {
-        state.entities!.feedItems[a.id] = a;
+        state.entities!.feedItems[a.id] = {
+          ...a,
+          feedId,
+        };
       });
     });
     builder.addCase(newFeedRegistered, function (state, action) {
@@ -63,7 +66,10 @@ export const getFeedsSlice = createSlice({
         return 0;
       });
       feedItems.forEach((a) => {
-        state.entities!.feedItems[a.id] = a;
+        state.entities!.feedItems[a.id] = {
+          ...a,
+          feedId: feed.id,
+        };
       });
       const feedItemIds = feedItems.map((a) => a.id);
 

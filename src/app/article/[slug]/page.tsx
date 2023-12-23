@@ -9,9 +9,10 @@ import {
   Badge,
   Button,
 } from "@radix-ui/themes";
+import NextLink from "next/link";
 import { useCallback } from "react";
 import { redirect } from "next/navigation";
-import { ExternalLink } from "lucide-react";
+import { ChevronLeft, ExternalLink } from "lucide-react";
 import { useSelector, useDispatch, State } from "src/store";
 import { markFeedItemAsRead } from "src/lib/Feed/usecases/markFeedItemAsRead";
 import { singleArticleSelector } from "src/selectors/singleArticle.selector";
@@ -27,34 +28,41 @@ export default function Page({ params }: { params: { slug: string } }) {
   if (data.ok) {
     const article = data.article;
     return (
-      <Card>
-        <Flex mb={"5"} align={"center"} gap={"4"}>
-          <MarkAsRead id={article.id} />
-          <Link
-            target="_blank"
-            rel="noopener"
-            className="flex w-max items-center gap-rx-2"
-            href={article.url}
-          >
-            View original
-            <ExternalLink size={"1em"} />
-          </Link>
-        </Flex>
+      <Flex direction={"column"} gap={"4"}>
+        <Link asChild className="flex items-center gap-1">
+          <NextLink href={`/inbox/feed/${article.feedId}`}>
+            <ChevronLeft size={"1em"} /> Go back to feed
+          </NextLink>
+        </Link>
+        <Card>
+          <Flex mb={"5"} align={"center"} gap={"4"}>
+            <MarkAsRead id={article.id} />
+            <Link
+              target="_blank"
+              rel="noopener"
+              className="flex w-max items-center gap-rx-2"
+              href={article.url}
+            >
+              View original
+              <ExternalLink size={"1em"} />
+            </Link>
+          </Flex>
 
-        <Heading mb={"6"} as="h2">
-          {article.title}
-        </Heading>
-        {article.content ? (
-          <Box
-            className={styles.preview}
-            dangerouslySetInnerHTML={{ __html: article.content }}
-          />
-        ) : (
-          <Text color="crimson" role="alert">
-            Oups no preview was found
-          </Text>
-        )}
-      </Card>
+          <Heading mb={"6"} as="h2">
+            {article.title}
+          </Heading>
+          {article.content ? (
+            <Box
+              className={styles.preview}
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            />
+          ) : (
+            <Text color="crimson" role="alert">
+              Oups no preview was found
+            </Text>
+          )}
+        </Card>
+      </Flex>
     );
   }
 

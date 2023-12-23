@@ -5,7 +5,15 @@ import type {
   Feed,
 } from "src/lib/Feed/models/Feed.entity";
 
-const feedItem = new schema.Entity("feedItems");
+// const feedItem = new schema.Entity("feedItems");
+const feedItem = new schema.Entity(
+  "feedItems",
+  {},
+  {
+    idAttribute: "id",
+    processStrategy: (value, parent) => ({ ...value, feedId: parent.id }),
+  },
+);
 const feed = new schema.Entity("feeds", {
   feedItems: [feedItem],
 });

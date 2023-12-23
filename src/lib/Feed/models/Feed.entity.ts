@@ -9,7 +9,9 @@ export interface NormalizedFeed {
   [key: string]: Omit<Feed, "feedItems"> & { feedItems: string[] };
 }
 export interface NormalizedFeedItem {
-  [key: string]: FeedItem;
+  [key: string]: FeedItem & {
+    feedId: string;
+  };
 }
 export interface FeedItem {
   id: string;
