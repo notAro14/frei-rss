@@ -39,6 +39,7 @@ export default function Page({ params }: { params: { slug: string } }) {
           </Badge>
         ) : (
           <Button
+            variant="soft"
             onClick={() =>
               dispatch(markFeedItemAsRead({ feedItemId: article.id }))
             }
@@ -53,7 +54,7 @@ export default function Page({ params }: { params: { slug: string } }) {
           href={article.url}
         >
           View original
-          <ExternalLink />
+          <ExternalLink size={"1em"} />
         </Link>
       </Flex>
 

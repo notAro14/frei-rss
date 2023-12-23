@@ -86,9 +86,6 @@ export function Header() {
                   />
                   <Text size={"4"}>{user.email}</Text>
                 </Flex>
-                <RdxLink asChild>
-                  <Link href={"/inbox"}>My Inbox</Link>
-                </RdxLink>
                 <Button
                   size={"3"}
                   color="crimson"

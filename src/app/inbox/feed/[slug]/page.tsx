@@ -1,8 +1,8 @@
 "use client";
-import { Flex, Heading, Link, Text, Button } from "@radix-ui/themes";
+import { Flex, Heading, Link, Text, IconButton } from "@radix-ui/themes";
 import { useSelector } from "src/store";
 import { Article } from "src/components/Article";
-import { ExternalLink, RefreshCcw } from "lucide-react";
+import { ExternalLink, RefreshCcw, Trash } from "lucide-react";
 import { redirect } from "next/navigation";
 import { useSyncFeed } from "src/hooks/useSyncFeed";
 
@@ -19,7 +19,21 @@ export default function Page({ params }: { params: { slug: string } }) {
 
   return (
     <Flex direction={"column"} gap={"8"}>
-      <Flex mb={"-4"} direction="column" gap={"2"}>
+      <Flex pl={"3"} mb={"-4"} direction="column" gap={"3"}>
+        <Flex gap={"3"}>
+          <IconButton
+            onClick={() => syncFeed({ feedId: feed.id, feedUrl: feed.website })}
+            variant="soft"
+            disabled={syncFeedStatus === "pending"}
+            title="Sync feed"
+            className="self-start"
+          >
+            <RefreshCcw size={"1em"} />
+          </IconButton>
+          <IconButton title="Delete feed" color="crimson" variant="soft">
+            <Trash size={"1em"} />
+          </IconButton>
+        </Flex>
         <Heading as="h2" dangerouslySetInnerHTML={{ __html: feed.name }} />
         <Text>
           Source:{" "}
@@ -27,15 +41,6 @@ export default function Page({ params }: { params: { slug: string } }) {
             {feed.website} <ExternalLink size={"1em"} />
           </Link>
         </Text>
-        <Button
-          onClick={() => syncFeed({ feedId: feed.id, feedUrl: feed.website })}
-          variant="soft"
-          disabled={syncFeedStatus === "pending"}
-          title="Sync"
-          className="self-start"
-        >
-          <RefreshCcw size={"1em"} /> Sync
-        </Button>
       </Flex>
 
       {feed.feedItems.map((aId) => {
