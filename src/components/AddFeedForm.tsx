@@ -52,11 +52,11 @@ export function AddFeedForm() {
         <form onSubmit={handleSubmit(onSubmit)}>
           <Flex direction={"column"} gap={"2"}>
             <Text as="label" htmlFor="feed">
-              Add feed URL
+              Add your favorite blog
             </Text>
             <TextFieldInput
               type="url"
-              placeholder={"https://lorem-rss.herokuapp.com/feed"}
+              placeholder={"https://www.nature.com/nature.rss"}
               size={"3"}
               {...register("feed")}
             />
