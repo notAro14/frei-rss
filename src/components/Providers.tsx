@@ -20,7 +20,7 @@ export function Providers(props: { children: ReactNode }) {
       <ThemeProvider attribute="class">
         <Theme accentColor={"iris"} panelBackground="translucent">
           <AuthGuard>{props.children}</AuthGuard>
-          <Toaster theme="system" position="bottom-center" />
+          <Toaster theme="system" position="top-center" />
         </Theme>
       </ThemeProvider>
     </Provider>
