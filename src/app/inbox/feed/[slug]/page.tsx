@@ -18,8 +18,8 @@ export default function Page({ params }: { params: { slug: string } }) {
   if (!feed) redirect("/");
 
   return (
-    <Flex mt={"8"} direction={"column"} gap={"8"}>
-      <Flex direction="column" gap={"2"}>
+    <Flex direction={"column"} gap={"8"}>
+      <Flex mb={"-4"} direction="column" gap={"2"}>
         <Heading as="h2" dangerouslySetInnerHTML={{ __html: feed.name }} />
         <Text>
           Source:{" "}
@@ -32,7 +32,6 @@ export default function Page({ params }: { params: { slug: string } }) {
           variant="soft"
           disabled={syncFeedStatus === "pending"}
           title="Sync"
-          mt={"4"}
           className="self-start"
         >
           <RefreshCcw size={"1em"} /> Sync

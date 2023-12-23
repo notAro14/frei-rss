@@ -27,7 +27,7 @@ export function Header() {
           id="logo"
           weight={"bold"}
           size={{ initial: "6", xs: "8" }}
-          className="text-current flex items-center gap-rx-2 no-underline"
+          className="flex items-center gap-rx-2 text-current no-underline"
         >
           <Link href={"/"}>
             <Rss size={"1em"} /> FreiRSS
@@ -79,17 +79,21 @@ export function Header() {
                   backgroundColor: "var(--gray-a10)",
                 }}
               />
-              <Flex direction={"column"} gap={"8"}>
+              <Flex direction={"column"} gap={"8"} align={"center"}>
                 <Flex direction={"column"} gap={"4"} align={"center"}>
                   <Avatar
                     fallback={`${user.email.charAt(0)}${user.email.charAt(1)}`}
                   />
                   <Text size={"4"}>{user.email}</Text>
                 </Flex>
+                <RdxLink asChild>
+                  <Link href={"/inbox"}>My Inbox</Link>
+                </RdxLink>
                 <Button
                   size={"3"}
                   color="crimson"
                   onClick={() => dispatch(signOut())}
+                  className="w-full"
                 >
                   Sign out
                 </Button>
