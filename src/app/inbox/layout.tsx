@@ -30,7 +30,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <Flex
       direction={{ initial: "column", xs: "row" }}
       position={"relative"}
-      gap={"4"}
+      gap={{ initial: "6", xs: "4" }}
     >
       <Card
         style={{
