@@ -9,68 +9,78 @@ import {
   Badge,
   Button,
 } from "@radix-ui/themes";
+import { useCallback } from "react";
 import { redirect } from "next/navigation";
 import { ExternalLink } from "lucide-react";
-import { useSelector, useDispatch } from "src/store";
+import { useSelector, useDispatch, State } from "src/store";
 import { markFeedItemAsRead } from "src/lib/Feed/usecases/markFeedItemAsRead";
+import { singleArticleSelector } from "src/selectors/singleArticle.selector";
 import styles from "./styles.module.scss";
 
 export default function Page({ params }: { params: { slug: string } }) {
-  const dispatch = useDispatch();
-  const slug = params.slug;
-  const article = useSelector(
-    (state) => state.getFeeds.entities?.feedItems[slug],
+  const selector = useCallback(
+    (state: State) => singleArticleSelector(state, params.slug),
+    [params.slug],
   );
-  const getFeedsStatus = useSelector((state) => state.getFeeds.status);
+  const data = useSelector(selector);
+  if (data === null) return <Text role="alert">Loading...</Text>;
+  if (data.ok) {
+    const article = data.article;
+    return (
+      <Card>
+        <Flex mb={"5"} align={"center"} gap={"4"}>
+          <MarkAsRead id={article.id} />
+          <Link
+            target="_blank"
+            rel="noopener"
+            className="flex w-max items-center gap-rx-2"
+            href={article.url}
+          >
+            View original
+            <ExternalLink size={"1em"} />
+          </Link>
+        </Flex>
 
-  if (!article && getFeedsStatus === "pending")
-    return <Text role="alert">Loading...</Text>;
-  if (!article && getFeedsStatus === "fulfilled") redirect("/");
-  if (!article) return null;
+        <Heading mb={"6"} as="h2">
+          {article.title}
+        </Heading>
+        {article.content ? (
+          <Box
+            className={styles.preview}
+            dangerouslySetInnerHTML={{ __html: article.content }}
+          />
+        ) : (
+          <Text color="crimson" role="alert">
+            Oups no preview was found
+          </Text>
+        )}
+      </Card>
+    );
+  }
 
-  const isRead = article.readStatus === "READ";
+  redirect("/");
+}
+
+function MarkAsRead({ id }: { id: string }) {
+  const isRead = useSelector(
+    (state) => state.getFeeds.entities?.feedItems[id].readStatus === "READ",
+  );
+  const dispatch = useDispatch();
 
   return (
-    <Card>
-      <Flex mb={"5"} align={"center"} gap={"4"}>
-        {isRead ? (
-          <Badge size={"2"} color="grass">
-            Read
-          </Badge>
-        ) : (
-          <Button
-            variant="soft"
-            onClick={() =>
-              dispatch(markFeedItemAsRead({ feedItemId: article.id }))
-            }
-          >
-            Mark as read
-          </Button>
-        )}
-        <Link
-          target="_blank"
-          rel="noopener"
-          className="flex w-max items-center gap-rx-2"
-          href={article.url}
-        >
-          View original
-          <ExternalLink size={"1em"} />
-        </Link>
-      </Flex>
-
-      <Heading mb={"6"} as="h2">
-        {article.title}
-      </Heading>
-      {article.content ? (
-        <Box
-          className={styles.preview}
-          dangerouslySetInnerHTML={{ __html: article.content }}
-        />
+    <>
+      {isRead ? (
+        <Badge size={"2"} color="grass">
+          Read
+        </Badge>
       ) : (
-        <Text color="crimson" role="alert">
-          Oups no preview was found
-        </Text>
+        <Button
+          variant="soft"
+          onClick={() => dispatch(markFeedItemAsRead({ feedItemId: id }))}
+        >
+          Mark as read
+        </Button>
       )}
-    </Card>
+    </>
   );
 }
