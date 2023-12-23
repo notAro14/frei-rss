@@ -1,6 +1,5 @@
 "use client";
-import { useEffect } from "react";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 import z from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -28,20 +27,24 @@ export function AddFeedForm() {
     resolver: zodResolver(addFeedFormInSchema),
   });
 
-  const { status, message } = useSelector((state) => state.registerFeed);
+  const registerFeedPending = useSelector(
+    (state) => state.registerFeed.status === "pending",
+  );
   const dispatch = useDispatch();
 
   const onSubmit: SubmitHandler<AddFeedFormIn> = async (data) => {
-    try {
-      await dispatch(registerFeed(data.feed)).unwrap();
-      toast.success("Feed registered and synced");
-    } catch (e) {
-      setTimeout(() => {
-        toast.error(message ?? "Unable to register feed");
-      }, 0);
-    } finally {
-      reset();
-    }
+    const promise = dispatch(registerFeed(data.feed)).unwrap();
+    toast.promise(promise, {
+      loading: "Fetching articles...",
+      success: (data) => {
+        reset();
+        return `${data} articles synced`;
+      },
+      error(error) {
+        reset();
+        return error ?? "Failed to register feed";
+      },
+    });
   };
   return (
     <Card my={"8"}>
@@ -63,7 +66,7 @@ export function AddFeedForm() {
               </Text>
             )}
           </Flex>
-          <Button type="submit" disabled={status === "pending"}>
+          <Button type="submit" disabled={registerFeedPending}>
             Add
           </Button>
         </form>

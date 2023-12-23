@@ -48,6 +48,7 @@ export const registerFeed = createAppAsyncThunk(
       userId,
       feed,
     });
+    return feedItems.length;
     // try {
     //   const res = await feedReaderGateway.registerFeed(feedUrl, userId);
     //   return res;

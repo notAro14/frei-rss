@@ -1,7 +1,7 @@
 "use client";
 import { Github, Rss } from "lucide-react";
 import { Button, Heading, Flex, Grid } from "@radix-ui/themes";
-import toast from "react-hot-toast";
+import { toast } from "sonner";
 
 import { useDispatch, useSelector } from "src/store";
 import { signInWithGithub } from "src/lib/Auth/usecases/signInWithSocial";

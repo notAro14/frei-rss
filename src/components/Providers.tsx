@@ -3,7 +3,7 @@ import { ReactNode, useEffect, useRef } from "react";
 import { ThemeProvider } from "next-themes";
 import { Theme } from "@radix-ui/themes";
 import { Provider } from "react-redux";
-import { Toaster } from "react-hot-toast";
+import { Toaster } from "sonner";
 
 import { type Store, configureStore } from "src/store";
 
@@ -20,7 +20,7 @@ export function Providers(props: { children: ReactNode }) {
       <ThemeProvider attribute="class">
         <Theme accentColor={"iris"} panelBackground="translucent">
           <AuthGuard>{props.children}</AuthGuard>
-          <Toaster />
+          <Toaster theme="system" position="bottom-center" />
         </Theme>
       </ThemeProvider>
     </Provider>
