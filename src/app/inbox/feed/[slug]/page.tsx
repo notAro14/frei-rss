@@ -41,6 +41,7 @@ export default function Page({ params }: { params: { slug: string } }) {
             {feed.website} <ExternalLink size={"1em"} />
           </Link>
         </Text>
+        B
       </Flex>
 
       {feed.feedItems.map((aId) => {

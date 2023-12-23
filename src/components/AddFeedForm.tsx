@@ -7,6 +7,7 @@ import { Card, Flex, Button, Text, TextFieldInput } from "@radix-ui/themes";
 
 import { useSelector, useDispatch } from "src/store";
 import { registerFeed } from "src/lib/Feed/usecases/registerFeed";
+import { useWithSound } from "src/hooks/useWithSound";
 
 const addFeedFormInSchema = z.object({
   feed: z
@@ -26,6 +27,7 @@ export function AddFeedForm() {
   } = useForm<AddFeedFormIn>({
     resolver: zodResolver(addFeedFormInSchema),
   });
+  const { playSound } = useWithSound("/sounds/success.mp3");
 
   const registerFeedPending = useSelector(
     (state) => state.registerFeed.status === "pending",
@@ -38,6 +40,7 @@ export function AddFeedForm() {
       loading: "Fetching articles...",
       success: (data) => {
         reset();
+        playSound();
         return `${data} articles synced`;
       },
       error(error) {
