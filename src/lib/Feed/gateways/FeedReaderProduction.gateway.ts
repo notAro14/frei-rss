@@ -168,6 +168,7 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       title: a.title,
       pub_date: a.date,
       user_id: userId,
+      id: a.id,
     }));
 
     const { error } = await supabase.from("feed_items").upsert(insert);
