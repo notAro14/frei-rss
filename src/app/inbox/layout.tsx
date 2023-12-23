@@ -40,7 +40,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         }}
       >
         <ScrollArea
-          style={{ height: 250 }}
+          style={{ maxHeight: 250 }}
           className="flex flex-col gap-rx-4"
           scrollbars="vertical"
           type="auto"
