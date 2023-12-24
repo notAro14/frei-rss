@@ -2,7 +2,12 @@ import { State, Store, configureStore } from "src/store";
 import { FeedReaderInMemoryGateway } from "src/lib/Feed/gateways/FeedReaderInMemory.gateway";
 import { AuthInMemoryGateway } from "src/lib/Auth/gateways/AuthInMemory.gateway";
 import { getFeeds } from "src/lib/Feed/usecases/getFeeds";
-import { MOCK, FEED_ID, NORMALIZED_MOCK } from "src/lib/Feed/mocks";
+import {
+  MOCK,
+  FEED_ID,
+  NORMALIZED_MOCK,
+  PRELOADED_STATE,
+} from "src/lib/Feed/mocks";
 import { removeFeed } from "src/lib/Feed/usecases/removeFeed";
 import { removeFeedCancel } from "src/lib/Feed/slices/removeFeed.slice";
 
@@ -15,18 +20,25 @@ describe("Remove Feed", () => {
     const feedReaderGateway = new FeedReaderInMemoryGateway(MOCK);
     const authGateway = new AuthInMemoryGateway();
     const dep = { feedReaderGateway, authGateway };
-    store = configureStore(dep);
+    store = configureStore(dep, {
+      ...PRELOADED_STATE,
+      auth: { user: { email: "john@doe.com", id: "1" }, error: null },
+    });
     initialState = store.getState();
   });
   afterEach(() => {
-    // jest.runOnlyPendingTimers();
+    jest.runOnlyPendingTimers();
     jest.useRealTimers();
   });
 
   it("should remove a feed and its related feed items", async () => {
-    await store.dispatch(getFeeds());
     store.dispatch(removeFeed({ feedId: FEED_ID }));
-    await jest.runAllTimers();
+    // ----------
+    // see https://stackoverflow.com/a/52196951
+    jest.runAllTimers();
+    await Promise.resolve();
+    // ----------
+
     expect(store.getState()).toEqual<State>({
       ...initialState,
       getFeeds: {
@@ -45,7 +57,6 @@ describe("Remove Feed", () => {
   });
 
   it("should try to remove a feed and undo the removal", async () => {
-    await store.dispatch(getFeeds());
     store.dispatch(removeFeed({ feedId: FEED_ID }));
     store.dispatch(removeFeedCancel({ feedId: FEED_ID }));
     expect(store.getState()).toEqual<State>({

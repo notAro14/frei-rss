@@ -7,13 +7,12 @@ import {
 
 export const removeFeed = createAppAsyncThunk<void, { feedId: string }>(
   "feed/removeFeed",
-  async function ({ feedId }, { extra, rejectWithValue, dispatch }) {
-    const {
-      dependencies: { feedReaderGateway },
-    } = extra;
+  async function ({ feedId }, { extra, rejectWithValue, dispatch, getState }) {
+    const { dependencies } = extra;
+    const userId = getState().auth.user!.id;
     const timerId = setTimeout(async () => {
       try {
-        await feedReaderGateway.deleteFeed(feedId);
+        await dependencies.feedReaderGateway.deleteFeed({ id: feedId, userId });
         dispatch(removeFeedDone({ feedId }));
       } catch (e) {
         dispatch(removeFeedCancel({ feedId }));
