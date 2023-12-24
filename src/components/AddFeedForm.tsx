@@ -27,7 +27,7 @@ export function AddFeedForm() {
   } = useForm<AddFeedFormIn>({
     resolver: zodResolver(addFeedFormInSchema),
   });
-  const { playSound } = useWithSound("/sounds/success.mp3");
+  const { playSound } = useWithSound("/sounds/woo-hoo.mp3");
 
   const registerFeedPending = useSelector(
     (state) => state.registerFeed.status === "pending",

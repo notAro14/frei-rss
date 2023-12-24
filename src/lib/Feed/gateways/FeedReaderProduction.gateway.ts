@@ -93,6 +93,7 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       pub_date: a.date,
       user_id: userId,
       content: a.content ?? "",
+      id: a.id,
     }));
 
     const { error: feedItemsInsertError } = await supabase

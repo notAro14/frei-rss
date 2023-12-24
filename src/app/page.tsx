@@ -30,7 +30,7 @@ const RECO: { rss: string; url: string; name: string }[] = [
 export default function Page() {
   const { width, height } = useWindowSize();
   // const { playSound } = useWithSound("/sounds/yay.mp3");
-  const [numberOfPieces, disableConfetti] = useReducer(() => 0, 50);
+  const [numberOfPieces, disableConfetti] = useReducer(() => 0, 250);
   const firstFeedId = useSelector((state) => state.getFeeds.result?.[0]);
   if (firstFeedId) redirect(`/inbox/feed/${firstFeedId}`);
 

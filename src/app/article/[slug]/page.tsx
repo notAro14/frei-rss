@@ -17,6 +17,7 @@ import { useSelector, useDispatch, State } from "src/store";
 import { markFeedItemAsRead } from "src/lib/Feed/usecases/markFeedItemAsRead";
 import { singleArticleSelector } from "src/selectors/singleArticle.selector";
 import styles from "./styles.module.scss";
+import { useWithSound } from "src/hooks/useWithSound";
 
 export default function Page({ params }: { params: { slug: string } }) {
   const selector = useCallback(
@@ -70,6 +71,7 @@ export default function Page({ params }: { params: { slug: string } }) {
 }
 
 function MarkAsRead({ id }: { id: string }) {
+  const { playSound } = useWithSound("/sounds/success.mp3");
   const isRead = useSelector(
     (state) => state.getFeeds.entities?.feedItems[id].readStatus === "READ",
   );
@@ -84,7 +86,10 @@ function MarkAsRead({ id }: { id: string }) {
       ) : (
         <Button
           variant="soft"
-          onClick={() => dispatch(markFeedItemAsRead({ feedItemId: id }))}
+          onClick={async () => {
+            await dispatch(markFeedItemAsRead({ feedItemId: id }));
+            playSound();
+          }}
         >
           Mark as read
         </Button>
