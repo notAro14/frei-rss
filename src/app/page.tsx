@@ -2,10 +2,11 @@
 import { Card, Flex, Heading, IconButton, Text, Link } from "@radix-ui/themes";
 import { Copy, ExternalLink } from "lucide-react";
 import { redirect } from "next/navigation";
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import Confetti from "react-confetti";
 import { useWindowSize } from "react-use";
 import { toast } from "sonner";
+// import { useWithSound } from "src/hooks/useWithSound";
 import { useSelector } from "src/store";
 
 const RECO: { rss: string; url: string; name: string }[] = [
@@ -28,7 +29,8 @@ const RECO: { rss: string; url: string; name: string }[] = [
 
 export default function Page() {
   const { width, height } = useWindowSize();
-  const [numberOfPieces, disableConfetti] = useReducer(() => 0, 100);
+  // const { playSound } = useWithSound("/sounds/yay.mp3");
+  const [numberOfPieces, disableConfetti] = useReducer(() => 0, 50);
   const firstFeedId = useSelector((state) => state.getFeeds.result?.[0]);
   if (firstFeedId) redirect(`/inbox/feed/${firstFeedId}`);
 
@@ -40,6 +42,10 @@ export default function Page() {
       toast.error("Sadly your browser does not support clipboard");
     }
   }
+
+  // useEffect(() => {
+  //   playSound();
+  // }, [playSound]);
 
   useEffect(() => {
     setTimeout(disableConfetti, 2500);

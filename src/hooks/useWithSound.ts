@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 export const useWithSound = (audioSource: string) => {
   const soundRef = useRef<HTMLAudioElement>();
 
@@ -6,13 +6,13 @@ export const useWithSound = (audioSource: string) => {
     soundRef.current = new Audio(audioSource);
   }, [audioSource]);
 
-  const playSound = () => {
+  const playSound = useCallback(() => {
     soundRef.current?.play();
-  };
+  }, []);
 
-  const pauseSound = () => {
+  const pauseSound = useCallback(() => {
     soundRef.current?.pause();
-  };
+  }, []);
 
   return {
     playSound,
