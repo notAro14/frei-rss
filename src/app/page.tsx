@@ -2,6 +2,9 @@
 import { Card, Flex, Heading, IconButton, Text, Link } from "@radix-ui/themes";
 import { Copy, ExternalLink } from "lucide-react";
 import { redirect } from "next/navigation";
+import { useEffect, useReducer, useState } from "react";
+import Confetti from "react-confetti";
+import { useWindowSize } from "react-use";
 import { toast } from "sonner";
 import { useSelector } from "src/store";
 
@@ -24,8 +27,11 @@ const RECO: { rss: string; url: string; name: string }[] = [
 ];
 
 export default function Page() {
+  const { width, height } = useWindowSize();
+  const [numberOfPieces, disableConfetti] = useReducer(() => 0, 100);
   const firstFeedId = useSelector((state) => state.getFeeds.result?.[0]);
   if (firstFeedId) redirect(`/inbox/feed/${firstFeedId}`);
+
   async function copyToClipboard(rss: string) {
     try {
       await navigator.clipboard.writeText(rss);
@@ -34,8 +40,14 @@ export default function Page() {
       toast.error("Sadly your browser does not support clipboard");
     }
   }
+
+  useEffect(() => {
+    setTimeout(disableConfetti, 2500);
+  }, []);
+
   return (
     <Flex gap={"3"} direction={"column"}>
+      <Confetti width={width} height={height} numberOfPieces={numberOfPieces} />
       <Heading>How d&apos;ya ? Aro here 👋🏽</Heading>
       <Text as="p">Welcome and thanks for using my app 😎</Text>
       <Text>
