@@ -15,7 +15,10 @@ export interface FeedReaderGateway {
     feedItemId: string,
     status: "READ" | "UNREAD" | "READ_LATER",
   ): Promise<FeedItem>;
-  deleteFeed(args: { id: string; userId: string }): Promise<{ feedId: string }>;
+  deleteFeed(args: {
+    id: string;
+    userId: string;
+  }): Promise<{ feedId: string; feedName: string }>;
   parse(url: string): Promise<FeedFreshlyParsed | string>;
   saveArticles(args: {
     articles: FeedItem[];

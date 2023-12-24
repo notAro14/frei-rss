@@ -135,16 +135,19 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
   }: {
     id: string;
     userId: string;
-  }): Promise<{ feedId: string }> {
-    const { error } = await supabase
+  }): Promise<{ feedId: string; feedName: string }> {
+    const { error, data } = await supabase
       .from("feeds")
       .delete()
       .filter("id", "eq", id)
-      .filter("user_id", "eq", userId);
-
+      .filter("user_id", "eq", userId)
+      .select("*")
+      .maybeSingle();
     if (error) throw new Error("Failed to remove feed");
+    if (!data) throw new Error("Failed to remove feed");
     return {
       feedId: id,
+      feedName: data?.name ?? "Unknown feed",
     };
   }
 

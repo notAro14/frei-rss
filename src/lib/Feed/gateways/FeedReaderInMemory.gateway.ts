@@ -47,8 +47,8 @@ export class FeedReaderInMemoryGateway implements FeedReaderGateway {
   }: {
     id: string;
     userId: string;
-  }): Promise<{ feedId: string }> {
-    return { feedId: id };
+  }): Promise<{ feedId: string; feedName: string }> {
+    return { feedId: id, feedName: "" };
   }
   async parse(_url: string): Promise<string | FeedFreshlyParsed> {
     return "";

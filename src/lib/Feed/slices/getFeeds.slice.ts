@@ -9,7 +9,7 @@ import {
   updateFeedItemAsRead,
   markFeedItemAsRead,
 } from "src/lib/Feed/usecases/markFeedItemAsRead";
-import { removeFeedDone } from "src/lib/Feed/slices/removeFeed.slice";
+import { removeFeedInit } from "src/lib/Feed/slices/removeFeed.slice";
 import { changeFeedItemReadingStatus } from "src/lib/Feed/usecases/changeFeedItemReadingStatus";
 import { signOut } from "src/lib/Auth/usecases/signOut";
 import type { FeedItem } from "src/lib/Feed/models/Feed.entity";
@@ -102,7 +102,7 @@ export const getFeedsSlice = createSlice({
         state.entities.feedItems[feedItemId].readStatus = "UNREAD";
       }
     });
-    builder.addCase(removeFeedDone, function (state, action) {
+    builder.addCase(removeFeedInit, function (state, action) {
       const feedId = action.payload.feedId;
       if (!state.entities || !state.result) return;
 
