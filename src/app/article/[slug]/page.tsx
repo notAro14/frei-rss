@@ -58,7 +58,7 @@ export default function Page({ params }: { params: { slug: string } }) {
               dangerouslySetInnerHTML={{ __html: article.content }}
             />
           ) : (
-            <Text color="crimson" role="alert">
+            <Text color="red" role="alert">
               Oups no preview was found
             </Text>
           )}

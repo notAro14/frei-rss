@@ -1,6 +1,14 @@
 "use client";
 import { toast } from "sonner";
-import { Flex, Heading, Link, Text, IconButton } from "@radix-ui/themes";
+import {
+  Flex,
+  Heading,
+  Link,
+  Text,
+  IconButton,
+  AlertDialog,
+  Button,
+} from "@radix-ui/themes";
 import { useDispatch, useSelector } from "src/store";
 import { Article } from "src/components/Article";
 import { ExternalLink, RefreshCcw, Trash } from "lucide-react";
@@ -20,6 +28,16 @@ export default function Page({ params }: { params: { slug: string } }) {
   if (!feed && getFeedsStatus === "fulfilled") redirect("/inbox");
   if (!feed) redirect("/inbox");
 
+  const onRemoveFeed = async () => {
+    const promise = dispatch(removeFeed({ feedId })).unwrap();
+    toast.promise(promise, {
+      loading: "Unfollowing feed",
+      success(feedName) {
+        return `You no longer follow ${feedName}`;
+      },
+    });
+  };
+
   const feedId = feed.id;
   return (
     <Flex direction={"column"} gap={"8"}>
@@ -34,22 +52,32 @@ export default function Page({ params }: { params: { slug: string } }) {
           >
             <RefreshCcw size={"1em"} />
           </IconButton>
-          <IconButton
-            onClick={async () => {
-              const promise = dispatch(removeFeed({ feedId })).unwrap();
-              toast.promise(promise, {
-                loading: "Unfollowing feed",
-                success(feedName) {
-                  return `You no longer follow ${feedName}`;
-                },
-              });
-            }}
-            title="Delete feed"
-            color="crimson"
-            variant="soft"
-          >
-            <Trash size={"1em"} />
-          </IconButton>
+          <AlertDialog.Root>
+            <AlertDialog.Trigger>
+              <IconButton title="Delete feed" color="red" variant="soft">
+                <Trash size={"1em"} />
+              </IconButton>
+            </AlertDialog.Trigger>
+            <AlertDialog.Content>
+              <AlertDialog.Title>Unfollow feed</AlertDialog.Title>
+              <AlertDialog.Description>
+                Are you sure ? You will unfollow this feed and remove all
+                related articles
+              </AlertDialog.Description>
+              <Flex gap={"4"} mt={"4"}>
+                <AlertDialog.Cancel>
+                  <Button variant="soft" color="gray">
+                    Cancel
+                  </Button>
+                </AlertDialog.Cancel>
+                <AlertDialog.Action>
+                  <Button onClick={onRemoveFeed} variant="solid" color="red">
+                    Unfollow
+                  </Button>
+                </AlertDialog.Action>
+              </Flex>
+            </AlertDialog.Content>
+          </AlertDialog.Root>
         </Flex>
         <Heading as="h2" dangerouslySetInnerHTML={{ __html: feed.name }} />
         <Text>

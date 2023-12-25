@@ -88,7 +88,7 @@ export function Header() {
                 </Flex>
                 <Button
                   size={"3"}
-                  color="crimson"
+                  color="red"
                   onClick={() => dispatch(signOut())}
                   className="w-full"
                 >
