@@ -32,6 +32,10 @@ export default function Page() {
   // const { playSound } = useWithSound("/sounds/yay.mp3");
   const [numberOfPieces, disableConfetti] = useReducer(() => 0, 250);
   const firstFeedId = useSelector((state) => state.getFeeds.result?.[0]);
+  const getFeedsPending = useSelector(
+    (state) =>
+      state.getFeeds.status === "pending" || state.getFeeds.status === "idle",
+  );
   if (firstFeedId) redirect(`/inbox/feed/${firstFeedId}`);
 
   async function copyToClipboard(rss: string) {
@@ -50,6 +54,8 @@ export default function Page() {
   useEffect(() => {
     setTimeout(disableConfetti, 2500);
   }, []);
+
+  if (getFeedsPending) return null;
 
   return (
     <Flex gap={"3"} direction={"column"}>
