@@ -13,7 +13,7 @@ interface Props {
   id: string;
 }
 export function Article({ id }: Props) {
-  const { playSound } = useWithSound("/sounds/success.mp3");
+  const { playSound } = useWithSound("/sounds/pop.mp3");
   const feedItem = useSelector((state) => getArticle(state, id));
   const dispatch = useDispatch();
   const onMarkAsRead = useCallback(async () => {

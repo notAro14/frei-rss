@@ -2,11 +2,7 @@
 import { Card, Flex, Heading, IconButton, Text, Link } from "@radix-ui/themes";
 import { Copy, ExternalLink } from "lucide-react";
 import { redirect } from "next/navigation";
-import { useEffect, useReducer } from "react";
-import Confetti from "react-confetti";
-import { useWindowSize } from "react-use";
 import { toast } from "sonner";
-// import { useWithSound } from "src/hooks/useWithSound";
 import { useSelector } from "src/store";
 
 const RECO: { rss: string; url: string; name: string }[] = [
@@ -28,9 +24,6 @@ const RECO: { rss: string; url: string; name: string }[] = [
 ];
 
 export default function Page() {
-  const { width, height } = useWindowSize();
-  // const { playSound } = useWithSound("/sounds/yay.mp3");
-  const [numberOfPieces, disableConfetti] = useReducer(() => 0, 250);
   const firstFeedId = useSelector((state) => state.getFeeds.result?.[0]);
   const getFeedsPending = useSelector(
     (state) =>
@@ -47,19 +40,10 @@ export default function Page() {
     }
   }
 
-  // useEffect(() => {
-  //   playSound();
-  // }, [playSound]);
-
-  useEffect(() => {
-    setTimeout(disableConfetti, 2500);
-  }, []);
-
   if (getFeedsPending) return null;
 
   return (
     <Flex gap={"3"} direction={"column"}>
-      <Confetti width={width} height={height} numberOfPieces={numberOfPieces} />
       <Heading>How d&apos;ya ? Aro here 👋🏽</Heading>
       <Text as="p">Welcome and thanks for using my app 😎</Text>
       <Text>
