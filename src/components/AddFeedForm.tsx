@@ -4,9 +4,6 @@ import z from "zod";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, Flex, Button, Text, TextFieldInput } from "@radix-ui/themes";
-import Confetti from "react-confetti";
-import { useWindowSize } from "react-use";
-import { useState } from "react";
 import { useRouter } from "next/navigation";
 
 import { useSelector, useDispatch } from "src/store";
@@ -32,8 +29,6 @@ export function AddFeedForm() {
     resolver: zodResolver(addFeedFormInSchema),
   });
   const { playSound } = useWithSound("/sounds/woo-hoo.mp3");
-  const { width, height } = useWindowSize();
-  const [pieces, setPieces] = useState(0);
   const router = useRouter();
 
   const registerFeedPending = useSelector(
@@ -48,11 +43,9 @@ export function AddFeedForm() {
       success: (data) => {
         reset();
         playSound();
-        setPieces(500);
         setTimeout(() => {
-          setPieces(0);
           router.push(`/inbox/feed/${data.feedId}`);
-        }, 1500);
+        }, 0);
         return `${data.articlesCount} articles synced`;
       },
       error(error) {
@@ -63,7 +56,6 @@ export function AddFeedForm() {
   };
   return (
     <>
-      <Confetti width={width} height={height} numberOfPieces={pieces} />
       <Card my={"8"}>
         <Flex direction={"column"} gap={"4"} asChild>
           <form onSubmit={handleSubmit(onSubmit)}>
