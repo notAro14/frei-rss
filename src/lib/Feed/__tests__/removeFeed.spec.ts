@@ -9,7 +9,7 @@ describe("Remove Feed", () => {
   let store: Store;
 
   beforeEach(() => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     const feedReaderGateway = new FeedReaderInMemoryGateway(MOCK);
     const authGateway = new AuthInMemoryGateway();
     const dep = { feedReaderGateway, authGateway };
@@ -20,8 +20,8 @@ describe("Remove Feed", () => {
     initialState = store.getState();
   });
   afterEach(() => {
-    jest.runOnlyPendingTimers();
-    jest.useRealTimers();
+    vi.runOnlyPendingTimers();
+    vi.useRealTimers();
   });
 
   it("should remove a feed optimistically", async () => {
