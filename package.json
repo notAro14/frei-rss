@@ -37,6 +37,7 @@
     "rss-parser": "^3.13.0",
     "sonner": "^1.2.4",
     "typescript": "5.3.2",
+    "use-sound": "^4.0.1",
     "vaul": "^0.7.9",
     "zod": "^3.22.4"
   },
