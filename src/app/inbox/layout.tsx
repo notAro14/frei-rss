@@ -68,7 +68,7 @@ export default function Layout({ children }: { children: ReactNode }) {
               Inbox
             </Heading>
             <UnreadLink />
-            <Separator size={"4"} />
+            <Separator size={"3"} />
             <Heading size="1" as="h6">
               All feeds
             </Heading>
