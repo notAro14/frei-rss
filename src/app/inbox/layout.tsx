@@ -1,9 +1,18 @@
 "use client";
-import { Box, Card, Flex, ScrollArea, Link } from "@radix-ui/themes";
+import {
+  Box,
+  Card,
+  Flex,
+  ScrollArea,
+  Link,
+  Separator,
+  Heading,
+} from "@radix-ui/themes";
 import { createSelector } from "@reduxjs/toolkit";
 import NextLink from "next/link";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
+import { getUnreadArticlesCount } from "src/selectors/getUnreadArticleIds.selector";
 import { useSelector, type State } from "src/store";
 
 const allFeedsSelector = createSelector(
@@ -26,6 +35,7 @@ const allFeedsSelector = createSelector(
 
 export default function Layout({ children }: { children: ReactNode }) {
   const feeds = useSelector(allFeedsSelector);
+
   const router = useRouter();
   if (!feeds) return null;
   if (!feeds.length) return router.push("/");
@@ -43,7 +53,7 @@ export default function Layout({ children }: { children: ReactNode }) {
         }}
       >
         <ScrollArea
-          style={{ maxHeight: 250 }}
+          style={{ maxHeight: 300 }}
           className="flex flex-col gap-rx-4"
           scrollbars="vertical"
           type="auto"
@@ -54,6 +64,14 @@ export default function Layout({ children }: { children: ReactNode }) {
             direction={"column"}
             gap={"4"}
           >
+            <Heading size="1" as="h6">
+              Inbox
+            </Heading>
+            <UnreadLink />
+            <Separator size={"4"} />
+            <Heading size="1" as="h6">
+              All feeds
+            </Heading>
             {feeds.map((f) => {
               return (
                 <Link asChild key={f.id}>
@@ -69,5 +87,15 @@ export default function Layout({ children }: { children: ReactNode }) {
       </Card>
       <Box className="flex-1">{children}</Box>
     </Flex>
+  );
+}
+
+function UnreadLink() {
+  const count = useSelector(getUnreadArticlesCount);
+  if (count === null) return null;
+  return (
+    <Link asChild>
+      <NextLink href={`/inbox/unread`}>Unread ({count})</NextLink>
+    </Link>
   );
 }

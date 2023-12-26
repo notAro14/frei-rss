@@ -18,6 +18,17 @@ export const getUnreadArticleIds = createSelector(
   },
 );
 
+export const getUnreadArticlesCount = createSelector(
+  [(state: State) => state.getFeeds.entities?.feedItems],
+  (items) => {
+    if (!items) return null;
+    const feedItems = Object.values(items).filter((value) => {
+      return value.readStatus === "UNREAD";
+    });
+    return feedItems.length;
+  },
+);
+
 // export function getUnreadArticleIds(state: State) {
 //   const entities = state.getFeeds.entities;
 //   if (!entities) return null;
