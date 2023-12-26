@@ -49,9 +49,8 @@ export function Article({ id }: Props) {
             target="_blank"
             rel="noopener"
             title={title}
-          >
-            {title}
-          </Link>
+            dangerouslySetInnerHTML={{ __html: title }}
+          />
           {date && <Text size={"1"}>{date}</Text>}
           <Link className="flex items-center gap-rx-1" asChild>
             <NextLink href={`/article/${feedItem.id}`}>

@@ -50,9 +50,11 @@ export default function Page({ params }: { params: { slug: string } }) {
             </Link>
           </Flex>
 
-          <Heading mb={"6"} as="h2">
-            {article.title}
-          </Heading>
+          <Heading
+            dangerouslySetInnerHTML={{ __html: article.title }}
+            mb={"6"}
+            as="h2"
+          />
           {article.content ? (
             <Box
               className={styles.preview}
