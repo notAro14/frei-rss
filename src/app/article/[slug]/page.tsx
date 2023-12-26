@@ -11,7 +11,7 @@ import {
 } from "@radix-ui/themes";
 import NextLink from "next/link";
 import { useCallback } from "react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ChevronLeft, ExternalLink } from "lucide-react";
 import { useSelector, useDispatch, State } from "src/store";
 import { markFeedItemAsRead } from "src/lib/Feed/usecases/markFeedItemAsRead";
@@ -25,6 +25,7 @@ export default function Page({ params }: { params: { slug: string } }) {
     [params.slug],
   );
   const data = useSelector(selector);
+  const router = useRouter();
   if (data === null) return <Text role="alert">Loading...</Text>;
   if (data.ok) {
     const article = data.article;
@@ -67,7 +68,7 @@ export default function Page({ params }: { params: { slug: string } }) {
     );
   }
 
-  redirect("/");
+  return router.push("/");
 }
 
 function MarkAsRead({ id }: { id: string }) {

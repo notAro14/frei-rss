@@ -1,7 +1,7 @@
 "use client";
 import { Card, Flex, Heading, IconButton, Text, Link } from "@radix-ui/themes";
 import { Copy, ExternalLink } from "lucide-react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useSelector } from "src/store";
 
@@ -25,11 +25,12 @@ const RECO: { rss: string; url: string; name: string }[] = [
 
 export default function Page() {
   const firstFeedId = useSelector((state) => state.getFeeds.result?.[0]);
+  const router = useRouter();
   const getFeedsPending = useSelector(
     (state) =>
       state.getFeeds.status === "pending" || state.getFeeds.status === "idle",
   );
-  if (firstFeedId) redirect(`/inbox/feed/${firstFeedId}`);
+  if (firstFeedId) return router.push(`/inbox/feed/${firstFeedId}`);
 
   async function copyToClipboard(rss: string) {
     try {

@@ -2,7 +2,7 @@
 import { Box, Card, Flex, ScrollArea, Link } from "@radix-ui/themes";
 import { createSelector } from "@reduxjs/toolkit";
 import NextLink from "next/link";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
 import { useSelector, type State } from "src/store";
 
@@ -26,8 +26,9 @@ const allFeedsSelector = createSelector(
 
 export default function Layout({ children }: { children: ReactNode }) {
   const feeds = useSelector(allFeedsSelector);
+  const router = useRouter();
   if (!feeds) return null;
-  if (!feeds.length) redirect("/");
+  if (!feeds.length) return router.push("/");
   return (
     <Flex
       direction={{ initial: "column", xs: "row" }}

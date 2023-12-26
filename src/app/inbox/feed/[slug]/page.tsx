@@ -12,7 +12,7 @@ import {
 import { useDispatch, useSelector } from "src/store";
 import { Article } from "src/components/Article";
 import { ExternalLink, RefreshCcw, Trash } from "lucide-react";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useSyncFeed } from "src/hooks/useSyncFeed";
 import { removeFeed } from "src/lib/Feed/usecases/removeFeed";
 
@@ -22,11 +22,12 @@ export default function Page({ params }: { params: { slug: string } }) {
   const getFeedsStatus = useSelector((state) => state.getFeeds.status);
   const [syncFeed, syncFeedStatus] = useSyncFeed();
   const dispatch = useDispatch();
+  const router = useRouter();
 
   if (!feed && getFeedsStatus === "pending")
     return <Text role="alert">Loading...</Text>;
-  if (!feed && getFeedsStatus === "fulfilled") redirect("/inbox");
-  if (!feed) redirect("/inbox");
+  if (!feed && getFeedsStatus === "fulfilled") return router.push("/inbox");
+  if (!feed) return router.push("/inbox");
 
   const onRemoveFeed = async () => {
     const promise = dispatch(removeFeed({ feedId })).unwrap();
