@@ -17,7 +17,7 @@ export default function Layout({ children }: { children: ReactNode }) {
     <html lang="en" suppressHydrationWarning>
       <body>
         <Providers>
-          <Container p={"4"}>
+          <Container size={"3"} p={"4"}>
             <Header />
             <AddFeedForm />
             {children}
