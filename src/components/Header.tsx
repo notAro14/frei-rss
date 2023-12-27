@@ -11,9 +11,10 @@ import {
   Text,
   Theme,
 } from "@radix-ui/themes";
-import { Rss, Menu } from "lucide-react";
+import { Menu } from "lucide-react";
 import { useDispatch, useSelector } from "src/store";
 import { signOut } from "src/lib/Auth/usecases/signOut";
+import Image from "next/image";
 
 export function Header() {
   const user = useSelector((state) => state.auth.user);
@@ -30,7 +31,14 @@ export function Header() {
           className="flex items-center gap-rx-2 text-current no-underline"
         >
           <Link href={"/"}>
-            <Rss size={"1em"} /> FreiRSS
+            <Image
+              src={"/images/logo.png"}
+              width={64}
+              height={64}
+              className="rounded-item"
+              alt=""
+            />{" "}
+            FreiRSS
           </Link>
         </RdxLink>
 
