@@ -4,7 +4,10 @@ import { Button, Heading, Flex, Grid } from "@radix-ui/themes";
 import { toast } from "sonner";
 
 import { useDispatch, useSelector } from "src/store";
-import { signInWithGithub } from "src/lib/Auth/usecases/signInWithSocial";
+import {
+  signInWithGithub,
+  signInWithGoogle,
+} from "src/lib/Auth/usecases/signInWithSocial";
 import { useEffect } from "react";
 
 export function Auth() {
@@ -29,6 +32,10 @@ export function Auth() {
 
         <Button size={"3"} onClick={() => dispatch(signInWithGithub())}>
           <Github size={16} /> Sign in With Github
+        </Button>
+
+        <Button size={"3"} onClick={() => dispatch(signInWithGoogle())}>
+          Sign in With Google
         </Button>
       </Flex>
     </Grid>

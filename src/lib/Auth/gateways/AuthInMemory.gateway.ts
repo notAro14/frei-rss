@@ -5,7 +5,7 @@ import type {
 
 export class AuthInMemoryGateway implements AuthGateway {
   async signInWithSocial(
-    _provider: "github",
+    _provider: "github" | "google",
   ): Promise<{ ok: true; error: null } | { ok: false; error: string }> {
     return { ok: true, error: null };
   }

@@ -7,7 +7,7 @@ import { type User } from "src/lib/Auth/models/User.entity";
 
 export class AuthSupabase implements AuthGateway {
   async signInWithSocial(
-    provider: "github" = "github",
+    provider: "github" | "google" = "github",
   ): Promise<{ ok: true; error: null } | { ok: false; error: string }> {
     const { error } = await supabase.auth.signInWithOAuth({
       provider,
