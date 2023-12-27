@@ -1,3 +1,5 @@
+import { Database } from "src/types/supabase";
+
 export interface Feed {
   id: string;
   name: string;
@@ -25,3 +27,6 @@ export type FeedItemFreshlyParsed = Omit<FeedItem, "id" | "readStatus">;
 export type FeedFreshlyParsed = Omit<Feed, "feedItems" | "id"> & {
   feedItems: FeedItemFreshlyParsed[];
 };
+
+export type FeedItemInsert =
+  Database["public"]["Tables"]["feed_items"]["Insert"];

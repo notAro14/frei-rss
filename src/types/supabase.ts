@@ -11,7 +11,7 @@ export interface Database {
     Tables: {
       feed_items: {
         Row: {
-          content: string | null
+          content: string
           created_at: string | null
           fk_feed_id: string
           id: string
@@ -22,7 +22,7 @@ export interface Database {
           user_id: string
         }
         Insert: {
-          content?: string | null
+          content?: string
           created_at?: string | null
           fk_feed_id: string
           id?: string
@@ -33,7 +33,7 @@ export interface Database {
           user_id: string
         }
         Update: {
-          content?: string | null
+          content?: string
           created_at?: string | null
           fk_feed_id?: string
           id?: string
