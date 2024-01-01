@@ -11,7 +11,7 @@ import {
   Text,
   Theme,
 } from "@radix-ui/themes";
-import { Menu } from "lucide-react";
+import { LogOut, Menu } from "lucide-react";
 import { useDispatch, useSelector } from "src/store";
 import { signOut } from "src/lib/Auth/usecases/signOut";
 import Image from "next/image";
@@ -100,6 +100,7 @@ export function Header() {
                   onClick={() => dispatch(signOut())}
                   className="w-full"
                 >
+                  <LogOut size={"1em"} />
                   Sign out
                 </Button>
               </Flex>

@@ -5,6 +5,7 @@ import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Card, Flex, Button, Text, TextFieldInput } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
+import { Plus } from "lucide-react";
 
 import { useSelector, useDispatch } from "src/store";
 import { registerFeed } from "src/lib/Feed/usecases/registerFeed";
@@ -61,12 +62,13 @@ export function AddFeedForm() {
           <form onSubmit={handleSubmit(onSubmit)}>
             <Flex direction={"column"} gap={"2"}>
               <Text as="label" htmlFor="feed">
-                Add your favorite blog
+                Add your favorite blog or news feed
               </Text>
               <TextFieldInput
                 type="url"
                 placeholder={"https://www.nature.com/nature.rss"}
                 size={"3"}
+                id="feed"
                 {...register("feed")}
               />
               {errors.feed && (
@@ -76,6 +78,7 @@ export function AddFeedForm() {
               )}
             </Flex>
             <Button type="submit" disabled={registerFeedPending}>
+              <Plus size={"1em"} />
               Add
             </Button>
           </form>

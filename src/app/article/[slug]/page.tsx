@@ -8,16 +8,29 @@ import {
   Heading,
   Badge,
   Button,
+  Separator,
 } from "@radix-ui/themes";
 import NextLink from "next/link";
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { ChevronLeft, ExternalLink } from "lucide-react";
+import { ExternalLink, Rss, Check, Glasses } from "lucide-react";
 import { useSelector, useDispatch, State } from "src/store";
 import { markFeedItemAsRead } from "src/lib/Feed/usecases/markFeedItemAsRead";
 import { singleArticleSelector } from "src/selectors/singleArticle.selector";
 import styles from "./styles.module.scss";
 import { useWithSound } from "src/hooks/useWithSound";
+import { createSelector } from "@reduxjs/toolkit";
+
+const feedNameSelector = createSelector(
+  [
+    (state: State) => state.getFeeds.entities?.feeds,
+    (_state: State, feedId?: string) => feedId,
+  ],
+  (feeds, feedId) => {
+    if (feeds && feedId) return feeds[feedId].name;
+    return null;
+  },
+);
 
 export default function Page({ params }: { params: { slug: string } }) {
   const selector = useCallback(
@@ -25,19 +38,19 @@ export default function Page({ params }: { params: { slug: string } }) {
     [params.slug],
   );
   const data = useSelector(selector);
+  const feedNameSelectorMemoized = useCallback(
+    (state: State) => feedNameSelector(state, data?.article?.feedId),
+    [data?.article?.feedId],
+  );
+  const feedName = useSelector(feedNameSelectorMemoized);
   const router = useRouter();
   if (data === null) return <Text role="alert">Loading...</Text>;
   if (data.ok) {
     const article = data.article;
     return (
-      <Flex direction={"column"} gap={"4"}>
-        <Link asChild className="flex items-center gap-1">
-          <NextLink href={`/inbox/feed/${article.feedId}`}>
-            <ChevronLeft size={"1em"} /> Go back to feed
-          </NextLink>
-        </Link>
-        <Card>
-          <Flex mb={"5"} align={"center"} gap={"4"}>
+      <Card>
+        <Flex mb={"5"} direction={"column"} gap={"4"}>
+          <Flex wrap={"wrap"} align={"center"} gap={"4"}>
             <MarkAsRead id={article.id} />
             <Link
               target="_blank"
@@ -45,28 +58,34 @@ export default function Page({ params }: { params: { slug: string } }) {
               className="flex w-max items-center gap-rx-2"
               href={article.url}
             >
-              View original
+              Go to original article
               <ExternalLink size={"1em"} />
             </Link>
           </Flex>
-
-          <Heading
-            dangerouslySetInnerHTML={{ __html: article.title }}
-            mb={"6"}
-            as="h2"
+          <Separator />
+          <Link asChild className="flex items-center gap-1">
+            <NextLink href={`/inbox/feed/${article.feedId}`}>
+              <Rss size={"1em"} /> {feedName}
+            </NextLink>
+          </Link>
+        </Flex>
+        <Separator my={"4"} size={"4"} />
+        <Heading
+          dangerouslySetInnerHTML={{ __html: article.title }}
+          mb={"6"}
+          as="h2"
+        />
+        {article.content ? (
+          <Box
+            className={styles.preview}
+            dangerouslySetInnerHTML={{ __html: article.content }}
           />
-          {article.content ? (
-            <Box
-              className={styles.preview}
-              dangerouslySetInnerHTML={{ __html: article.content }}
-            />
-          ) : (
-            <Text color="red" role="alert">
-              Oups no preview was found
-            </Text>
-          )}
-        </Card>
-      </Flex>
+        ) : (
+          <Text color="red" role="alert">
+            Oups no preview was found
+          </Text>
+        )}
+      </Card>
     );
   }
 
@@ -84,6 +103,7 @@ function MarkAsRead({ id }: { id: string }) {
     <>
       {isRead ? (
         <Badge size={"2"} color="grass">
+          <Check size={"1em"} />
           Read
         </Badge>
       ) : (
@@ -94,6 +114,7 @@ function MarkAsRead({ id }: { id: string }) {
             playSound();
           }}
         >
+          <Glasses size={"1em"} />
           Mark as read
         </Button>
       )}
