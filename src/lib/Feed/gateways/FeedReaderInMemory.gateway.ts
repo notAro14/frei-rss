@@ -28,10 +28,10 @@ export class FeedReaderInMemoryGateway implements FeedReaderGateway {
     feed: Feed;
     userId: string;
   }): Promise<RegisterFeedRes> {
-    if (this._registeredUrls.includes(feed.website)) {
+    if (this._registeredUrls.includes(feed.url)) {
       throw new Error("Url already registered");
     }
-    this._registeredUrls.push(feed.website);
+    this._registeredUrls.push(feed.url);
     return { ok: true, data: this._registeredFeed };
   }
 

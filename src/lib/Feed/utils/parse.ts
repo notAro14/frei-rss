@@ -27,7 +27,7 @@ export async function parseFeed(url: string): Promise<FeedFreshlyParsed> {
   const INIT: FeedItemFreshlyParsed[] = [];
   return {
     name: rawFeed.title,
-    website: url,
+    url,
     feedItems: rawFeed.items.reduce((acc, i) => {
       const pubDate = i.isoDate ?? (i.pubDate as string);
       if (!i.id && !i.link) return acc;

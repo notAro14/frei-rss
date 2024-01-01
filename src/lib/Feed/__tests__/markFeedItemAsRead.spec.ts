@@ -56,7 +56,7 @@ const MOCK: Feed[] = [
   {
     id: "1",
     name: "My feed",
-    website: "https://example.com/rss",
+    url: "https://example.com/rss",
     feedItems: [
       {
         id: FEED_ITEM_ID,

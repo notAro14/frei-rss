@@ -45,7 +45,7 @@ export default function Page({ params }: { params: { slug: string } }) {
       <Flex pl={"3"} mb={"-4"} direction="column" gap={"3"}>
         <Flex gap={"3"}>
           <IconButton
-            onClick={() => syncFeed({ feedId, feedUrl: feed.website })}
+            onClick={() => syncFeed({ feedId, feedUrl: feed.url })}
             variant="soft"
             disabled={syncFeedStatus === "pending"}
             title="Sync feed"
@@ -83,8 +83,8 @@ export default function Page({ params }: { params: { slug: string } }) {
         <Heading as="h2" dangerouslySetInnerHTML={{ __html: feed.name }} />
         <Text>
           Source:{" "}
-          <Link href={feed.website} target="_blank" rel="noopener">
-            {feed.website} <ExternalLink size={"1em"} />
+          <Link href={feed.url} target="_blank" rel="noopener">
+            {feed.url} <ExternalLink size={"1em"} />
           </Link>
         </Text>
       </Flex>

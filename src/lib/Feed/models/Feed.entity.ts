@@ -4,7 +4,7 @@ export interface Feed {
   id: string;
   name: string;
   feedItems: FeedItem[];
-  website: string;
+  url: string;
 }
 
 export interface NormalizedFeed {

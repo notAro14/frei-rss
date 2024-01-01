@@ -10,7 +10,7 @@ const MOCK: Feed[] = [
   {
     id: "1",
     name: "My feed",
-    website: FEED_URL,
+    url: FEED_URL,
     feedItems: [
       {
         id: "11",

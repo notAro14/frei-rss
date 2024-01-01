@@ -39,7 +39,7 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       const common = {
         id,
         name: name ?? "Title is unknown",
-        website: url,
+        url,
       };
 
       if (!feedItems)
@@ -73,7 +73,7 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
     const feedInsert: FeedInsert = {
       id: feed.id,
       name: feed.name,
-      url: feed.website,
+      url: feed.url,
       user_id: userId,
     };
     const { error: feedInsertError, data: feedInserted } = await supabase

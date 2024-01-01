@@ -15,7 +15,7 @@ export const registerFeed = createAppAsyncThunk(
     const feedIds = getState().getFeeds.result!;
 
     const feedAlreadyRegistered = feedIds
-      .map((feedId) => feedEntities[feedId].website)
+      .map((feedId) => feedEntities[feedId].url)
       .includes(feedUrl);
     if (feedAlreadyRegistered)
       return rejectWithValue("This feed is already registered");
@@ -40,7 +40,7 @@ export const registerFeed = createAppAsyncThunk(
       id: crypto.randomUUID(),
       feedItems,
       name: parsedFeed.name,
-      website: parsedFeed.website,
+      url: parsedFeed.url,
     };
     dispatch(newFeedRegistered(feed));
 
