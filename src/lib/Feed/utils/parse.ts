@@ -10,7 +10,7 @@ const rawFeedSchema = z.object({
   title: z.string(),
   items: z
     .object({
-      title: z.string(),
+      title: z.string().optional(),
       link: z.string().optional(),
       id: z.string().optional(),
       isoDate: z.string().optional(),
@@ -31,11 +31,11 @@ export async function parseFeed(url: string): Promise<FeedFreshlyParsed> {
     feedItems: rawFeed.items.reduce((acc, i) => {
       const pubDate = i.isoDate ?? (i.pubDate as string);
       if (!i.id && !i.link) return acc;
-      const url = i.link ?? i.id ?? ""; // "" just for TS
+      const url = i.link ?? i.id ?? "#"; // "" just for TS
       return acc.concat({
         date: pubDate,
         content: i.content ?? "",
-        title: i.title,
+        title: i.title ?? "Unknown title",
         url,
       });
     }, INIT),
