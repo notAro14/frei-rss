@@ -13,7 +13,7 @@ import {
 import NextLink from "next/link";
 import { useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { ExternalLink, Rss, Check, Glasses } from "lucide-react";
+import { ExternalLink, Rss, Check, Glasses, Frown } from "lucide-react";
 import { useSelector, useDispatch, State } from "src/store";
 import { markFeedItemAsRead } from "src/lib/Feed/usecases/markFeedItemAsRead";
 import { singleArticleSelector } from "src/selectors/singleArticle.selector";
@@ -82,7 +82,7 @@ export default function Page({ params }: { params: { slug: string } }) {
           />
         ) : (
           <Text color="red" role="alert">
-            Oups no preview was found
+            Oh no, this article does not have a preview <Frown size={"1em"} />
           </Text>
         )}
       </Card>
