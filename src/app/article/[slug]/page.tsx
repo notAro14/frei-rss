@@ -82,7 +82,8 @@ export default function Page({ params }: { params: { slug: string } }) {
           />
         ) : (
           <Text color="red" role="alert">
-            Oh no, this article does not have a preview <Frown size={"1em"} />
+            Oh no, this article does not have a description{" "}
+            <Frown size={"1em"} />
           </Text>
         )}
       </Card>
