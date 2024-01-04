@@ -11,7 +11,7 @@ import {
   Separator,
 } from "@radix-ui/themes";
 import NextLink from "next/link";
-import { useCallback } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { ExternalLink, Rss, Check, Glasses, Frown } from "lucide-react";
 import { useSelector, useDispatch, State } from "src/store";
@@ -44,6 +44,20 @@ export default function Page({ params }: { params: { slug: string } }) {
   );
   const feedName = useSelector(feedNameSelectorMemoized);
   const router = useRouter();
+
+  const [readerView, setReaderView] = useState<null | string>(null);
+  useEffect(() => {
+    if (data?.article?.url)
+      (async function () {
+        const res = await fetch("/api/get-reader-view", {
+          method: "POST",
+          body: JSON.stringify({ url: data.article.url }),
+        });
+        const html = (await res.json()) as { ok: true; data: string };
+        setReaderView(html.data);
+      })();
+  }, [data?.article?.url]);
+
   if (data === null) return <Text role="alert">Loading...</Text>;
   if (data.ok) {
     const article = data.article;
@@ -75,22 +89,36 @@ export default function Page({ params }: { params: { slug: string } }) {
           mb={"6"}
           as="h2"
         />
-        {article.content ? (
-          <Box
-            className={styles.preview}
-            dangerouslySetInnerHTML={{ __html: article.content }}
-          />
-        ) : (
-          <Text color="red" role="alert">
-            Oh no, this article does not have a description{" "}
-            <Frown size={"1em"} />
-          </Text>
-        )}
+        <ReaderView html={readerView} desc={article.content} />
       </Card>
     );
   }
 
   return router.push("/");
+}
+
+function ReaderView({ html, desc }: { html: string | null; desc: string }) {
+  if (typeof html === "string")
+    return (
+      <Box
+        className={styles.preview}
+        dangerouslySetInnerHTML={{ __html: html }}
+      />
+    );
+  else if (html === null)
+    return <Text role="progress">Loading reader view...</Text>;
+  else if (desc)
+    return (
+      <Box
+        className={styles.preview}
+        dangerouslySetInnerHTML={{ __html: desc }}
+      />
+    );
+  return (
+    <Text color="red" role="alert">
+      Oh no, this article does not have a description <Frown size={"1em"} />
+    </Text>
+  );
 }
 
 function MarkAsRead({ id }: { id: string }) {
