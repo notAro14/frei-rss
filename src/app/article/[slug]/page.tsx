@@ -18,7 +18,6 @@ import { useSelector, useDispatch, State } from "src/store";
 import { markFeedItemAsRead } from "src/lib/Feed/usecases/markFeedItemAsRead";
 import { singleArticleSelector } from "src/selectors/singleArticle.selector";
 import styles from "./styles.module.scss";
-import { useWithSound } from "src/hooks/useWithSound";
 import { createSelector } from "@reduxjs/toolkit";
 
 const feedNameSelector = createSelector(
@@ -122,7 +121,6 @@ function ReaderView({ html, desc }: { html: string | null; desc: string }) {
 }
 
 function MarkAsRead({ id }: { id: string }) {
-  const { playSound } = useWithSound("/sounds/success.mp3");
   const isRead = useSelector(
     (state) => state.getFeeds.entities?.feedItems[id].readStatus === "READ",
   );
@@ -138,10 +136,7 @@ function MarkAsRead({ id }: { id: string }) {
       ) : (
         <Button
           variant="soft"
-          onClick={async () => {
-            await dispatch(markFeedItemAsRead({ feedItemId: id }));
-            playSound();
-          }}
+          onClick={() => dispatch(markFeedItemAsRead({ feedItemId: id }))}
         >
           <Glasses size={"1em"} />
           Mark as read

@@ -7,23 +7,14 @@ import { Card, Text, Flex, Link, IconButton, Badge } from "@radix-ui/themes";
 import { useDispatch, useSelector } from "src/store";
 import { getArticle } from "../selectors/getArticle.selector";
 import { markFeedItemAsRead } from "src/lib/Feed/usecases/markFeedItemAsRead";
-// import { useWithSound } from "src/hooks/useWithSound";
 
 interface Props {
   id: string;
 }
 export function Article({ id }: Props) {
-  // const { playSound: play1 } = useWithSound("/sounds/yay-1.mp3");
-  // const { playSound: play2 } = useWithSound("/sounds/yay-2.mp3");
-  // const { playSound: play3 } = useWithSound("/sounds/yay-3.mp3");
   const feedItem = useSelector((state) => getArticle(state, id));
   const dispatch = useDispatch();
   const onMarkAsRead = useCallback(async () => {
-    // const plays = [play1, play2, play3];
-    // const random = Math.floor(Math.random() * 3);
-    // const play = plays[random];
-    // play();
-
     await dispatch(markFeedItemAsRead({ feedItemId: id }));
   }, [dispatch, id]);
 

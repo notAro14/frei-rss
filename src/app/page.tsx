@@ -2,6 +2,7 @@
 import { Card, Flex, Heading, IconButton, Text, Link } from "@radix-ui/themes";
 import { Copy, ExternalLink } from "lucide-react";
 import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 import { toast } from "sonner";
 import { useSelector } from "src/store";
 
@@ -30,7 +31,10 @@ export default function Page() {
     (state) =>
       state.getFeeds.status === "pending" || state.getFeeds.status === "idle",
   );
-  if (firstFeedId) return router.push(`/inbox/feed/${firstFeedId}`);
+
+  useEffect(() => {
+    if (firstFeedId) router.push(`/inbox/feed/${firstFeedId}`);
+  }, [firstFeedId, router]);
 
   async function copyToClipboard(rss: string) {
     try {

@@ -9,7 +9,6 @@ import { Plus } from "lucide-react";
 
 import { useSelector, useDispatch } from "src/store";
 import { registerFeed } from "src/lib/Feed/usecases/registerFeed";
-import { useWithSound } from "src/hooks/useWithSound";
 
 const addFeedFormInSchema = z.object({
   feed: z
@@ -29,7 +28,6 @@ export function AddFeedForm() {
   } = useForm<AddFeedFormIn>({
     resolver: zodResolver(addFeedFormInSchema),
   });
-  const { playSound } = useWithSound("/sounds/woo-hoo.mp3");
   const router = useRouter();
 
   const registerFeedPending = useSelector(
@@ -43,7 +41,6 @@ export function AddFeedForm() {
       loading: "Fetching articles...",
       success: (data) => {
         reset();
-        playSound();
         setTimeout(() => {
           router.push(`/inbox/feed/${data.feedId}`);
         }, 0);
