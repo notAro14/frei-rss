@@ -25,7 +25,7 @@ const rawFeedSchema = z.object({
 // https://github.com/rbren/rss-parser/issues/129
 const parser: Parser = new Parser();
 axios.defaults.headers.common["User-Agent"] =
-  "Frei RSS (+https://freirss.aroandriamaro.com)";
+  "FreiRSS (+https://freirss.aroandriamaro.com)";
 export async function parseFeed(url: string): Promise<FeedFreshlyParsed> {
   try {
     const res = await axios.get<string>(url, {

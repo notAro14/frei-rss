@@ -9,7 +9,7 @@ import { Header } from "src/components/Header";
 import { ScrollToTopButton } from "src/components/ScrollToTopButton";
 
 export const metadata: Metadata = {
-  title: "Frei RSS",
+  title: "FreiRSS",
 };
 
 export default function Layout({ children }: { children: ReactNode }) {
