@@ -14,16 +14,16 @@ import {
 
 import { useDispatch, useSelector } from "src/store";
 import { getArticle } from "src/selectors/getArticle.selector";
-import { markFeedItemAsRead } from "src/lib/Feed/usecases/markFeedItemAsRead";
+import { changeFeedItemReadingStatus } from "src/lib/Feed/usecases/changeFeedItemReadingStatus";
 
-interface Props {
+type Props = {
   id: string;
-}
+};
 export function Article({ id }: Props) {
   const feedItem = useSelector((state) => getArticle(state, id));
   const dispatch = useDispatch();
   const onMarkAsRead = useCallback(async () => {
-    await dispatch(markFeedItemAsRead({ feedItemId: id }));
+    await dispatch(changeFeedItemReadingStatus({ id, newStatus: "READ" }));
   }, [dispatch, id]);
 
   if (!feedItem) return null;
