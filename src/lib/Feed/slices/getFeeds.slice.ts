@@ -1,4 +1,4 @@
-import { createAction, createSlice } from "@reduxjs/toolkit";
+import { createAction, createSlice, isAnyOf } from "@reduxjs/toolkit";
 import type {
   NormalizedFeedItem,
   NormalizedFeed,
@@ -11,7 +11,10 @@ import {
 } from "src/lib/Feed/usecases/markFeedItemAsRead";
 import { removeFeedInit } from "src/lib/Feed/slices/removeFeed.slice";
 import { getReaderView } from "src/lib/Feed/usecases/getReaderView";
-import { changeFeedItemReadingStatus } from "src/lib/Feed/usecases/changeFeedItemReadingStatus";
+import {
+  changeFeedItemReadingStatus,
+  feedItemStatusUpdated,
+} from "src/lib/Feed/usecases/changeFeedItemReadingStatus";
 import { signOut } from "src/lib/Auth/usecases/signOut";
 import type { FeedItem } from "src/lib/Feed/models/Feed.entity";
 import { isAfter } from "src/utils/date";
@@ -116,15 +119,7 @@ export const getFeedsSlice = createSlice({
         delete state.entities.feedItems[feedItemId];
       }
     });
-    builder.addCase(
-      changeFeedItemReadingStatus.fulfilled,
-      function (state, action) {
-        const { id, readStatus } = action.payload;
-        if (state.entities?.feedItems) {
-          state.entities.feedItems[id].readStatus = readStatus;
-        }
-      },
-    );
+
     builder.addCase(signOut.fulfilled, () => {
       return initialState;
     });
@@ -132,6 +127,16 @@ export const getFeedsSlice = createSlice({
       getReaderView.fulfilled,
       (state, { payload: { id, fullContent } }) => {
         state.entities!.feedItems[id].fullContent = fullContent;
+      },
+    );
+
+    builder.addMatcher(
+      isAnyOf(changeFeedItemReadingStatus.fulfilled, feedItemStatusUpdated),
+      (state, action) => {
+        const { id, newStatus } = action.payload;
+        if (state.entities?.feedItems) {
+          state.entities.feedItems[id].readStatus = newStatus;
+        }
       },
     );
   },
