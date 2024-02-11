@@ -1,7 +1,7 @@
 "use client";
 import { useCallback } from "react";
 import NextLink from "next/link";
-import { Glasses } from "lucide-react";
+import { Bookmark, BookCheck, Glasses } from "lucide-react";
 import {
   Card,
   Text,
@@ -27,11 +27,11 @@ export function Article({ id }: Props) {
   }, [dispatch, id]);
 
   if (!feedItem) return null;
-  const { pubDate, title, isRead, feed } = feedItem;
+  const { pubDate, title, status, feed } = feedItem;
   return (
     <Card
-      variant={isRead ? "ghost" : "surface"}
-      className={isRead ? "px-rx-3 opacity-60" : "opacity-100"}
+      variant={status === "READ" ? "ghost" : "surface"}
+      className={status === "READ" ? "px-rx-3 opacity-60" : "opacity-100"}
     >
       <Flex direction={"column"} gap={"2"} align={"start"}>
         <Flex gap={"2"} align={"center"} mb={"2"}>
@@ -59,18 +59,29 @@ export function Article({ id }: Props) {
             dangerouslySetInnerHTML={{ __html: title }}
           />
         </Link>
-        <Text mb={"4"} size={"1"}>
-          {pubDate}
-        </Text>
-        {!isRead ? (
-          <Button variant="soft" onClick={onMarkAsRead}>
-            <Glasses size={"1em"} /> Mark as read
-          </Button>
-        ) : (
-          <Badge variant="surface" color="grass">
-            Read
-          </Badge>
-        )}
+        <Text size={"1"}>{pubDate}</Text>
+        <footer className="flex flex-wrap gap-2">
+          {status === "UNREAD" && (
+            <>
+              <Button variant="soft" onClick={onMarkAsRead}>
+                <Glasses size={"1em"} /> Mark as read
+              </Button>
+              <Button variant="soft">
+                <Bookmark size={"1em"} /> Read later
+              </Button>
+            </>
+          )}
+          {status === "READ" && (
+            <Badge variant="surface" color="grass">
+              <BookCheck size={"1em"} /> Read
+            </Badge>
+          )}
+          {status === "READ_LATER" && (
+            <Badge variant="surface" color="yellow">
+              <Bookmark size={"1em"} /> Bookmarked
+            </Badge>
+          )}
+        </footer>
       </Flex>
     </Card>
   );

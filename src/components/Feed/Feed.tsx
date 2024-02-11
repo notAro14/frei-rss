@@ -44,7 +44,7 @@ export function Feed({ id }: { id: string }) {
         <FeedActions id={id} url={url} />
       </header>
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-8">
         {articles.map((article) => {
           return <Article key={article} id={article} />;
         })}

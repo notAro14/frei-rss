@@ -4,7 +4,7 @@ import { ThisMonthArticles } from "src/components/ThisMonthArticles";
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-8">
       <header>
         <Heading as="h2" className="flex items-center gap-2">
           <CalendarFold size={"1em"} /> This month articles

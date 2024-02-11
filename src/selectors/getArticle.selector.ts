@@ -2,6 +2,7 @@ import { formatToPubDate } from "src/utils/date";
 import type { State } from "src/store";
 import { createSelector } from "@reduxjs/toolkit";
 import DOMPurify from "dompurify";
+import type { FeedItem } from "src/lib/Feed/models/Feed.entity";
 
 export const getArticle = createSelector(
   [
@@ -16,7 +17,7 @@ export const getArticle = createSelector(
   ): null | {
     id: string;
     pubDate: string;
-    isRead: boolean;
+    status: FeedItem["readStatus"];
     title: string;
     feed: { id: string; name: string; favicon?: string };
     url: string;
@@ -34,7 +35,7 @@ export const getArticle = createSelector(
       url,
       title: DOMPurify.sanitize(title),
       pubDate: formatToPubDate(date),
-      isRead: readStatus === "READ",
+      status: readStatus,
       feed: {
         id: feedId,
         name,
