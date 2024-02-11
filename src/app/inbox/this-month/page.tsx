@@ -1,17 +1,16 @@
+import { CalendarFold } from "lucide-react";
 import { Heading } from "@radix-ui/themes";
-import { Mail } from "lucide-react";
-
-import { UnreadArticles } from "src/components/UnreadArticles";
+import { ThisMonthArticles } from "src/components/ThisMonthArticles";
 
 export default function Page() {
   return (
     <div className="flex flex-col gap-4">
       <header>
         <Heading as="h2" className="flex items-center gap-2">
-          <Mail size={"1em"} /> Unread articles
+          <CalendarFold size={"1em"} /> This month articles
         </Heading>
       </header>
-      <UnreadArticles />
+      <ThisMonthArticles />
     </div>
   );
 }

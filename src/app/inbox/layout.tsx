@@ -9,16 +9,18 @@ import {
   ScrollArea,
   Avatar,
 } from "@radix-ui/themes";
-import { ListPlus, Menu } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { ListPlus, Mail, Menu } from "lucide-react";
 import { Drawer } from "vaul";
 import { createSelector } from "@reduxjs/toolkit";
 import NextLink from "next/link";
 import { ReactNode, useCallback, useState } from "react";
+
 import { getUnreadArticlesCount } from "src/selectors/getUnreadArticleIds.selector";
 import { useSelector, type State } from "src/store";
 import type { Res } from "src/types/response";
 import { useDrawerPortalContainerRef } from "src/components/DrawerPortalContainerProvider";
-import { usePathname } from "next/navigation";
+import { ThisMonthLink } from "src/components/ThisMonthArticles/ThisMonthLink";
 
 const allFeedsSelector = createSelector(
   [
@@ -123,6 +125,7 @@ function FeedListDrawer() {
               <Heading size="1" as="h6" mb={"-3"}>
                 Inbox
               </Heading>
+              <ThisMonthLink onClick={close} />
               <UnreadLink onClick={close} />
               <Separator size={"4"} />
               <Heading size="1" as="h6" mb={"-2"}>
@@ -181,6 +184,7 @@ function FeedListSidebar() {
       <Heading size="1" as="h6">
         Inbox
       </Heading>
+      <ThisMonthLink />
       <UnreadLink />
       <Separator size={"4"} />
       <Heading size="1" as="h6">
@@ -219,9 +223,12 @@ function UnreadLink(props: { onClick?: () => void }) {
     <Link
       underline={isActive ? "always" : "hover"}
       asChild
+      className="flex items-center gap-1"
       onClick={props.onClick}
     >
-      <NextLink href={href}>Unread ({count})</NextLink>
+      <NextLink href={href}>
+        <Mail size={"1em"} /> Unread ({count})
+      </NextLink>
     </Link>
   );
 }
