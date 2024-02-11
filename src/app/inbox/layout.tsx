@@ -21,6 +21,7 @@ import { useSelector, type State } from "src/store";
 import type { Res } from "src/types/response";
 import { useDrawerPortalContainerRef } from "src/components/DrawerPortalContainerProvider";
 import { ThisMonthLink } from "src/components/ThisMonthArticles/ThisMonthLink";
+import { BookmarkedLink } from "src/components/Bookmarked/BookmarkedLink";
 
 const allFeedsSelector = createSelector(
   [
@@ -125,6 +126,7 @@ function FeedListDrawer() {
               <Heading size="1" as="h6" mb={"-3"}>
                 Inbox
               </Heading>
+              <BookmarkedLink onClick={close} />
               <ThisMonthLink onClick={close} />
               <UnreadLink onClick={close} />
               <Separator size={"4"} />
@@ -184,6 +186,7 @@ function FeedListSidebar() {
       <Heading size="1" as="h6">
         Inbox
       </Heading>
+      <BookmarkedLink />
       <ThisMonthLink />
       <UnreadLink />
       <Separator size={"4"} />

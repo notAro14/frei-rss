@@ -14,18 +14,19 @@ import {
 import { useEffect } from "react";
 import NextLink from "next/link";
 import { notFound, useRouter } from "next/navigation";
-import { ExternalLink, Check, Glasses, MoveLeft } from "lucide-react";
+import { ExternalLink, Check, Glasses, MoveLeft, Bookmark } from "lucide-react";
 import { useSelector, useDispatch } from "src/store";
-import { markFeedItemAsRead } from "src/lib/Feed/usecases/markFeedItemAsRead";
 import { feedItemPageSelector } from "./FeedItemPage.selector";
 import { ReaderView, Summary } from "src/components/ReaderView";
 import { Loader } from "src/components/Loader";
 import { getReaderView } from "src/lib/Feed/usecases/getReaderView";
+import { changeFeedItemReadingStatus } from "src/lib/Feed/usecases/changeFeedItemReadingStatus";
 
 export default function Page({ params }: { params: { slug: string } }) {
   const { status, data: article } = useSelector((state) =>
     feedItemPageSelector(state, params.slug),
   );
+  const router = useRouter();
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -37,6 +38,13 @@ export default function Page({ params }: { params: { slug: string } }) {
     return (
       <Box>
         <Flex mb={"6"} direction={"column"} gap={"4"}>
+          <Button
+            className="mb-4 self-start"
+            variant="ghost"
+            onClick={router.back}
+          >
+            <MoveLeft size={"1em"} /> Go back
+          </Button>
           <Flex gap={"2"}>
             <Avatar
               size={"1"}
@@ -85,48 +93,70 @@ export default function Page({ params }: { params: { slug: string } }) {
 }
 
 function ArticleActions({ article }: { article: { id: string; url: string } }) {
-  const router = useRouter();
-  return (
-    <Flex wrap={"wrap"} align={"center"} gap={"5"}>
-      <Button variant="soft" onClick={router.back}>
-        <MoveLeft size={"1em"} /> Go back
-      </Button>
-      <MarkAsRead id={article.id} />
-      <Link
-        target="_blank"
-        rel="noopener"
-        className="flex w-max items-center gap-rx-2"
-        href={article.url}
-      >
-        Original article
-        <ExternalLink size={"1em"} />
-      </Link>
-    </Flex>
-  );
-}
-
-function MarkAsRead({ id }: { id: string }) {
-  const isRead = useSelector(
-    (state) => state.getFeeds.entities?.feedItems[id].readStatus === "READ",
+  const status = useSelector(
+    (state) => state.getFeeds.entities?.feedItems[article.id].readStatus,
   );
   const dispatch = useDispatch();
-
   return (
-    <>
-      {isRead ? (
-        <Badge size={"2"} color="grass">
-          <Check size={"1em"} />
-          Read
-        </Badge>
-      ) : (
-        <Button
-          variant="soft"
-          onClick={() => dispatch(markFeedItemAsRead({ feedItemId: id }))}
+    <div className="flex flex-col gap-4">
+      <div className="flex flex-wrap gap-2">
+        {status === "READ" && (
+          <Badge color="grass">
+            <Check size={"1em"} />
+            Read
+          </Badge>
+        )}
+        {status === "READ_LATER" && (
+          <Badge color="yellow">
+            <Bookmark size={"1em"} /> Saved
+          </Badge>
+        )}
+      </div>
+      <div className="flex flex-wrap gap-4">
+        {(status === "UNREAD" || status === "READ_LATER") && (
+          <Button
+            variant="outline"
+            color="grass"
+            onClick={() =>
+              dispatch(
+                changeFeedItemReadingStatus({
+                  id: article.id,
+                  newStatus: "READ",
+                }),
+              )
+            }
+          >
+            <Glasses size={"1em"} />
+            Mark as read
+          </Button>
+        )}
+        {status === "UNREAD" && (
+          <Button
+            variant="outline"
+            color="yellow"
+            onClick={() => {
+              dispatch(
+                changeFeedItemReadingStatus({
+                  id: article.id,
+                  newStatus: "READ_LATER",
+                }),
+              );
+            }}
+          >
+            <Bookmark size={"1em"} /> Read later
+          </Button>
+        )}
+
+        <Link
+          target="_blank"
+          rel="noopener"
+          className="flex w-max items-center gap-rx-2"
+          href={article.url}
         >
-          <Glasses size={"1em"} />
-          Mark as read
-        </Button>
-      )}
-    </>
+          See original
+          <ExternalLink size={"1em"} />
+        </Link>
+      </div>
+    </div>
   );
 }

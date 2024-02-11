@@ -113,12 +113,23 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
   }
   async updateFeedItemReadingStatus(
     feedItemId: string,
-    status: "READ" | "UNREAD",
+    status: FeedItem["readStatus"],
   ): Promise<FeedItem> {
     const { data, error } = await supabase
       .from("feed_items")
       .update({
-        status: status === "READ" ? "read" : "unread",
+        status: ((status) => {
+          switch (status) {
+            case "READ":
+              return "read";
+            case "UNREAD":
+              return "unread";
+            case "READ_LATER":
+              return "read_later";
+            default:
+              throw new Error("Invalid feed status");
+          }
+        })(status),
       })
       .eq("id", feedItemId)
       .select()

@@ -63,23 +63,50 @@ export function Article({ id }: Props) {
         <footer className="flex flex-wrap gap-2">
           {status === "UNREAD" && (
             <>
-              <Button variant="soft" onClick={onMarkAsRead}>
+              <Button
+                size={"1"}
+                color="grass"
+                variant="outline"
+                onClick={onMarkAsRead}
+              >
                 <Glasses size={"1em"} /> Mark as read
               </Button>
-              <Button variant="soft">
+              <Button
+                variant="outline"
+                size={"1"}
+                color="yellow"
+                onClick={() =>
+                  dispatch(
+                    changeFeedItemReadingStatus({
+                      id,
+                      newStatus: "READ_LATER",
+                    }),
+                  )
+                }
+              >
                 <Bookmark size={"1em"} /> Read later
               </Button>
             </>
           )}
           {status === "READ" && (
-            <Badge variant="surface" color="grass">
+            <Badge color="grass">
               <BookCheck size={"1em"} /> Read
             </Badge>
           )}
           {status === "READ_LATER" && (
-            <Badge variant="surface" color="yellow">
-              <Bookmark size={"1em"} /> Bookmarked
-            </Badge>
+            <>
+              <Button
+                size={"1"}
+                color="grass"
+                variant="outline"
+                onClick={onMarkAsRead}
+              >
+                <Glasses size={"1em"} /> Mark as read
+              </Button>
+              <Badge color="yellow">
+                <Bookmark size={"1em"} /> Saved
+              </Badge>
+            </>
           )}
         </footer>
       </Flex>

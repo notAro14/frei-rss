@@ -1,12 +1,14 @@
 # FreiRSS
 
-FreiRSS is a simple and clean RSS feed reader. Those are the features currenlty implemented
+FreiRSS is a minimalistic, clean and responsive RSS feed reader. Those are the features currenlty implemented
 
 - discover any website's RSS feed if it has one
 - subscribe to RSS feed
 - mark an article as read
+- save article for later
 - see unread articles
-- see this month articles
+- see all saved articles
+- see current month articles
 - see all articles of a subscribed feed
 - refresh a subscribed feed to get latest articles
 - read article excerpt and content (if available) with the in-app reader
