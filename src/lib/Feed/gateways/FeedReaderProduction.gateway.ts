@@ -13,6 +13,7 @@ import {
   type FeedInsert,
   type FeedItemInsert,
 } from "src/utils/supabaseClient";
+import { mapFeedItemStatusFromRemote } from "src/lib/Feed/utils/mapFeedItemStatusFromRemote";
 
 export class FeedReaderProductionGateway implements FeedReaderGateway {
   async retrieveFeedList(): Promise<Feed[]> {
@@ -29,8 +30,8 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
           pub_date,
           title,
           url,
-          is_read,
-          content
+          content,
+          status
         )
       `,
       )
@@ -54,13 +55,13 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       return {
         ...common,
         feedItems: feedItems.map(
-          ({ id, pub_date: date, title, url, is_read: isRead, content }) => ({
+          ({ id, pub_date: date, title, url, content, status }) => ({
             id,
             date,
             title,
             url,
-            readStatus: isRead ? "READ" : "UNREAD",
-            content: content || "",
+            readStatus: mapFeedItemStatusFromRemote(status),
+            content,
           }),
         ),
       };
@@ -117,7 +118,7 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
     const { data, error } = await supabase
       .from("feed_items")
       .update({
-        is_read: status === "READ",
+        status: status === "READ" ? "read" : "unread",
       })
       .eq("id", feedItemId)
       .select()
@@ -129,7 +130,7 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       url: data.url,
       title: data.title,
       date: data.pub_date,
-      readStatus: data.is_read ? "READ" : "UNREAD",
+      readStatus: mapFeedItemStatusFromRemote(data.status),
       content: data.content || "",
     };
   }
