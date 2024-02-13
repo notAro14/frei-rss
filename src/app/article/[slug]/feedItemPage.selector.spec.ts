@@ -62,6 +62,7 @@ describe("Feed Item Page selector", () => {
         url: FEED_ITEM.url,
         id: FEED_ITEM_ID,
         summary: FEED_ITEM.content,
+        favorite: false,
       },
     });
   });

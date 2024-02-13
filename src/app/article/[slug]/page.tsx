@@ -10,11 +10,19 @@ import {
   Separator,
   Tabs,
   Avatar,
+  IconButton,
 } from "@radix-ui/themes";
 import { useEffect } from "react";
 import NextLink from "next/link";
 import { notFound, useRouter } from "next/navigation";
-import { ExternalLink, Check, Glasses, MoveLeft, Bookmark } from "lucide-react";
+import {
+  ExternalLink,
+  Check,
+  Glasses,
+  MoveLeft,
+  Bookmark,
+  Heart,
+} from "lucide-react";
 import { useSelector, useDispatch } from "src/store";
 import { feedItemPageSelector } from "./FeedItemPage.selector";
 import { ReaderView, Summary } from "src/components/ReaderView";
@@ -93,9 +101,10 @@ export default function Page({ params }: { params: { slug: string } }) {
 }
 
 function ArticleActions({ article }: { article: { id: string; url: string } }) {
-  const status = useSelector(
-    (state) => state.getFeeds.entities?.feedItems[article.id].readStatus,
-  );
+  const { status, favorite } = useSelector((state) => ({
+    status: state.getFeeds.entities?.feedItems[article.id].readStatus,
+    favorite: state.getFeeds.entities?.feedItems[article.id].favorite,
+  }));
   const dispatch = useDispatch();
   return (
     <div className="flex flex-col gap-4">
@@ -146,6 +155,14 @@ function ArticleActions({ article }: { article: { id: string; url: string } }) {
             <Bookmark size={"1em"} /> Read later
           </Button>
         )}
+        <IconButton
+          radius="full"
+          color="crimson"
+          title="Like this article"
+          variant={favorite ? "solid" : "outline"}
+        >
+          <Heart size={"1em"} />
+        </IconButton>
 
         <Link
           target="_blank"

@@ -1,7 +1,7 @@
 "use client";
 import { useCallback } from "react";
 import NextLink from "next/link";
-import { Bookmark, BookCheck, Glasses } from "lucide-react";
+import { Bookmark, BookCheck, Glasses, Heart } from "lucide-react";
 import {
   Card,
   Text,
@@ -10,6 +10,7 @@ import {
   Badge,
   Avatar,
   Button,
+  IconButton,
 } from "@radix-ui/themes";
 
 import { useDispatch, useSelector } from "src/store";
@@ -60,7 +61,7 @@ export function Article({ id }: Props) {
           />
         </Link>
         <Text size={"1"}>{pubDate}</Text>
-        <footer className="flex flex-wrap gap-2">
+        <footer className="flex w-full flex-wrap gap-2">
           {status === "UNREAD" && (
             <>
               <Button
@@ -108,6 +109,15 @@ export function Article({ id }: Props) {
               </Badge>
             </>
           )}
+          <IconButton
+            className="ml-auto"
+            radius="full"
+            size={"1"}
+            color="crimson"
+            variant="outline"
+          >
+            <Heart size={"0.75em"} />
+          </IconButton>
         </footer>
       </Flex>
     </Card>

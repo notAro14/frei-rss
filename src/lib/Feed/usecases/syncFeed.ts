@@ -24,6 +24,7 @@ export const syncFeed = createAppAsyncThunk<
       if (!articles.includes(i.url)) {
         const feedItem: FeedItem = {
           ...i,
+          favorite: false,
           readStatus: "UNREAD",
           id: crypto.randomUUID(),
         };

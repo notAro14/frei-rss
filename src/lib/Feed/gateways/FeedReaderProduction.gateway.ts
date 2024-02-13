@@ -31,7 +31,8 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
           title,
           url,
           content,
-          status
+          status,
+          favorite
         )
       `,
       )
@@ -55,13 +56,14 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       return {
         ...common,
         feedItems: feedItems.map(
-          ({ id, pub_date: date, title, url, content, status }) => ({
+          ({ id, pub_date: date, title, url, content, status, favorite }) => ({
             id,
             date,
             title,
             url,
             readStatus: mapFeedItemStatusFromRemote(status),
             content,
+            favorite: favorite ?? false,
           }),
         ),
       };
@@ -143,6 +145,7 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       date: data.pub_date,
       readStatus: mapFeedItemStatusFromRemote(data.status),
       content: data.content || "",
+      favorite: data.favorite ?? false,
     };
   }
 

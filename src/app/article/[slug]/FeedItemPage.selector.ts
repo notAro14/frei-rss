@@ -36,6 +36,7 @@ export const feedItemPageSelector = createSelector(
           url: feedItem.url,
           id: feedItem.id,
           summary: feedItem.content,
+          favorite: feedItem.favorite,
         },
       };
     }

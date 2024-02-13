@@ -10,6 +10,7 @@ export interface FeedItemPageVM {
   url: string;
   id: string;
   summary: string;
+  favorite: boolean;
 }
 
 export interface ReaderViewVM {

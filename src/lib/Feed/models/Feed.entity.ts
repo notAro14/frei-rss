@@ -24,8 +24,12 @@ export type FeedItem = {
   content: string;
   fullContent?: string;
   readStatus: "UNREAD" | "READ" | "READ_LATER";
+  favorite: boolean;
 };
-export type FeedItemFreshlyParsed = Omit<FeedItem, "id" | "readStatus">;
+export type FeedItemFreshlyParsed = Omit<
+  FeedItem,
+  "id" | "readStatus" | "favorite"
+>;
 export type FeedFreshlyParsed = Omit<Feed, "feedItems" | "id"> & {
   feedItems: FeedItemFreshlyParsed[];
 };

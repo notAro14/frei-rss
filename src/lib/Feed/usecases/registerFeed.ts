@@ -31,6 +31,7 @@ export const registerFeed = createAppAsyncThunk(
         ...a,
         content: a.content,
         readStatus: "UNREAD",
+        favorite: false,
         id: crypto.randomUUID(),
       };
       return articles;
