@@ -18,11 +18,11 @@ export function useVirtual({
 
   const div1Props = {
     style: {
-      height: "65lvh",
+      height: "60dvh",
       contain: "strict",
       scrollbarGutter: "stable",
     },
-    className: "max-w-full overflow-y-auto overflow-x-hidden px-2",
+    className: "max-w-full overflow-y-auto overflow-x-hidden",
     ref: parentRef,
   } as const;
   const div2Props = {
