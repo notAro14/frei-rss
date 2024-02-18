@@ -3,7 +3,6 @@ import { Text } from "@radix-ui/themes";
 import { useSelector } from "src/store";
 import { Loader } from "src/components/Loader";
 import { Article } from "src/components/Article";
-import { useInfiniteScrollItemsLoad } from "src/hooks/useInfiniteScrollItemsLoad";
 import { bookmarkedSelector } from "./Bookmarked.selector";
 
 export function Bookmarked() {
@@ -25,13 +24,11 @@ export function Bookmarked() {
 }
 
 function BookmarkedInner({ ids }: { ids: string[] }) {
-  const { ref, visible } = useInfiniteScrollItemsLoad(ids);
   return (
     <>
-      {visible.map((id) => {
+      {ids.map((id) => {
         return <Article id={id} key={id} />;
       })}
-      <div ref={ref} />
     </>
   );
 }
