@@ -12,7 +12,7 @@ export function HeaderLayout(props: { children: ReactNode }) {
         id="logo"
         weight={"bold"}
         size={{ initial: "6", xs: "8" }}
-        className="flex items-center gap-rx-2 text-current no-underline"
+        className="flex items-center gap-2 text-current no-underline"
       >
         <Link href={"/"}>
           <Image

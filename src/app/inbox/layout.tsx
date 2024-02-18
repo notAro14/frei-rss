@@ -113,7 +113,7 @@ function FeedListDrawer() {
           style={{
             backgroundColor: "var(--color-page-background)",
           }}
-          className="fixed bottom-0 left-0 right-0 z-50 h-3/4 p-rx-5"
+          className="fixed bottom-0 left-0 right-0 z-50 h-3/4 p-5"
         >
           <ScrollArea>
             <Flex direction={"column"} gap={"4"} pb={"8"}>

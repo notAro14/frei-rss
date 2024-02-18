@@ -167,7 +167,7 @@ function ArticleActions({ article }: { article: { id: string; url: string } }) {
         <Link
           target="_blank"
           rel="noopener"
-          className="flex w-max items-center gap-rx-2"
+          className="flex w-max items-center gap-2"
           href={article.url}
         >
           See original

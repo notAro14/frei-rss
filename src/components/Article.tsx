@@ -32,7 +32,7 @@ export function Article({ id }: Props) {
   return (
     <Card
       variant={status === "READ" ? "ghost" : "surface"}
-      className={status === "READ" ? "px-rx-3 opacity-60" : "opacity-100"}
+      className={status === "READ" ? "px-3 opacity-60" : "opacity-100"}
     >
       <Flex direction={"column"} gap={"2"} align={"start"}>
         <Flex gap={"2"} align={"center"} mb={"2"}>
