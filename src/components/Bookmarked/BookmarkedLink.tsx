@@ -22,7 +22,7 @@ export function BookmarkedLink(props: { onClick?: () => void }) {
     >
       <Link href={href}>
         <Bookmark size={"1em"} />
-        {`Saved (${data.count})`}
+        {`Read later (${data.count})`}
       </Link>
     </RxLink>
   );

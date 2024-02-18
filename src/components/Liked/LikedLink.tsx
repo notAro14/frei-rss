@@ -22,7 +22,7 @@ export function LikedLink(props: { onClick?: () => void }) {
     >
       <Link href={href}>
         <Heart size={"1em"} />
-        {`Liked (${data.count})`}
+        {`Favorites (${data.count})`}
       </Link>
     </RxLink>
   );

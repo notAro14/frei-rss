@@ -127,8 +127,8 @@ function FeedListDrawer() {
               <Heading size="1" as="h6" mb={"-3"}>
                 Inbox
               </Heading>
-              <BookmarkedLink onClick={close} />
               <LikedLink onClick={close} />
+              <BookmarkedLink onClick={close} />
               <ThisMonthLink onClick={close} />
               <UnreadLink onClick={close} />
               <Separator size={"4"} />
@@ -188,8 +188,8 @@ function FeedListSidebar() {
       <Heading size="1" as="h6">
         Inbox
       </Heading>
-      <BookmarkedLink />
       <LikedLink />
+      <BookmarkedLink />
       <ThisMonthLink />
       <UnreadLink />
       <Separator size={"4"} />
