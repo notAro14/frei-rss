@@ -3,8 +3,8 @@ import { Text } from "@radix-ui/themes";
 import { useSelector } from "src/store";
 import { Loader } from "src/components/Loader";
 import { Article } from "src/components/Article";
-import { useInfiniteScrollItemsLoad } from "src/hooks/useInfiniteScrollItemsLoad";
 import { thisMonthArticlesSelector } from "./ThisMonthArticles.selector";
+import { useVirtual } from "src/hooks/useVirtual";
 
 export function ThisMonthArticles() {
   const { status, data, error } = useSelector(thisMonthArticlesSelector);
@@ -25,13 +25,26 @@ export function ThisMonthArticles() {
 }
 
 function ThisMonthArticlesInner({ ids }: { ids: string[] }) {
-  const { ref, visible } = useInfiniteScrollItemsLoad(ids);
+  const { items, virtualizer, div1Props, div2Props, div3Props } = useVirtual({
+    count: ids.length,
+  });
   return (
-    <>
-      {visible.map((id) => {
-        return <Article id={id} key={id} />;
-      })}
-      <div ref={ref} />
-    </>
+    <div {...div1Props}>
+      <div {...div2Props}>
+        <div {...div3Props}>
+          {items.map((virtualRow) => {
+            const id = ids[virtualRow.index];
+            return (
+              <Article
+                key={virtualRow.key}
+                dataIndex={virtualRow.index}
+                ref={virtualizer.measureElement}
+                id={id}
+              />
+            );
+          })}
+        </div>
+      </div>
+    </div>
   );
 }

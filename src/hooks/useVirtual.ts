@@ -6,7 +6,7 @@ export function useVirtual({
   estimateSize = () => 175,
 }: {
   count: number;
-  estimateSize: () => number;
+  estimateSize?: () => number;
 }) {
   const parentRef = useRef<HTMLDivElement>(null);
   const virtualizer = useVirtualizer({

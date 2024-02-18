@@ -16,7 +16,6 @@ export function UnreadArticles() {
 export function UnreadArticlesInner({ ids }: { ids: string[] }) {
   const { items, virtualizer, div1Props, div2Props, div3Props } = useVirtual({
     count: ids.length,
-    estimateSize: () => 175,
   });
   return (
     <div {...div1Props}>
