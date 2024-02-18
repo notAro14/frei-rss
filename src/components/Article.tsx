@@ -16,6 +16,7 @@ import {
 import { useDispatch, useSelector } from "src/store";
 import { getArticle } from "src/selectors/getArticle.selector";
 import { changeFeedItemReadingStatus } from "src/lib/Feed/usecases/changeFeedItemReadingStatus";
+import { likeOrUnlikeArticle } from "src/lib/Feed/usecases/likeArticle";
 
 type Props = {
   id: string;
@@ -26,9 +27,12 @@ export function Article({ id }: Props) {
   const onMarkAsRead = useCallback(async () => {
     await dispatch(changeFeedItemReadingStatus({ id, newStatus: "READ" }));
   }, [dispatch, id]);
+  const onLikeOrUnlike = useCallback(async () => {
+    dispatch(likeOrUnlikeArticle(id));
+  }, [dispatch, id]);
 
   if (!feedItem) return null;
-  const { pubDate, title, status, feed } = feedItem;
+  const { pubDate, title, status, feed, favorite } = feedItem;
   return (
     <Card
       variant={status === "READ" ? "ghost" : "surface"}
@@ -114,7 +118,9 @@ export function Article({ id }: Props) {
             radius="full"
             size={"1"}
             color="crimson"
-            variant="outline"
+            variant={favorite ? "solid" : "outline"}
+            onClick={onLikeOrUnlike}
+            title={favorite ? "Unlike article" : "Like article"}
           >
             <Heart size={"0.75em"} />
           </IconButton>

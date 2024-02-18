@@ -4,13 +4,14 @@ import type {
   NormalizedFeed,
   Feed,
 } from "src/lib/Feed/models/Feed.entity";
-import { getFeeds } from "../usecases/getFeeds";
+import { getFeeds } from "src/lib/Feed/usecases/getFeeds";
 import {
   updateFeedItemAsRead,
   markFeedItemAsRead,
 } from "src/lib/Feed/usecases/markFeedItemAsRead";
 import { removeFeedInit } from "src/lib/Feed/slices/removeFeed.slice";
 import { getReaderView } from "src/lib/Feed/usecases/getReaderView";
+import { articleLikedOrUnliked } from "src/lib/Feed/usecases/likeArticle";
 import {
   changeFeedItemReadingStatus,
   feedItemStatusUpdated,
@@ -129,6 +130,13 @@ export const getFeedsSlice = createSlice({
         state.entities!.feedItems[id].fullContent = fullContent;
       },
     );
+    builder.addCase(articleLikedOrUnliked, (state, action) => {
+      const articleId = action.payload.id;
+      if (state.entities?.feedItems) {
+        state.entities.feedItems[articleId].favorite =
+          !state.entities.feedItems[articleId].favorite;
+      }
+    });
 
     builder.addMatcher(
       isAnyOf(changeFeedItemReadingStatus.fulfilled, feedItemStatusUpdated),

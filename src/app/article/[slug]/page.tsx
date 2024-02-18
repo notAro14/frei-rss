@@ -29,6 +29,7 @@ import { ReaderView, Summary } from "src/components/ReaderView";
 import { Loader } from "src/components/Loader";
 import { getReaderView } from "src/lib/Feed/usecases/getReaderView";
 import { changeFeedItemReadingStatus } from "src/lib/Feed/usecases/changeFeedItemReadingStatus";
+import { likeOrUnlikeArticle } from "src/lib/Feed/usecases/likeArticle";
 
 export default function Page({ params }: { params: { slug: string } }) {
   const { status, data: article } = useSelector((state) =>
@@ -121,7 +122,7 @@ function ArticleActions({ article }: { article: { id: string; url: string } }) {
           </Badge>
         )}
       </div>
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-wrap items-center gap-4">
         {(status === "UNREAD" || status === "READ_LATER") && (
           <Button
             variant="outline"
@@ -158,10 +159,14 @@ function ArticleActions({ article }: { article: { id: string; url: string } }) {
         <IconButton
           radius="full"
           color="crimson"
-          title="Like this article"
+          size={"1"}
+          title={favorite ? "Unlike article" : "Like article"}
           variant={favorite ? "solid" : "outline"}
+          onClick={() => {
+            dispatch(likeOrUnlikeArticle(article.id));
+          }}
         >
-          <Heart size={"1em"} />
+          <Heart size={"0.75em"} />
         </IconButton>
 
         <Link

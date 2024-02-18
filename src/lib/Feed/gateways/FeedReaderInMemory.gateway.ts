@@ -60,4 +60,10 @@ export class FeedReaderInMemoryGateway implements FeedReaderGateway {
   async getReaderView(): GatewayRes<string> {
     return { ok: true, error: null, data: "<p>Fake reader view</p>" };
   }
+  async likeArticle(id: string): Promise<{ id: string }> {
+    return { id };
+  }
+  async unlikeArticle(id: string): Promise<{ id: string }> {
+    return { id };
+  }
 }

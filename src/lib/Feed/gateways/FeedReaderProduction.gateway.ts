@@ -218,4 +218,22 @@ export class FeedReaderProductionGateway implements FeedReaderGateway {
       return { ok: true, error: null, data: html.data };
     } else return { ok: false, data: null, error: "Failed to get reader view" };
   }
+  async likeArticle(id: string): Promise<{ id: string }> {
+    const { error } = await supabase
+      .from("feed_items")
+      .update({ favorite: true })
+      .eq("id", id)
+      .select();
+    if (error) throw new Error("Failed to like article");
+    return { id };
+  }
+  async unlikeArticle(id: string): Promise<{ id: string }> {
+    const { error } = await supabase
+      .from("feed_items")
+      .update({ favorite: false })
+      .eq("id", id)
+      .select();
+    if (error) throw new Error("Failed to like article");
+    return { id };
+  }
 }

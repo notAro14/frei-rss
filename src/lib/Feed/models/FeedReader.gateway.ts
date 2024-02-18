@@ -26,6 +26,8 @@ export interface FeedReaderGateway {
     feedId: string;
   }): Promise<{ ok: boolean }>;
   getReaderView(url: string): GatewayRes<string>;
+  likeArticle(id: string): Promise<{ id: string }>;
+  unlikeArticle(id: string): Promise<{ id: string }>;
 }
 
 export type GatewayRes<T> = Promise<

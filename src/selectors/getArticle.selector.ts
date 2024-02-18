@@ -21,11 +21,12 @@ export const getArticle = createSelector(
     title: string;
     feed: { id: string; name: string; favicon?: string };
     url: string;
+    favorite: FeedItem["favorite"];
   } => {
     if (!feeds) return null;
     if (!feedItems) return null;
 
-    const { title, date, url, feedId, readStatus } = feedItems[id];
+    const { title, date, url, feedId, readStatus, favorite } = feedItems[id];
     const { name, website } = feeds[feedId];
     const favicon =
       website &&
@@ -36,6 +37,7 @@ export const getArticle = createSelector(
       title: DOMPurify.sanitize(title),
       pubDate: formatToPubDate(date),
       status: readStatus,
+      favorite,
       feed: {
         id: feedId,
         name,
