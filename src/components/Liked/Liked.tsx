@@ -28,7 +28,7 @@ function LikedInner({ ids }: { ids: string[] }) {
   return (
     <>
       {visible.map((id) => {
-        return <Article id={id} key={id} />;
+        return <Article disableReadStyle id={id} key={id} />;
       })}
       <div ref={ref} />
     </>

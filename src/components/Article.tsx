@@ -20,8 +20,9 @@ import { likeOrUnlikeArticle } from "src/lib/Feed/usecases/likeArticle";
 
 type Props = {
   id: string;
+  disableReadStyle?: boolean;
 };
-export function Article({ id }: Props) {
+export function Article({ id, disableReadStyle = false }: Props) {
   const feedItem = useSelector((state) => getArticle(state, id));
   const dispatch = useDispatch();
   const onMarkAsRead = useCallback(async () => {
@@ -35,8 +36,16 @@ export function Article({ id }: Props) {
   const { pubDate, title, status, feed, favorite } = feedItem;
   return (
     <Card
-      variant={status === "READ" ? "ghost" : "surface"}
-      className={status === "READ" ? "px-3 opacity-60" : "opacity-100"}
+      variant={
+        disableReadStyle ? "surface" : status === "READ" ? "ghost" : "surface"
+      }
+      className={
+        disableReadStyle
+          ? "opacity-100"
+          : status === "READ"
+            ? "px-3 opacity-60"
+            : "opacity-100"
+      }
     >
       <Flex direction={"column"} gap={"2"} align={"start"}>
         <Flex gap={"2"} align={"center"} mb={"2"}>
