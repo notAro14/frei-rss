@@ -15,35 +15,14 @@ export function UnreadArticles() {
 }
 
 export function UnreadArticlesInner({ ids }: { ids: string[] }) {
-  const parentRef = useRef<HTMLDivElement>(null);
-  const virtualizer = useVirtualizer({
+  const { items, virtualizer, div1Props, div2Props, div3Props } = useVirtual({
     count: ids.length,
-    getScrollElement: () => parentRef.current,
     estimateSize: () => 175,
   });
-  const items = virtualizer.getVirtualItems();
   return (
-    <div
-      style={{
-        height: "65lvh",
-        contain: "strict",
-        scrollbarGutter: "stable",
-      }}
-      className="max-w-full overflow-y-auto overflow-x-hidden px-2"
-      ref={parentRef}
-    >
-      <div
-        style={{
-          height: virtualizer.getTotalSize(),
-          position: "relative",
-        }}
-      >
-        <div
-          style={{
-            transform: `translateY(${items[0]?.start ?? 0}px)`,
-          }}
-          className="absolute left-0 top-0"
-        >
+    <div {...div1Props}>
+      <div {...div2Props}>
+        <div {...div3Props}>
           {items.map((virtualRow) => {
             const id = ids[virtualRow.index];
             return (
@@ -59,4 +38,43 @@ export function UnreadArticlesInner({ ids }: { ids: string[] }) {
       </div>
     </div>
   );
+}
+
+function useVirtual({
+  count,
+  estimateSize = () => 175,
+}: {
+  count: number;
+  estimateSize: () => number;
+}) {
+  const parentRef = useRef<HTMLDivElement>(null);
+  const virtualizer = useVirtualizer({
+    count,
+    getScrollElement: () => parentRef.current,
+    estimateSize,
+  });
+  const items = virtualizer.getVirtualItems();
+
+  const div1Props = {
+    style: {
+      height: "65lvh",
+      contain: "strict",
+      scrollbarGutter: "stable",
+    },
+    className: "max-w-full overflow-y-auto overflow-x-hidden px-2",
+    ref: parentRef,
+  } as const;
+  const div2Props = {
+    style: {
+      height: virtualizer.getTotalSize(),
+      position: "relative",
+    },
+  } as const;
+  const div3Props = {
+    style: {
+      transform: `translateY(${items[0]?.start ?? 0}px)`,
+    },
+    className: "absolute left-0 top-0",
+  } as const;
+  return { virtualizer, items, div1Props, div2Props, div3Props };
 }
