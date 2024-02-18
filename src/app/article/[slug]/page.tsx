@@ -23,7 +23,8 @@ import {
   Bookmark,
   Heart,
 } from "lucide-react";
-import { useSelector, useDispatch } from "src/store";
+import { createSelector } from "@reduxjs/toolkit";
+import { useSelector, useDispatch, type State } from "src/store";
 import { feedItemPageSelector } from "./FeedItemPage.selector";
 import { ReaderView, Summary } from "src/components/ReaderView";
 import { Loader } from "src/components/Loader";
@@ -101,11 +102,23 @@ export default function Page({ params }: { params: { slug: string } }) {
   notFound();
 }
 
+const articleActionsSelector = createSelector(
+  [
+    (state: State) => state.getFeeds.entities?.feedItems,
+    (_state: State, articleId: string) => articleId,
+  ],
+  (feedItems, articleId) => {
+    return {
+      status: feedItems?.[articleId].readStatus,
+      favorite: feedItems?.[articleId].favorite,
+    };
+  },
+);
+
 function ArticleActions({ article }: { article: { id: string; url: string } }) {
-  const { status, favorite } = useSelector((state) => ({
-    status: state.getFeeds.entities?.feedItems[article.id].readStatus,
-    favorite: state.getFeeds.entities?.feedItems[article.id].favorite,
-  }));
+  const { status, favorite } = useSelector((state) =>
+    articleActionsSelector(state, article.id),
+  );
   const dispatch = useDispatch();
   return (
     <div className="flex flex-col gap-4">
