@@ -34,15 +34,17 @@ export function UnreadArticlesInner({ ids }: { ids: string[] }) {
       >
         {virtualizer.getVirtualItems().map((virtualRow) => {
           const id = ids[virtualRow.index];
+
           return (
             <div
               key={virtualRow.key}
-              className="absolute left-0 top-0 mb-4 w-full"
+              className="absolute left-0 top-0 w-full"
               style={{
                 height: `${virtualRow.size}px`,
-                transform: `translateY(${
-                  virtualRow.start - virtualizer.options.scrollMargin
-                }px)`,
+                // transform: `translateY(${
+                //   virtualRow.start - virtualizer.options.scrollMargin
+                // }px)`,
+                transform: `translateY(${virtualRow.start - virtualizer.options.scrollMargin + virtualRow.index * 16}px)`,
               }}
             >
               <Article id={id} />

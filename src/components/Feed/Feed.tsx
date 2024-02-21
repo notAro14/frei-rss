@@ -68,18 +68,19 @@ function FeedInner({ ids }: { ids: string[] }) {
           height: `${virtualizer.getTotalSize()}px`,
         }}
       >
-        {virtualizer.getVirtualItems().map((virtiualRow) => {
-          const id = ids[virtiualRow.index];
+        {virtualizer.getVirtualItems().map((virtualRow) => {
+          const id = ids[virtualRow.index];
           if (!id) return null;
           return (
             <div
-              key={virtiualRow.key}
+              key={virtualRow.key}
               className="absolute left-0 top-0 w-full"
               style={{
-                height: `${virtiualRow.size}px`,
-                transform: `translateY(${
-                  virtiualRow.start - virtualizer.options.scrollMargin
-                }px)`,
+                height: `${virtualRow.size}px`,
+                // transform: `translateY(${
+                //   virtiualRow.start - virtualizer.options.scrollMargin
+                // }px)`,
+                transform: `translateY(${virtualRow.start - virtualizer.options.scrollMargin + virtualRow.index * 16}px)`,
               }}
             >
               <Article id={id} />

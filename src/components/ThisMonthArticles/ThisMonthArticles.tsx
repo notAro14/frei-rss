@@ -50,9 +50,10 @@ function ThisMonthArticlesInner({ ids }: { ids: string[] }) {
               className="absolute left-0 top-0 mb-4 w-full"
               style={{
                 height: `${virtualRow.size}px`,
-                transform: `translateY(${
-                  virtualRow.start - virtualizer.options.scrollMargin
-                }px)`,
+                // transform: `translateY(${
+                //   virtualRow.start - virtualizer.options.scrollMargin
+                // }px)`,
+                transform: `translateY(${virtualRow.start - virtualizer.options.scrollMargin + virtualRow.index * 16}px)`,
               }}
             >
               <Article id={id} />
