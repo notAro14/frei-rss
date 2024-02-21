@@ -1,12 +1,11 @@
 "use client";
 
+import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { useSelector } from "src/store";
 import { getUnreadArticleIds } from "src/selectors/getUnreadArticleIds.selector";
 import { Article } from "src/components/Article";
 import { Loader } from "src/components/Loader";
-import { useVirtual } from "src/hooks/useVirtual";
-import { Button } from "@radix-ui/themes";
-import { ArrowDown, ArrowUp } from "lucide-react";
+import { useRef } from "react";
 
 export function UnreadArticles() {
   const unreadFeedItemIds = useSelector(getUnreadArticleIds);
@@ -17,50 +16,39 @@ export function UnreadArticles() {
 
 export function UnreadArticlesInner({ ids }: { ids: string[] }) {
   const count = ids.length;
-  const { items, virtualizer, div1Props, div2Props, div3Props } = useVirtual({
+  const listRef = useRef<HTMLDivElement>(null);
+  const virtualizer = useWindowVirtualizer({
     count,
+    estimateSize: () => 175,
+    overscan: 5,
+    scrollMargin: listRef.current?.offsetTop ?? 0,
   });
 
   return (
-    <div className="flex flex-col gap-4">
-      <header className="flex flex-wrap items-center gap-4">
-        <Button
-          variant="ghost"
-          size={"1"}
-          onClick={() => {
-            virtualizer.scrollToIndex(0);
-          }}
-        >
-          <ArrowUp size={"1em"} />
-          Scroll to top
-        </Button>
-        <Button
-          variant="ghost"
-          size={"1"}
-          onClick={() => {
-            virtualizer.scrollToIndex(count - 1);
-          }}
-        >
-          <ArrowDown size={"1em"} />
-          Scroll to bottom
-        </Button>
-      </header>
-      <div {...div1Props}>
-        <div {...div2Props}>
-          <div {...div3Props}>
-            {items.map((virtualRow) => {
-              const id = ids[virtualRow.index];
-              return (
-                <Article
-                  key={virtualRow.key}
-                  dataIndex={virtualRow.index}
-                  ref={virtualizer.measureElement}
-                  id={id}
-                />
-              );
-            })}
-          </div>
-        </div>
+    <div className="max-x-full" ref={listRef}>
+      <div
+        className="relative w-full"
+        style={{
+          height: `${virtualizer.getTotalSize()}px`,
+        }}
+      >
+        {virtualizer.getVirtualItems().map((virtualRow) => {
+          const id = ids[virtualRow.index];
+          return (
+            <div
+              key={virtualRow.key}
+              className="absolute left-0 top-0 mb-4 w-full"
+              style={{
+                height: `${virtualRow.size}px`,
+                transform: `translateY(${
+                  virtualRow.start - virtualizer.options.scrollMargin
+                }px)`,
+              }}
+            >
+              <Article id={id} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

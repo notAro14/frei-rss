@@ -26,7 +26,6 @@ export const getArticle = createSelector(
     if (!feeds) return null;
     if (!feedItems) return null;
 
-    console.log("feedItems[id]", feedItems[id]);
     const { title, date, url, feedId, readStatus, favorite } = feedItems[id];
     const { name, website } = feeds[feedId];
     const favicon =

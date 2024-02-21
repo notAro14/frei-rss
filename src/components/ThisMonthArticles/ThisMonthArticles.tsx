@@ -1,10 +1,11 @@
 "use client";
+import { useRef } from "react";
+import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { Text } from "@radix-ui/themes";
 import { useSelector } from "src/store";
 import { Loader } from "src/components/Loader";
 import { Article } from "src/components/Article";
 import { thisMonthArticlesSelector } from "./ThisMonthArticles.selector";
-import { useVirtual } from "src/hooks/useVirtual";
 
 export function ThisMonthArticles() {
   const { status, data, error } = useSelector(thisMonthArticlesSelector);
@@ -25,25 +26,39 @@ export function ThisMonthArticles() {
 }
 
 function ThisMonthArticlesInner({ ids }: { ids: string[] }) {
-  const { items, virtualizer, div1Props, div2Props, div3Props } = useVirtual({
-    count: ids.length,
+  const count = ids.length;
+  const listRef = useRef<HTMLDivElement>(null);
+  const virtualizer = useWindowVirtualizer({
+    count,
+    estimateSize: () => 175,
+    overscan: 5,
+    scrollMargin: listRef.current?.offsetTop ?? 0,
   });
   return (
-    <div {...div1Props}>
-      <div {...div2Props}>
-        <div {...div3Props}>
-          {items.map((virtualRow) => {
-            const id = ids[virtualRow.index];
-            return (
-              <Article
-                key={virtualRow.key}
-                dataIndex={virtualRow.index}
-                ref={virtualizer.measureElement}
-                id={id}
-              />
-            );
-          })}
-        </div>
+    <div className="max-x-full" ref={listRef}>
+      <div
+        className="relative w-full"
+        style={{
+          height: `${virtualizer.getTotalSize()}px`,
+        }}
+      >
+        {virtualizer.getVirtualItems().map((virtualRow) => {
+          const id = ids[virtualRow.index];
+          return (
+            <div
+              key={virtualRow.key}
+              className="absolute left-0 top-0 mb-4 w-full"
+              style={{
+                height: `${virtualRow.size}px`,
+                transform: `translateY(${
+                  virtualRow.start - virtualizer.options.scrollMargin
+                }px)`,
+              }}
+            >
+              <Article id={id} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );

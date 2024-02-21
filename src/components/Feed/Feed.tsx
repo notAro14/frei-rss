@@ -1,12 +1,12 @@
 "use client";
+import { useRef } from "react";
 import { Avatar, Heading, Text, Link as RxLink } from "@radix-ui/themes";
 import { ExternalLink } from "lucide-react";
-// import { useWindowVirtualizer } from "@tanstack/react-virtual";
+import { useWindowVirtualizer } from "@tanstack/react-virtual";
 
 import { Loader } from "src/components/Loader";
 import { useSelector } from "src/store";
 
-import { useVirtual } from "src/hooks/useVirtual";
 import { Article } from "src/components/Article";
 import { FeedActions } from "./FeedActions";
 import { feedSelector } from "./Feed.selector";
@@ -52,27 +52,40 @@ export function Feed({ id }: { id: string }) {
 }
 
 function FeedInner({ ids }: { ids: string[] }) {
-  const { items, virtualizer, div1Props, div2Props, div3Props } = useVirtual({
+  const listRef = useRef<HTMLDivElement>(null);
+  const virtualizer = useWindowVirtualizer({
     count: ids.length,
+    estimateSize: () => 175,
+    overscan: 5,
+    scrollMargin: listRef.current?.offsetTop ?? 0,
   });
-  // useWindowVirtualizer({})
+
   return (
-    <div {...div1Props}>
-      <div {...div2Props}>
-        <div {...div3Props}>
-          {items.map((virtualRow) => {
-            const id = ids[virtualRow.index];
-            if (!id) return null;
-            return (
-              <Article
-                key={virtualRow.key}
-                dataIndex={virtualRow.index}
-                ref={virtualizer.measureElement}
-                id={id}
-              />
-            );
-          })}
-        </div>
+    <div ref={listRef} className="max-w-full">
+      <div
+        className="relative w-full"
+        style={{
+          height: `${virtualizer.getTotalSize()}px`,
+        }}
+      >
+        {virtualizer.getVirtualItems().map((virtiualRow) => {
+          const id = ids[virtiualRow.index];
+          if (!id) return null;
+          return (
+            <div
+              key={virtiualRow.key}
+              className="absolute left-0 top-0 w-full"
+              style={{
+                height: `${virtiualRow.size}px`,
+                transform: `translateY(${
+                  virtiualRow.start - virtualizer.options.scrollMargin
+                }px)`,
+              }}
+            >
+              <Article id={id} />
+            </div>
+          );
+        })}
       </div>
     </div>
   );
