@@ -56,7 +56,7 @@ function FeedInner({ ids }: { ids: string[] }) {
   const virtualizer = useWindowVirtualizer({
     count: ids.length,
     estimateSize: () => 175,
-    overscan: 5,
+    overscan: 50,
     scrollMargin: listRef.current?.offsetTop ?? 0,
   });
 

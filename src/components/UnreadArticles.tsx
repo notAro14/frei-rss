@@ -20,7 +20,7 @@ export function UnreadArticlesInner({ ids }: { ids: string[] }) {
   const virtualizer = useWindowVirtualizer({
     count,
     estimateSize: () => 175,
-    overscan: 5,
+    overscan: 50,
     scrollMargin: listRef.current?.offsetTop ?? 0,
   });
 
