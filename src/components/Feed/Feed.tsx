@@ -1,6 +1,7 @@
 "use client";
 import { Avatar, Heading, Text, Link as RxLink } from "@radix-ui/themes";
 import { ExternalLink } from "lucide-react";
+// import { useWindowVirtualizer } from "@tanstack/react-virtual";
 
 import { Loader } from "src/components/Loader";
 import { useSelector } from "src/store";
@@ -52,14 +53,16 @@ export function Feed({ id }: { id: string }) {
 
 function FeedInner({ ids }: { ids: string[] }) {
   const { items, virtualizer, div1Props, div2Props, div3Props } = useVirtual({
-    count: 10,
+    count: ids.length,
   });
+  // useWindowVirtualizer({})
   return (
     <div {...div1Props}>
       <div {...div2Props}>
         <div {...div3Props}>
           {items.map((virtualRow) => {
             const id = ids[virtualRow.index];
+            if (!id) return null;
             return (
               <Article
                 key={virtualRow.key}

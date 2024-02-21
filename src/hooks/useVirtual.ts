@@ -35,7 +35,7 @@ export function useVirtual({
     style: {
       transform: `translateY(${items[0]?.start ?? 0}px)`,
     },
-    className: "absolute left-0 top-0",
+    className: "absolute left-0 top-0 w-full",
   } as const;
   return { virtualizer, items, div1Props, div2Props, div3Props };
 }

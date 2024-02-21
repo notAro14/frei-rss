@@ -37,7 +37,12 @@ export const Article = forwardRef<HTMLDivElement, Props>(
     if (!feedItem) return null;
     const { pubDate, title, status, feed, favorite } = feedItem;
     return (
-      <div className="mb-6" data-index={dataIndex} ref={ref}>
+      <div
+        style={{ height: 175 }}
+        className="mb-6"
+        data-index={dataIndex}
+        ref={ref}
+      >
         <Card
           variant={
             disableReadStyle
@@ -48,13 +53,13 @@ export const Article = forwardRef<HTMLDivElement, Props>(
           }
           className={
             disableReadStyle
-              ? "opacity-100"
+              ? "h-full opacity-100"
               : status === "READ"
-                ? "px-3 opacity-60"
-                : "opacity-100"
+                ? "h-full px-3 opacity-60"
+                : "h-full opacity-100"
           }
         >
-          <Flex direction={"column"} gap={"2"} align={"start"}>
+          <Flex direction={"column"} gap={"2"} align={"start"} height={"100%"}>
             <Flex gap={"2"} align={"center"} mb={"2"}>
               <Avatar
                 size={"1"}
@@ -81,7 +86,7 @@ export const Article = forwardRef<HTMLDivElement, Props>(
               />
             </Link>
             <Text size={"1"}>{pubDate}</Text>
-            <footer className="flex w-full flex-wrap gap-2">
+            <footer className="mt-auto flex w-full flex-wrap gap-2">
               {status === "UNREAD" && (
                 <>
                   <Button
