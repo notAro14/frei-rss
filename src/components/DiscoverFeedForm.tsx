@@ -69,7 +69,7 @@ export function DiscoverFeedForm({ label }: Props) {
     else setEventualFeed({ status: "rejected", data: null });
   };
   return (
-    <Flex direction={"column"} gap={"8"}>
+    <Flex direction={"column"} gap={"6"}>
       <form className="flex flex-col gap-7" onSubmit={handleSubmit(submit)}>
         <Flex direction={"column"} gap={"2"}>
           {label && (
