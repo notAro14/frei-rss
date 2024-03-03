@@ -1,13 +1,13 @@
 import { createSelector } from "@reduxjs/toolkit";
 import { State } from "src/store";
-import type { HomePageVM } from "./HomePage.VM";
+import type { HomeVM } from "./Home.VM";
 
-export const homePageVMSelector = createSelector(
+export const homeVMSelector = createSelector(
   [
     (state: State) => state.getFeeds.status,
     (state: State) => state.getFeeds.result?.length,
   ],
-  (status, feedsCount): HomePageVM => {
+  (status, feedsCount): HomeVM => {
     switch (status) {
       case "idle":
       case "pending": {

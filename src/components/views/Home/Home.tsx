@@ -5,10 +5,10 @@ import Link from "next/link";
 
 import { useSelector } from "src/store";
 import { DiscoverFeedForm } from "src/components/DiscoverFeedForm";
-import { homePageVMSelector } from "./HomePage.selector";
+import { homeVMSelector } from "./Home.VM.selector";
 
-export function HomePage() {
-  const { getFeedsStatus, isEmpty } = useSelector(homePageVMSelector);
+export function Home() {
+  const { getFeedsStatus, isEmpty } = useSelector(homeVMSelector);
 
   return (
     <main className="flex flex-col gap-8">

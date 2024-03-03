@@ -1,4 +1,4 @@
-export type HomePageVM = {
+export type HomeVM = {
   getFeedsStatus: "pending" | "fulfilled" | "rejected";
   isEmpty: boolean;
 };
