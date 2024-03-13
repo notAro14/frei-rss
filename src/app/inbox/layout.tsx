@@ -1,6 +1,5 @@
 "use client";
 import {
-  Box,
   Flex,
   Link,
   Separator,
@@ -12,97 +11,41 @@ import {
 import { usePathname } from "next/navigation";
 import { ListPlus, Mail, Menu } from "lucide-react";
 import { Drawer } from "vaul";
-import { createSelector } from "@reduxjs/toolkit";
 import NextLink from "next/link";
-import { ReactNode, useCallback, useState } from "react";
+import type { ReactNode } from "react";
 
 import { getUnreadArticlesCount } from "src/selectors/getUnreadArticleIds.selector";
-import { useSelector, type State } from "src/store";
-import type { Res } from "src/types/response";
+import { useSelector } from "src/store";
+
 import { useDrawerPortalContainerRef } from "src/components/DrawerPortalContainerProvider";
 import { ThisMonthLink } from "src/components/ThisMonthArticles/ThisMonthLink";
 import { BookmarkedLink } from "src/components/Bookmarked/BookmarkedLink";
 import { LikedLink } from "src/components/Liked/LikedLink";
-
-const allFeedsSelector = createSelector(
-  [
-    (state: State) => state.getFeeds.status,
-    (state: State) => state.getFeeds.result!,
-    (state: State) => state.getFeeds.entities?.feeds,
-  ],
-  (
-    status,
-    feedIds,
-    normalizedFeeds,
-  ): Res<
-    {
-      id: string;
-      name: string;
-      favicon?: string;
-    }[]
-  > => {
-    if (status === "fulfilled") {
-      const res = feedIds.map((fId) => {
-        const feed = normalizedFeeds![fId];
-        const favicon =
-          feed.website &&
-          `https://www.google.com/s2/favicons?domain=${new URL(feed.website).hostname}&sz=128`;
-        return {
-          id: feed.id,
-          name: feed.name,
-          favicon,
-        };
-      });
-      return {
-        status: "fulfilled",
-        data: res,
-        error: null,
-      };
-    }
-
-    return {
-      status: "pending",
-      data: null,
-      error: null,
-    };
-  },
-);
+import { inboxVMSelector } from "src/components/views/Layouts/Inbox.VM.selector";
+import { useDisclosure } from "src/hooks";
 
 export default function Layout({ children }: { children: ReactNode }) {
   return (
-    <Flex
-      direction={{ initial: "column", xs: "row" }}
-      position={"relative"}
-      gap={"6"}
-    >
+    <section className="relative flex flex-col gap-6 sm:flex-row">
       <FeedListDrawer />
       <FeedListSidebar />
-      <Box className="flex-1">{children}</Box>
-    </Flex>
+      <main className="flex flex-1 flex-col gap-8">{children}</main>
+    </section>
   );
-}
-
-function useDisclosure(init = false) {
-  const [isOpen, setIsOpen] = useState(init);
-  const open = useCallback(() => setIsOpen(true), []);
-  const close = useCallback(() => setIsOpen(false), []);
-  return { open, close, isOpen, setIsOpen };
 }
 
 function FeedListDrawer() {
   const ref = useDrawerPortalContainerRef();
   const { setIsOpen, isOpen, open, close } = useDisclosure();
 
-  const { data: feeds, status } = useSelector(allFeedsSelector);
+  const { data: feeds, status } = useSelector(inboxVMSelector);
   const pathname = usePathname();
   if (status !== "fulfilled") return null;
   return (
     <Drawer.Root onOpenChange={setIsOpen} open={isOpen}>
-      <Box display={{ initial: "block", xs: "none" }}>
-        <Button variant="soft" onClick={open}>
-          <Menu size={"1em"} /> Menu
-        </Button>
-      </Box>
+      <Button className="block w-max sm:hidden" variant="soft" onClick={open}>
+        <Menu size={"1em"} /> Menu
+      </Button>
       <Drawer.Portal container={ref}>
         <Drawer.Overlay
           className="fixed inset-0 z-40"
@@ -167,18 +110,15 @@ function FeedListDrawer() {
 }
 
 function FeedListSidebar() {
-  const { data: feeds, status } = useSelector(allFeedsSelector);
+  const { data: feeds, status } = useSelector(inboxVMSelector);
 
   const pathname = usePathname();
   if (status !== "fulfilled") return null;
 
   return (
-    <Flex
-      display={{ initial: "none", xs: "flex" }}
+    <div
+      className="hidden flex-col gap-4 p-2 sm:flex"
       style={{ maxWidth: 200 }}
-      p={"2"}
-      direction={"column"}
-      gap={"4"}
     >
       <Button variant="soft" asChild>
         <NextLink href={"/inbox/discover"}>
@@ -215,7 +155,7 @@ function FeedListSidebar() {
           </Flex>
         );
       })}
-    </Flex>
+    </div>
   );
 }
 

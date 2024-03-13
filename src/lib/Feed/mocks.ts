@@ -1,7 +1,7 @@
 import { type Dependencies, INITIAL_STATE, type State } from "src/store";
 import type { Feed, FeedItem } from "src/lib/Feed/models/Feed.entity";
 import { normalize } from "src/lib/Feed/utils/normalize";
-import { FeedReaderInMemoryGateway } from "./gateways/FeedReaderInMemory.gateway";
+import { FeedReaderInMemoryGateway } from "src/lib/Feed/gateways/FeedReaderInMemory.gateway";
 import { AuthInMemoryGateway } from "src/lib/Auth/gateways/AuthInMemory.gateway";
 
 export const FEED_URL = "https://example.com/rss";
@@ -30,16 +30,12 @@ export const MOCK: Feed[] = [
 
 export const NORMALIZED_MOCK = normalize(MOCK);
 export const PRELOADED_STATE: State = {
-  registerFeed: INITIAL_STATE.registerFeed,
+  ...INITIAL_STATE,
   getFeeds: {
     status: "fulfilled",
     entities: NORMALIZED_MOCK.entities,
     result: NORMALIZED_MOCK.result,
   },
-  removeFeed: INITIAL_STATE.removeFeed,
-  auth: INITIAL_STATE.auth,
-  syncFeed: INITIAL_STATE.syncFeed,
-  getReaderView: INITIAL_STATE.getReaderView,
 };
 
 export function createInMemoryDependencies(mock = MOCK): Dependencies {

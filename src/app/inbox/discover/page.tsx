@@ -5,7 +5,7 @@ import { DiscoverFeedForm } from "src/components/DiscoverFeedForm";
 
 export default function Page() {
   return (
-    <div className="flex flex-col gap-6">
+    <>
       <Heading size={"6"} className="flex gap-2" mb={"4"}>
         <Rocket size={"1em"} /> Discover even more with new feeds
       </Heading>
@@ -18,6 +18,6 @@ export default function Page() {
         />
       </div>
       <DiscoverFeedForm />
-    </div>
+    </>
   );
 }
