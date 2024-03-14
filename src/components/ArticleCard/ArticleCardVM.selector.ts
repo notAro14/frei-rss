@@ -10,8 +10,9 @@ export const articleCardVMSelector = createSelector(
     (state: State) => state.getFeeds.entities?.feeds,
     (state: State) => state.getFeeds.entities?.feedItems,
     (_state: State, id: string) => id,
+    (_state: State, id: string, disableReadStyle: boolean) => disableReadStyle,
   ],
-  (status, feeds, feedItems, id): ArticleCardVM => {
+  (status, feeds, feedItems, id, disableReadStyle): ArticleCardVM => {
     switch (status) {
       case "idle":
       case "pending":
@@ -25,6 +26,18 @@ export const articleCardVMSelector = createSelector(
         const favicon =
           website &&
           `https://www.google.com/s2/favicons?domain=${new URL(website).hostname}&sz=128`;
+        const card = {
+          variant: disableReadStyle
+            ? ("surface" as const)
+            : readStatus === "READ"
+              ? ("ghost" as const)
+              : ("surface" as const),
+          className: disableReadStyle
+            ? "opacity-100"
+            : readStatus === "READ"
+              ? "h-full px-3 opacity-60"
+              : "h-full opacity-100",
+        };
 
         const data = {
           id,
@@ -33,6 +46,9 @@ export const articleCardVMSelector = createSelector(
           pubDate: formatToPubDate(date),
           status: readStatus,
           favorite,
+          ui: {
+            card,
+          },
           href: `/article/${id}`,
           feed: {
             id: feedId,

@@ -1,5 +1,4 @@
 "use client";
-import { useCallback } from "react";
 import NextLink from "next/link";
 import { Bookmark, BookCheck, Glasses, Heart } from "lucide-react";
 import {
@@ -24,32 +23,22 @@ type Props = {
 };
 export const ArticleCard = ({ id, disableReadStyle = false }: Props) => {
   const { status: fetchStatus, data: feedItem } = useSelector((state) =>
-    articleCardVMSelector(state, id),
+    articleCardVMSelector(state, id, disableReadStyle),
   );
   const dispatch = useDispatch();
-  const onMarkAsRead = useCallback(async () => {
-    await dispatch(changeFeedItemReadingStatus({ id, newStatus: "READ" }));
-  }, [dispatch, id]);
-  const onLikeOrUnlike = useCallback(async () => {
-    dispatch(likeOrUnlikeArticle(id));
-  }, [dispatch, id]);
+  const onMarkAsRead = () =>
+    dispatch(changeFeedItemReadingStatus({ id, newStatus: "READ" }));
+  const onLikeOrUnlike = () => dispatch(likeOrUnlikeArticle(id));
 
   if (fetchStatus === "pending") return null;
   if (fetchStatus === "rejected") return null;
 
-  const { pubDate, title, status, feed, favorite, href } = feedItem;
+  const { pubDate, title, status, feed, favorite, href, ui } = feedItem;
   return (
     <Card
-      variant={
-        disableReadStyle ? "surface" : status === "READ" ? "ghost" : "surface"
-      }
-      className={
-        disableReadStyle
-          ? "h-full opacity-100"
-          : status === "READ"
-            ? "h-full px-3 opacity-60"
-            : "h-full opacity-100"
-      }
+      variant={ui.card.variant}
+      className={ui.card.className}
+      style={{ height: 175 }}
     >
       <Flex direction={"column"} gap={"2"} align={"start"} height={"100%"}>
         <Flex gap={"2"} align={"center"} mb={"2"}>

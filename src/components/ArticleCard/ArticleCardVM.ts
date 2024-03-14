@@ -10,4 +10,10 @@ export type ArticleCardVM = Res<{
   feed: { id: string; name: string; favicon?: string; href: string };
   url: string;
   favorite: FeedItem["favorite"];
+  ui: {
+    card: {
+      variant: "ghost" | "surface";
+      className: string;
+    };
+  };
 }>;
