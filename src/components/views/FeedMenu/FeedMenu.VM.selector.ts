@@ -1,14 +1,14 @@
 import { createSelector } from "@reduxjs/toolkit";
 import type { State } from "src/store";
-import type { InboxVM } from "./Inbox.VM";
+import type { FeedMenuVM } from "./FeedMenu.VM";
 
-export const inboxVMSelector = createSelector(
+export const feedMenuVMSelector = createSelector(
   [
     (state: State) => state.getFeeds.status,
     (state: State) => state.getFeeds.result!,
     (state: State) => state.getFeeds.entities?.feeds,
   ],
-  (status, feedIds, normalizedFeeds): InboxVM => {
+  (status, feedIds, normalizedFeeds): FeedMenuVM => {
     switch (status) {
       case "fulfilled": {
         return {
