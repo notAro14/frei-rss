@@ -1,6 +1,6 @@
 import { Bookmark } from "lucide-react";
 import { Heading } from "@radix-ui/themes";
-import { Liked } from "src/components/Liked";
+import { Liked } from "src/components/views/Liked";
 
 export default function Page() {
   return (

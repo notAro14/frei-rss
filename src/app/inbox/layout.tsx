@@ -18,9 +18,9 @@ import { getUnreadArticlesCount } from "src/selectors/getUnreadArticleIds.select
 import { useSelector } from "src/store";
 
 import { useDrawerPortalContainerRef } from "src/components/DrawerPortalContainerProvider";
-import { ThisMonthLink } from "src/components/ThisMonthArticles/ThisMonthLink";
-import { BookmarkedLink } from "src/components/Bookmarked/BookmarkedLink";
-import { LikedLink } from "src/components/Liked/LikedLink";
+import { ThisMonthLink } from "src/components/views/ThisMonthArticles/ThisMonthLink";
+import { BookmarkedLink } from "src/components/views/Bookmarked/BookmarkedLink";
+import { LikedLink } from "src/components/views/Liked/LikedLink";
 import { inboxVMSelector } from "src/components/views/Layouts/Inbox.VM.selector";
 import { useDisclosure } from "src/hooks";
 

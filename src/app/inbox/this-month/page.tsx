@@ -1,6 +1,6 @@
 import { CalendarFold } from "lucide-react";
 import { Heading } from "@radix-ui/themes";
-import { ThisMonthArticles } from "src/components/ThisMonthArticles";
+import { ThisMonthArticles } from "src/components/views/ThisMonthArticles";
 
 export default function Page() {
   return (
