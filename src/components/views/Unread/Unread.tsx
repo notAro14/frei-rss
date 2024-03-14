@@ -2,16 +2,17 @@
 
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { useSelector } from "src/store";
-import { getUnreadArticleIds } from "src/selectors/getUnreadArticleIds.selector";
+import { unreadVMSelector } from "./Unread.VM.selector";
 import { Article } from "src/components/Article";
 import { Loader } from "src/components/Loader";
 import { useRef } from "react";
 
 export function UnreadArticles() {
-  const unreadFeedItemIds = useSelector(getUnreadArticleIds);
+  const { status, data: ids } = useSelector(unreadVMSelector);
 
-  if (!unreadFeedItemIds) return <Loader />;
-  return <UnreadArticlesInner ids={unreadFeedItemIds} />;
+  if (status === "pending") return <Loader />;
+  if (status === "rejected") return <div>Failed to load unread articles</div>;
+  return <UnreadArticlesInner ids={ids} />;
 }
 
 export function UnreadArticlesInner({ ids }: { ids: string[] }) {
