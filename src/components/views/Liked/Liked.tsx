@@ -2,7 +2,7 @@
 import { Text } from "@radix-ui/themes";
 import { useSelector } from "src/store";
 import { Loader } from "src/components/Loader";
-import { Article } from "src/components/Article";
+import { ArticleCard } from "src/components/ArticleCard";
 import { likedSelector } from "./Liked.selector";
 
 export function Liked() {
@@ -26,7 +26,7 @@ function LikedInner({ ids }: { ids: string[] }) {
   return (
     <>
       {ids.map((id) => {
-        return <Article disableReadStyle id={id} key={id} />;
+        return <ArticleCard disableReadStyle id={id} key={id} />;
       })}
     </>
   );

@@ -2,7 +2,7 @@
 import { Text } from "@radix-ui/themes";
 import { useSelector } from "src/store";
 import { Loader } from "src/components/Loader";
-import { Article } from "src/components/Article";
+import { ArticleCard } from "src/components/ArticleCard";
 import { bookmarkedSelector } from "./Bookmarked.selector";
 
 export function Bookmarked() {
@@ -27,7 +27,7 @@ function BookmarkedInner({ ids }: { ids: string[] }) {
   return (
     <>
       {ids.map((id) => {
-        return <Article id={id} key={id} />;
+        return <ArticleCard id={id} key={id} />;
       })}
     </>
   );

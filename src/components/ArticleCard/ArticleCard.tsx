@@ -14,7 +14,7 @@ import {
 } from "@radix-ui/themes";
 
 import { useDispatch, useSelector } from "src/store";
-import { getArticle } from "src/selectors/getArticle.selector";
+import { articleCardVMSelector } from "./ArticleCardVM.selector";
 import { changeFeedItemReadingStatus } from "src/lib/Feed/usecases/changeFeedItemReadingStatus";
 import { likeOrUnlikeArticle } from "src/lib/Feed/usecases/likeArticle";
 
@@ -22,8 +22,10 @@ type Props = {
   id: string;
   disableReadStyle?: boolean;
 };
-export const Article = ({ id, disableReadStyle = false }: Props) => {
-  const feedItem = useSelector((state) => getArticle(state, id));
+export const ArticleCard = ({ id, disableReadStyle = false }: Props) => {
+  const { status: fetchStatus, data: feedItem } = useSelector((state) =>
+    articleCardVMSelector(state, id),
+  );
   const dispatch = useDispatch();
   const onMarkAsRead = useCallback(async () => {
     await dispatch(changeFeedItemReadingStatus({ id, newStatus: "READ" }));
@@ -32,8 +34,10 @@ export const Article = ({ id, disableReadStyle = false }: Props) => {
     dispatch(likeOrUnlikeArticle(id));
   }, [dispatch, id]);
 
-  if (!feedItem) return null;
-  const { pubDate, title, status, feed, favorite } = feedItem;
+  if (fetchStatus === "pending") return null;
+  if (fetchStatus === "rejected") return null;
+
+  const { pubDate, title, status, feed, favorite, href } = feedItem;
   return (
     <Card
       variant={
@@ -56,22 +60,18 @@ export const Article = ({ id, disableReadStyle = false }: Props) => {
             fallback={feed.name.charAt(0)}
           />
           <Link size={"3"} asChild className="line-clamp-1">
-            <NextLink href={`/inbox/feed/${feed.id}`}>{feed.name}</NextLink>
+            <NextLink href={feed.href}>{feed.name}</NextLink>
           </Link>
         </Flex>
         <Link
           weight={"bold"}
           size={{ initial: "4", xs: "6" }}
-          href={`/article/${id}`}
           title={title}
           mb={"-1"}
           className="line-clamp-2"
           asChild
         >
-          <NextLink
-            href={`/article/${id}`}
-            dangerouslySetInnerHTML={{ __html: title }}
-          />
+          <NextLink href={href} dangerouslySetInnerHTML={{ __html: title }} />
         </Link>
         <Text size={"1"}>{pubDate}</Text>
         <footer className="mt-auto flex w-full flex-wrap gap-2">

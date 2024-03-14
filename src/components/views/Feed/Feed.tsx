@@ -7,7 +7,7 @@ import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { Loader } from "src/components/Loader";
 import { useSelector } from "src/store";
 
-import { Article } from "src/components/Article";
+import { ArticleCard } from "src/components/ArticleCard";
 import { FeedActions } from "./FeedActions";
 import { feedSelector } from "./Feed.selector";
 
@@ -83,7 +83,7 @@ function FeedInner({ ids }: { ids: string[] }) {
                 transform: `translateY(${virtualRow.start - virtualizer.options.scrollMargin + virtualRow.index * 16}px)`,
               }}
             >
-              <Article id={id} />
+              <ArticleCard id={id} />
             </div>
           );
         })}

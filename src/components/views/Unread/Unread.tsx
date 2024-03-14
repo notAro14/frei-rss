@@ -3,7 +3,7 @@
 import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { useSelector } from "src/store";
 import { unreadVMSelector } from "./Unread.VM.selector";
-import { Article } from "src/components/Article";
+import { ArticleCard } from "src/components/ArticleCard";
 import { Loader } from "src/components/Loader";
 import { useRef } from "react";
 
@@ -48,7 +48,7 @@ export function UnreadArticlesInner({ ids }: { ids: string[] }) {
                 transform: `translateY(${virtualRow.start - virtualizer.options.scrollMargin + virtualRow.index * 16}px)`,
               }}
             >
-              <Article id={id} />
+              <ArticleCard id={id} />
             </div>
           );
         })}

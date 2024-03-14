@@ -4,7 +4,7 @@ import { useWindowVirtualizer } from "@tanstack/react-virtual";
 import { Text } from "@radix-ui/themes";
 import { useSelector } from "src/store";
 import { Loader } from "src/components/Loader";
-import { Article } from "src/components/Article";
+import { ArticleCard } from "src/components/ArticleCard";
 import { thisMonthArticlesSelector } from "./ThisMonthArticles.selector";
 
 export function ThisMonthArticles() {
@@ -56,7 +56,7 @@ function ThisMonthArticlesInner({ ids }: { ids: string[] }) {
                 transform: `translateY(${virtualRow.start - virtualizer.options.scrollMargin + virtualRow.index * 16}px)`,
               }}
             >
-              <Article id={id} />
+              <ArticleCard id={id} />
             </div>
           );
         })}
