@@ -29,6 +29,13 @@ export const ArticleCard = ({ id, disableReadStyle = false }: Props) => {
   const onMarkAsRead = () =>
     dispatch(changeFeedItemReadingStatus({ id, newStatus: "READ" }));
   const onLikeOrUnlike = () => dispatch(likeOrUnlikeArticle(id));
+  const onReadLater = () =>
+    dispatch(
+      changeFeedItemReadingStatus({
+        id,
+        newStatus: "READ_LATER",
+      }),
+    );
 
   if (fetchStatus === "pending") return null;
   if (fetchStatus === "rejected") return null;
@@ -78,14 +85,7 @@ export const ArticleCard = ({ id, disableReadStyle = false }: Props) => {
                 variant="outline"
                 size={"1"}
                 color="yellow"
-                onClick={() =>
-                  dispatch(
-                    changeFeedItemReadingStatus({
-                      id,
-                      newStatus: "READ_LATER",
-                    }),
-                  )
-                }
+                onClick={onReadLater}
               >
                 <Bookmark size={"1em"} /> Read later
               </Button>
