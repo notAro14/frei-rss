@@ -9,18 +9,18 @@ import {
   Avatar,
 } from "@radix-ui/themes";
 import { usePathname } from "next/navigation";
-import { ListPlus, Mail, Menu } from "lucide-react";
+import { ListPlus, Menu } from "lucide-react";
 import { Drawer } from "vaul";
 import NextLink from "next/link";
 import type { ReactNode } from "react";
 
-import { getUnreadArticlesCount } from "src/selectors/getUnreadArticleIds.selector";
 import { useSelector } from "src/store";
 
 import { useDrawerPortalContainerRef } from "src/components/DrawerPortalContainerProvider";
-import { ThisMonthLink } from "src/components/views/ThisMonthArticles/ThisMonthLink";
-import { BookmarkedLink } from "src/components/views/Bookmarked/BookmarkedLink";
-import { LikedLink } from "src/components/views/Liked/LikedLink";
+import { ThisMonthLink } from "src/components/views/ThisMonthArticles";
+import { BookmarkedLink } from "src/components/views/Bookmarked";
+import { LikedLink } from "src/components/views/Liked";
+import { UnreadLink } from "src/components/views/Unread";
 import { inboxVMSelector } from "src/components/views/Layouts/Inbox.VM.selector";
 import { useDisclosure } from "src/hooks";
 
@@ -156,25 +156,5 @@ function FeedListSidebar() {
         );
       })}
     </div>
-  );
-}
-
-function UnreadLink(props: { onClick?: () => void }) {
-  const count = useSelector(getUnreadArticlesCount);
-  const pathname = usePathname();
-  const href = `/inbox/unread`;
-  const isActive = pathname === href;
-  if (count === null) return null;
-  return (
-    <Link
-      underline={isActive ? "always" : "hover"}
-      asChild
-      className="flex items-center gap-1"
-      onClick={props.onClick}
-    >
-      <NextLink href={href}>
-        <Mail size={"1em"} /> Unread ({count})
-      </NextLink>
-    </Link>
   );
 }
