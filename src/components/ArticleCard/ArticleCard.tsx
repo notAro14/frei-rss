@@ -40,7 +40,7 @@ export const ArticleCard = ({ id, disableReadStyle = false }: Props) => {
   if (fetchStatus === "pending") return null;
   if (fetchStatus === "rejected") return null;
 
-  const { pubDate, title, status, feed, favorite, href, ui } = feedItem;
+  const { pubDate, title, status, feed, href, ui } = feedItem;
   return (
     <Card
       variant={ui.card.variant}
@@ -53,7 +53,7 @@ export const ArticleCard = ({ id, disableReadStyle = false }: Props) => {
             size={"1"}
             radius="full"
             src={feed.favicon}
-            fallback={feed.name.charAt(0)}
+            fallback={feed.fallback}
           />
           <Link size={"3"} asChild className="line-clamp-1">
             <NextLink href={feed.href}>{feed.name}</NextLink>
@@ -116,9 +116,9 @@ export const ArticleCard = ({ id, disableReadStyle = false }: Props) => {
             radius="full"
             size={"1"}
             color="crimson"
-            variant={favorite ? "solid" : "outline"}
+            variant={ui.likeButton.variant}
             onClick={onLikeOrUnlike}
-            title={favorite ? "Unlike article" : "Like article"}
+            title={ui.likeButton.title}
           >
             <Heart size={"0.75em"} />
           </IconButton>

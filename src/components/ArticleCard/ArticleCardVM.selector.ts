@@ -48,6 +48,10 @@ export const articleCardVMSelector = createSelector(
           favorite,
           ui: {
             card,
+            likeButton: {
+              variant: favorite ? ("solid" as const) : ("outline" as const),
+              title: favorite ? "Unlike article" : "Like article",
+            },
           },
           href: `/article/${id}`,
           feed: {
@@ -55,6 +59,7 @@ export const articleCardVMSelector = createSelector(
             name,
             favicon,
             href: `/inbox/feed/${feedId}`,
+            fallback: name.charAt(0),
           },
         };
         return {
