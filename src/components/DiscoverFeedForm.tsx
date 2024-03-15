@@ -1,13 +1,6 @@
 "use client";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  Button,
-  Flex,
-  IconButton,
-  Separator,
-  Text,
-  TextField,
-} from "@radix-ui/themes";
+import { Button, Flex, IconButton, Text, TextField } from "@radix-ui/themes";
 import { Search, XCircle } from "lucide-react";
 import { useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
@@ -117,7 +110,6 @@ export function DiscoverFeedForm({ label }: Props) {
       {eventualFeed.status === "pending" && <Loader />}
       {eventualFeed.status === "fulfilled" && (
         <>
-          <Separator mx={"auto"} size={"3"} />
           <Flex direction={"column"} gap={"4"}>
             <Text>The following feeds have been found</Text>
             <Flex direction={"column"} gap={"8"}>
