@@ -1,28 +1,27 @@
-// .loader {
-//   width: 25px;
-//   padding: 8px;
-//   aspect-ratio: 1;
-//   border-radius: 50%;
-//   background: var(--accent-9);
-//   --_m: conic-gradient(#0000 10%, #000), linear-gradient(#000 0 0) content-box;
-//   -webkit-mask: var(--_m);
-//   mask: var(--_m);
-//   -webkit-mask-composite: source-out;
-//   mask-composite: subtract;
-//   animation: l3 1s infinite linear;
-// }
-// @keyframes l3 {
-//   to {
-//     transform: rotate(1turn);
-//   }
-// }
+.root {
+  grid-template-areas:
+    "one two"
+    "one three";
+  grid-template-columns: 100px 1fr;
+  grid-template-rows: 80px 1fr;
+}
 
 .loader {
   animation: glow 1.5s ease-in-out infinite;
   background-color: var(--color-panel);
   border-radius: var(--radius-4);
   color: transparent;
-  height: 100px;
+  &-1 {
+    grid-area: one;
+  }
+
+  &-2 {
+    grid-area: two;
+  }
+
+  &-3 {
+    grid-area: three;
+  }
 }
 
 @media (prefers-color-scheme: light) {
